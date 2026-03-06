@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="resort.board.mapper.BoardMapper">
+	
+	
+<!-- 하나의 게시글 작성하여 추가하는 쿼리문 -->
+<insert id="insertBoard" parameterType="BoardDTO" >
+	INSERT INTO board(b_writer,b_title,b_pw,b_content,m_code,ref,re_step,re_level,b_upload)
+	VALUES(#{b_writer},#{b_title},#{b_pw},#{b_content},#{m_code},
+	(SELECT IFNULL(MAX(b.ref)+1,1) FROM board b),1,1,#{b_upload})
+</insert>
+
+<!-- 전체 게시글 목록을 출력하는 쿼리문 -->
+<select id="getAllBoard" resultType="BoardDTO">
+	SELECT * FROM board ORDER BY ref DESC, re_step ASC
+</select>
+
+<!-- 내가 작성한 게시글에 달린 관리자 댓글수 체크 -->
+<select id="existsAdminReply" parameterType="int" resultType="int">
+    SELECT COUNT(*)
+    FROM board b
+    JOIN member m ON b.m_code = m.m_code
+    WHERE b.ref = #{ref}
+      AND b.re_level &gt; 1
+      AND m.m_email = 'admin@resort.com'
+</select>
+
+
+<!-- 나의 게시글 목록을 출력하는 쿼리문 -->
+<select id="getMyBoard" resultType="BoardDTO">
+    SELECT *
+    FROM board
+    WHERE ref IN (
+        SELECT ref
+        FROM board
+        WHERE m_code = #{m_code}
+        AND re_level = 1
+    )
+    ORDER BY ref DESC, re_step ASC
+    <!-- LIMIT #{startRow}, #{pageSize} -->
+</select>
+
+
+<!-- Readcount 누적하여 조회수를 증가하는 메소드 -->
+<update id="upReadCount" parameterType="BoardDTO">
+	UPDATE board SET readcount = readcount+1 WHERE b_code=#{b_code}
+</update>
+
+<!-- 하나의 게시글 상세정보보기 -->
+<select id="getOneBoard" resultType="BoardDTO" parameterType="BoardDTO">
+	SELECT * FROM board WHERE b_code=#{b_code}
+</select>
+
+<!-- 하나의 게시글을 수정하는 메소드 -->
+<update id="updateBoard" parameterType="BoardDTO">
+	UPDATE board 
+	SET b_writer=#{b_writer}, 
+        b_title=#{b_title}, 
+        b_content=#{b_content}, 
+        b_upload=#{b_upload}, 
+        b_update=NOW()
+    WHERE b_code=#{b_code} 
+    AND b_pw=#{b_pw}
+    AND m_code=#{m_code}
+</update>
+
+<!-- 관리자의 게시글 수정  -->
+<update id="adminUpdateBoard" parameterType="BoardDTO">
+	UPDATE board 
+	SET b_writer=#{b_writer}, 
+        b_title=#{b_title}, 
+        b_content=#{b_content}, 
+        b_upload=#{b_upload}, 
+        b_update=NOW()
+    WHERE b_code=#{b_code}
+</update>
+
+<!-- 관리자 전용조회 -->
+<select id="getBoardByBcode" resultType="BoardDTO">
+    SELECT * FROM board
+    WHERE b_code = #{b_code}
+</select>
+
+<!-- 글을 삭제하는 메소드 : ref 전체 삭제 -->
+<delete id="deleteBoardByRef">
+    DELETE FROM board
+    WHERE ref = #{ref}
+</delete>
+<!-- 삭제를 위한 ref 먼저 구하는 쿼리 -->
+<select id="getRefByBcode" resultType="int">
+    SELECT ref FROM board
+    WHERE b_code = #{b_code}
+    AND b_pw = #{b_pw}
+    AND m_code = #{m_code}
+</select>
+
+
+<!-- 댓글 하나만 삭제 -->
+<delete id="deleteSingleReply">
+    DELETE FROM board
+    WHERE b_code = #{b_code}
+</delete>
+
+
+<!-- 전체 게시글 수 -->
+<select id="getAllcount" resultType="int">
+	SELECT COUNT(*) FROM board
+</select>
+
+<!-- startRow ~ 한 페이지에 보여줄 레코드(=행의) 개수(pageSize)만큼 보여주는 메소드 -->
+<select id="getPagelist" resultType="BoardDTO">
+	SELECT * FROM board
+    ORDER BY ref DESC, re_step ASC
+    LIMIT #{startRow}, #{pageSize}
+</select>
+
+
+<!-- 검색 페이징에 필요한 메소드 -->
+<select id="getSearchCount" resultType="int">
+	SELECT COUNT(*) FROM board
+		<where>
+		    <if test="searchKeyword != null and searchKeyword != ''">
+		        <choose>
+		            <when test="searchType == 'b_title'">
+		                b_title LIKE CONCAT('%', #{searchKeyword}, '%')
+		            </when>
+		            <when test="searchType == 'b_content'">
+		                b_content LIKE CONCAT('%', #{searchKeyword}, '%')
+		            </when>
+		            <otherwise>
+		                b_writer LIKE CONCAT('%', #{searchKeyword}, '%')
+		            </otherwise>
+		        </choose>
+		    </if>
+		</where>
+</select>
+
+<!-- 검색결과 노출 -->
+<select id="getSearchPageList" resultType="BoardDTO">
+	SELECT * FROM board
+		<where>
+		    <if test="searchKeyword != null and searchKeyword != ''">
+		        <choose>
+		            <when test="searchType == 'b_title'">
+		                b_title LIKE CONCAT('%', #{searchKeyword}, '%')
+		            </when>
+		            <when test="searchType == 'b_content'">
+		                b_content LIKE CONCAT('%', #{searchKeyword}, '%')
+		            </when>
+		            <otherwise>
+		                b_writer LIKE CONCAT('%', #{searchKeyword}, '%')
+		            </otherwise>
+		        </choose>
+		    </if>
+		</where>
+	ORDER BY ref DESC, re_step ASC
+    LIMIT #{startRow}, #{pageSize}
+</select>
+
+
+<!-- 댓글 작성하여 추가하는 메소드 -->
+<insert id="reWriteInsert" parameterType="BoardDTO">
+	INSERT INTO board(m_code,b_writer,b_title, b_pw, ref, re_step, re_level, b_content,b_upload)
+	VALUES(#{m_code},#{b_writer},#{b_title},#{b_pw},#{ref},#{re_step},#{re_level},#{b_content},#{b_upload})
+</insert>
+
+<!-- 댓글 업데이트 => 이게 위에 댓글추가 메소드보다 먼저 실행되야함 -->
+<!-- 이유는 먼저 달린 댓글인 경우 +1을 누적하여 정렬을 아래로 내린다. -->	
+<!-- ref = #{ref} AND re_step > #{re_step}이 조건에 만족하면 re_step을 업데이트하고,
+	새로 삽입되는 데이터의 re_step=2로 끼워넣기를 하는것이다.
+	re_step = 2, re_step = 3
+ -->
+<update id="reSqUpdate" parameterType="BoardDTO">
+	UPDATE board SET re_step = re_step + 1
+	WHERE ref = #{ref} AND re_step &gt; #{re_step}
+	<!-- ref(원글번호)가 같고, re_step(댓글번호)가 1(기본값)보다 큰게 있으면 +1시킴 (1은 원글)  --> 
+</update>
+
+
+<!-- 나의 문의글 수 -->
+<select id="getMyBoardCount" resultType="int">
+
+    SELECT COUNT(DISTINCT ref)
+    FROM board
+    WHERE ref IN (
+        SELECT ref
+        FROM board
+        WHERE m_code = #{m_code}
+        AND re_level = 1
+    )
+
+    <if test="searchKeyword != null and searchKeyword != ''">
+        <choose>
+            <when test="searchType == 'b_title'">
+                AND b_title LIKE CONCAT('%', #{searchKeyword}, '%')
+            </when>
+            <when test="searchType == 'b_content'">
+                AND b_content LIKE CONCAT('%', #{searchKeyword}, '%')
+            </when>
+            <when test="searchType == 'b_writer'">
+                AND b_writer LIKE CONCAT('%', #{searchKeyword}, '%')
+            </when>
+        </choose>
+    </if>
+
+</select>
+
+<!-- 나의 문의글 리스트 -->
+<select id="getMyBoardPageList" resultType="BoardDTO">
+
+    SELECT *
+    FROM board
+    WHERE ref IN (
+        SELECT ref
+        FROM board
+        WHERE m_code = #{m_code}
+        AND re_level = 1
+    )
+
+    <if test="searchKeyword != null and searchKeyword != ''">
+        <choose>
+            <when test="searchType == 'b_title'">
+                AND b_title LIKE CONCAT('%', #{searchKeyword}, '%')
+            </when>
+            <when test="searchType == 'b_content'">
+                AND b_content LIKE CONCAT('%', #{searchKeyword}, '%')
+            </when>
+            <when test="searchType == 'b_writer'">
+                AND b_writer LIKE CONCAT('%', #{searchKeyword}, '%')
+            </when>
+        </choose>
+    </if>
+
+    ORDER BY ref DESC, re_step ASC
+    LIMIT #{startRow}, #{pageSize}
+
+</select>
+	
+
+
+<!-- startRow ~ 한 페이지에 보여줄 레코드(=행의) 개수(pageSize)만큼 보여주는 메소드 -->
+<select id="getAdminPagelist" resultType="BoardDTO">
+	SELECT * FROM board ORDER BY ref DESC LIMIT #{startRow}, #{pageSize}
+</select>
+
+<!-- 검색결과 노출 -->
+<select id="getAdminSearchPageList" resultType="BoardDTO">
+	SELECT * FROM board
+		<where>
+		    <if test="searchKeyword != null and searchKeyword != ''">
+		        <choose>
+		            <when test="searchType == 'b_title'">
+		                b_title LIKE CONCAT('%', #{searchKeyword}, '%')
+		            </when>
+		            <when test="searchType == 'b_content'">
+		                b_content LIKE CONCAT('%', #{searchKeyword}, '%')
+		            </when>
+		            <otherwise>
+		                b_writer LIKE CONCAT('%', #{searchKeyword}, '%')
+		            </otherwise>
+		        </choose>
+		    </if>
+		</where>
+	ORDER BY ref DESC LIMIT #{startRow}, #{pageSize}
+</select>
+
+<!-- ref값 추출 -->
+<select id="getParentByRef" resultType="BoardDTO">
+    SELECT * FROM board
+    WHERE ref = #{ref}
+    AND re_step = 1
+</select>
+
+</mapper>

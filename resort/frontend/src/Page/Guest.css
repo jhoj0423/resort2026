@@ -1,0 +1,130 @@
+/* 전체 css */
+.Guest_container{
+    width: 1200px;
+    margin: 10px auto;
+    margin-bottom: 200px;
+    margin-top: 200px;
+}
+.Guest_container .Guest_title{
+    text-align: center;
+    margin: 100px 0 30px 0;
+    font-size: 30px;
+}
+/* 비회원 form */
+.Guest_container .Guest_form{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin: 0 auto;
+}
+/* label, input css */
+.Guest_container .Guest_form label,
+.Guest_container .Guest_form input{
+    margin-bottom: 10px;
+}
+/* 예약번호 css */
+.Guest_container .Guest_form #reservation_no{
+    padding: 15px 10px 15px 25px;
+    border-radius: 10px;
+    height: 58px;
+    border: none;
+    outline: none;
+    background-color: #f0f0f0;
+}
+.Guest_container .Guest_form .guestIdInfo{
+    margin-bottom: 50px;
+}
+/* 핸드폰 번호 css */
+.Guest_container .Guest_form .guestPhone{
+    width: 500px;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+}
+/* 핸드폰 번호 input css */
+.Guest_container .Guest_form .guestPhone > input[type='text']{
+    width: 160px;
+    padding: 20px 10px 10px 60px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    background-color: #f0f0f0;
+}
+/* 확인 버튼 */
+.Guest_container .Guest_form .guestBtn{
+    padding: 15px 10px 15px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+    border: none;
+}
+/* 회원이라면 로그인으로 가는 링크 */
+.Guest_container .LoginGo{
+    text-align: center;
+    margin-top: 30px;
+}
+.Guest_container .LoginGo .userLogin{
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+}
+.Guest_container .LoginGo .userLogin:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+/* 모달 ----------------------------------------------------------------------------------------- */
+.Guest_container .Guest_modal_overlay{
+    position: fixed;
+    background-color: #333;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 998;
+}
+.Guest_container .Guest_modal{
+    text-align: center;
+    margin: 90px auto;
+    width: 800px;
+    height: 650px;
+    background-color: #fff;
+    border: 15px solid #cccdcf;
+    border-radius: 10px;
+
+}
+.Guest_container .Guest_modal .Guest_title{
+    font-weight: 700;
+    font-size: 30px;
+    margin: 50px 0 30px 0;
+}
+.Guest_container .Guest_modal .Guest_coment{
+    margin: 20px 0;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.Guest_container .Guest_modal .Guest_table{
+    margin: 0 auto;
+    width: 700px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 20px 0;
+}
+.Guest_container .Guest_modal .Guest_table .Guest_list{
+    text-align: left;
+    padding: 20px 25px 15px;
+    font-size: 20px;
+    font-weight: 500;
+}
+.Guest_container .Guest_modal .Guest_btns .move_main{
+    background-color: #42799b;
+    color: #fff;
+    border: none;
+    width: 290px;
+    height: 60px;
+    border-radius: 10px;
+    margin: 30px 0 30px 0;
+    font-weight: 600;
+}

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="resort.product.mapper.HotelMapper">
+
+	<!-- // 호텔 전체 검색 public List<HotelDTO> getHotelAll(); -->
+	<select id="getHotelAll" resultType="HotelDTO">
+		SELECT h.*,MIN(r.price) as minPrice, MAX(r.maxOccupancy) as hotelMaxOccupancy FROM hotel h INNER JOIN room r
+		ON h.h_code = r.h_code
+		GROUP BY h.h_code
+	</select>
+	
+	<!-- (상세페이지 호텔과) 같은지역의 추천호텔 -->
+	<select id="getRecommHotel" resultType="HotelDTO" >
+		SELECT h.h_code,h.hotelName,h.country,h.city,h.type,h.h_address,h.discount,MIN(r.price) as 'minPrice' FROM hotel h
+		INNER JOIN room r ON h.h_code = r.h_code
+		WHERE h.city = #{hotelcity} and h.h_code != #{hotelcode}
+		GROUP BY h.h_code
+	</select>
+
+	<!-- 호텔의 별점을 출력하는  -->
+	<select id="getHotelRating" resultType="HotelRatingDTO">
+		SELECT h.h_code as 'r_h_code',  avg(rb.rb_score) as 'h_rating' FROM reviewboard rb 
+		INNER JOIN room r 
+		ON rb.r_code = r.r_code
+		INNER JOIN hotel h ON h.h_code = r.h_code
+		group by h.h_code
+	</select>
+	
+	<!--  // 호텔 가격 public List<HotelPriceDTO> getHotelPrice();  -->
+	<select id="getHotelPrice" resultType="HotelPriceDTO"> 
+		SELECT h.h_code, MIN(r.price) as hotelPrice FROM hotel h 
+		INNER JOIN room r 
+		ON h.h_code = r.h_code 
+		GROUP BY h.h_code 
+	</select>
+	
+	<!-- 호텔 정보 총합(가격+ 별점) public List<HotelMergeDTO> getHotelMerge(); -->
+	<select id="getHotelMerge" resultType="HotelMergeDTO">
+		SELECT h.*,MIN(r.price) as hotelPrice,avg(rb.rb_score) as hotelAvgScore, MAX(maxOccupancy) as hotelMaxOccupancy FROM hotel h
+		INNER JOIN room r
+		on h.h_code = r.h_code
+		INNER JOIN reviewboard rb
+		on rb.r_code = r.r_code
+		group by h.h_code
+	</select>
+	
+	
+	<!-- ================2026-02-23 수정 부분 JHJ ============= -->
+	
+	<!-- 회원정보 개수  -->
+	<select id="getAllHotelcount" resultType="int">
+		SELECT COUNT(*) FROM hotel
+	</select>
+	
+	<!-- 회원정보 보이는 개수 -->
+	<select id="getPageHotellist" resultType="HotelDTO">
+		SELECT *FROM hotel ORDER BY h_code DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	
+	
+	<select id="getHotelSearchCount" resultType="int">
+		SELECT COUNT(*) FROM hotel
+		<where>
+			<choose>
+				<when test="searchType == 'hotelName'">
+					hotelName LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<when test="searchType == 'country'">
+					country LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<when test="searchType == 'city'">
+					city LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<otherwise>
+					type LIKE CONCAT("%",#{searchKeyword},"%")				
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+
+	<select id="getSearchPageHotelList" resultType="HotelDTO">                      
+		SELECT * FROM hotel 
+		<where>
+			<choose>
+				<when test="searchType == 'hotelName'">
+					hotelName LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<when test="searchType == 'country'">
+					country LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<when test="searchType == 'city'">
+					city LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<otherwise>
+					type LIKE CONCAT("%",#{searchKeyword},"%")				
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY h_code DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<!-- ===========2026-02-24 수정부분 JHJ ================ -->
+	
+	<insert id="insertHotel" parameterType="HotelDTO">
+		INSERT INTO hotel(hotelName,country,city,type,h_address,discount,
+		h_Img,h_s_Img1,h_s_Img2,h_s_Img3,h_s_Img4,startDate,endDate,roomservice,publicservice,otherservice)
+		VALUES(#{hotelName},#{country},#{city},#{type},#{h_address},#{discount},#{h_Img},#{h_s_Img1},
+		#{h_s_Img2},#{h_s_Img3},#{h_s_Img4},#{startDate},#{endDate},#{roomservice},#{publicservice},#{otherservice})
+	</insert>
+	
+	<select id="getonlyHotelAll" resultType="HotelDTO">
+		SELECT * FROM hotel
+	</select>
+	
+	<!-- ===========2026-02-26 수정부분 JHJ ================ -->
+	<!-- 하나의 호텔의 정보를 수정하는 쿼리 -->
+	<update id="updateHotel" parameterType="HotelDTO">
+		UPDATE hotel SET hotelName =#{hotelName},country =#{country},city =#{city},type =#{type},h_address =#{h_address},discount =#{discount},startDate =#{startDate},
+		endDate =#{endDate},roomservice =#{roomservice},publicservice =#{publicservice},otherservice =#{otherservice} WHERE h_code =#{h_code}
+	</update>
+
+</mapper>

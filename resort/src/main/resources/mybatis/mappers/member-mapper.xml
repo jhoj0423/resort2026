@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="resort.member.mapper.MemberMapper">
+
+<!-- 회원 가입 추가하는 추상메소드 -->
+<insert id="insertMember" parameterType="MemberDTO">
+	INSERT INTO member(m_email,m_pw,m_birth,m_gender,m_nickName,m_phone)
+	VALUES(#{m_email},#{m_pw},#{m_birth},#{m_gender},#{m_nickName},#{m_phone})
+</insert>
+
+<!-- 회원가입 중복체크(이미 가입된 폰번호로 회원가입하면 실패출력) -->
+<select id="isMemberPhone" resultType="boolean">
+	SELECT COUNT(*) FROM member WHERE m_phone=#{m_phone}
+</select>
+<!-- 회원가입 중복체크(이미 가입된 이메일로 회원가입하면 실패출력) -->
+<select id="isMemberEmail" resultType="boolean">
+	SELECT COUNT(*) FROM member WHERE m_email=#{m_email}
+</select>
+<!-- 회원가입 중복체크(이미 가입된 닉네임으로 회원가입하면 실패출력) -->
+<select id="isMemberNickname" resultType="boolean">
+	SELECT COUNT(*) FROM member WHERE m_nickName=#{m_nickName}
+</select>
+
+<!-- 회원 전체 목록 검색 쿼리 -->
+<select id="allSelectMember" resultType="MemberDTO" >
+	SELECT * FROM member
+</select>
+
+<!-- 개인 한 사람의 정보를 검색하는 메소드 -->
+<select id="oneSelectMember" parameterType="String" resultType="MemberDTO">
+    SELECT *,
+        CASE 
+            WHEN NOW() &gt; DATE_ADD(m.m_regDate, INTERVAL 1 MONTH) THEN 0
+            ELSE m.m_coupon
+        END AS currentCoupon
+    FROM member m
+    WHERE m.m_email = #{m_email} AND m.m_is_deleted = 0
+</select>
+<!-- //개인 한 사람의 정보를 검색하는 메소드 public MemberDTO getOneSelectMember(String m_nickName); -->
+<select id="getOneSelectMember" parameterType="String" resultType="MemberDTO">
+	SELECT * FROM member WHERE m_nickName=#{m_nickName}
+</select>
+
+<!-- //개인 한 사람의 정보를 검색하는 메소드 - 비밀번호 찾기용 public MemberDTO getPwFind(@Param("m_email") String m_email, @Param("m_phone") String m_phone); -->
+<select id="getPwFind" resultType="MemberDTO">
+	SELECT * FROM member WHERE m_email = #{m_email} AND m_phone = #{m_phone}
+</select>
+
+<!-- //개인 한 사람의 정보를 검색하는 메소드 -->
+<select id="getOneMember"  resultType="MemberDTO">
+	SELECT * FROM member WHERE m_code=#{m_code}
+</select>
+
+<!-- 개인 한사람의 패스워드 리턴하는 쿼리 -->
+<select id="getPass" parameterType="String" resultType="String" >
+	SELECT m_pw FROM member WHERE m_email=#{m_email}
+</select>
+
+<!-- 개인 한사람의 정보를 수정하는 쿼리 -->
+<update id="updateMember" parameterType="MemberDTO">
+	UPDATE member SET m_phone=#{m_phone},m_pw=#{m_pw},m_birth=#{m_birth},m_gender=#{m_gender},m_nickName=#{m_nickName} WHERE m_email=#{m_email}
+</update>
+
+<!-- 한사람 개인의 정보를 삭제하는 메소드 작성 -->
+<update id="deleteMember" parameterType="MemberDTO" >
+	UPDATE member SET m_is_deleted = 1, deleted_at = now() WHERE m_email=#{m_email}
+</update>
+
+<!-- ================2026-02-20 수정 부분 ============================== -->
+
+<!-- 회원정보 개수  -->
+<select id="getAllcount" resultType="int">
+	SELECT COUNT(*) FROM member
+</select>
+
+<!-- 회원정보 보이는 개수 -->
+<select id="getPagelist" resultType="MemberDTO">
+	SELECT *FROM member ORDER BY m_code DESC
+	LIMIT #{startRow}, #{pageSize}
+</select>
+
+<!-- ================2026-02-23 수정 부분 ============= -->
+
+
+<select id="getSearchCount" resultType="int">
+		SELECT COUNT(*) FROM member
+		<where>
+			<choose>
+				<when test="searchType == 'phone'">
+					m_phone LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<when test="searchType == 'gender'">
+					m_gender LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<when test="searchType == 'nickName'">
+					m_nickName LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<otherwise>
+					m_email LIKE CONCAT("%",#{searchKeyword},"%")				
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+
+	<select id="getSearchPageList" resultType="memberDTO">
+		SELECT * FROM member 
+		<where>
+			<choose>
+				<when test="searchType == 'phone'">
+					m_phone LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<when test="searchType == 'gender'">
+					m_gender LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<when test="searchType == 'nickName'">
+					m_nickName LIKE CONCAT("%",#{searchKeyword},"%")
+				</when>
+				<otherwise>
+					m_email LIKE CONCAT("%",#{searchKeyword},"%")				
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY m_code DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<!-- ============== 2026-02-24 수정부분 ============ -->
+	<!-- 관리자 페이지에서 회원정보 수정 -->
+	<update id="adminUpdateMember" parameterType="MemberDTO">
+		UPDATE member SET m_phone=#{m_phone},m_nickName=#{m_nickName} WHERE m_code=#{m_code}
+	</update>
+	<!-- // 쿠폰 사용한 회원 쿠폰수량 업데이트 public int couponMod(@Param("m_code") Integer m_code ); -->
+	<update id="couponMod">
+		UPDATE member m INNER JOIN reservation re ON m.m_code = re.m_code
+		SET m.m_coupon = 0 WHERE m.m_code = #{m_code} AND re.coupon_used = 1 
+	</update>
+	
+	<!-- // 비밀번호 찾기 public int pwFind(MemberDTO mdto); -->
+	<update id="pwFind" parameterType="MemberDTO">
+		UPDATE member SET m_pw=#{m_pw} WHERE m_email = #{m_email} AND m_phone = #{m_phone}
+	</update>
+
+</mapper>

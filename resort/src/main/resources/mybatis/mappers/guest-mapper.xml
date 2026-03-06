@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="resort.member.mapper.GuestMapper">
+	
+	<!-- // 비회원 insert public void insertGuest(GuestDTO gdto); -->
+	<insert id="insertGuest" parameterType="GuestDTO" useGeneratedKeys="true" keyProperty="g_code">
+		INSERT INTO guest(g_name, g_phone, g_birth)
+		VALUES(#{g_name}, #{g_phone}, #{g_birth})
+	</insert>
+	
+	<!-- // 비회원 코드 select public GuestDTO selectOneGuest(); -->
+	<select id="selectOneGuest" resultType="GuestDTO">
+		SELECT * FROM guest WHERE g_code = #{g_code}
+	</select>
+	
+	<!-- // 비회원의 체크아웃 일자를 넘어서면 guest 의 g_check를 1로 업데이트 public void guestChk(@Param("reservation_no") String reservation_no, @Param("g_phone") String g_phone); -->
+	<update id="guestChk">
+		UPDATE guest g
+		INNER JOIN reservation re
+		ON g.g_code = re.g_code 
+		SET g_check = 1 
+		WHERE re.reservation_no = #{reservation_no} AND g.g_phone = #{g_phone} AND  re.check_out_date &lt; CURDATE()
+	</update>
+	
+	<!-- // 비회원의 정보가 있는지 확인하는 select문 public GuestDTO selectResGuest(@Param("reservation_no") String reservation_no, @Param("g_phone") String g_phone); -->
+	<select id="selectResGuest" resultType="GuestDTO">
+		SELECT g.* FROM guest g INNER JOIN reservation re ON g.g_code = re.g_code  
+		WHERE re.reservation_no = #{reservation_no} AND g.g_phone = #{g_phone}
+	</select>
+	
+	<!-- // 정보 있는지 확인 public int guestSel(@RequestParam("reservation_no") String reservation_no); -->
+	<select id="guestSel" resultType="GuestDTO">
+		SELECT g.* FROM guest g INNER JOIN reservation re ON g.g_code = re.g_code  
+		WHERE re.reservation_no = #{reservation_no} AND g.g_check = 0;
+	</select>
+	
+</mapper>

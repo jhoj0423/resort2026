@@ -1,0 +1,543 @@
+.helpCenter_container{
+    width: 1200px;
+    margin: 200px auto;
+    display: flex;
+}
+/* 고객센터 메뉴 선택 */
+.helpCenter_container .helpCenter_list{
+    width: 175px;
+    height: 300px;
+    margin-right: 50px;
+}
+.helpCenter_container .helpCenter_list .list_title{
+    border-bottom: 3px solid black;
+    font-size: 26px;
+    padding-bottom: 40px;
+    font-weight: bold;
+}
+.helpCenter_container .helpCenter_list .list_menu{
+    border-bottom: 1px solid gray;
+    padding: 30px 0 30px 0;
+}
+.helpCenter_container .helpCenter_list .list_menu .list_menuBtn{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 16px;
+}
+.helpCenter_container .helpCenter_list .list_menu .list_menuBtn:hover{
+    color: #42799b;
+    cursor: pointer;
+}
+/* 고객센터 내용 */
+.helpCenter_text{
+    width: 100%;
+    max-width: 673px;
+} 
+.helpCenter_text .text_title{
+    margin-bottom: 36px;
+    font-size: 30px;
+    font-weight: 600;
+}
+.helpCenter_text .helpCenter_texts{
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 0 25px 0;
+    border-bottom: 1px solid gray;
+    align-items: center;
+}
+
+.helpCenter_text .helpCenter_texts .textDownBtn{
+    border: none;
+    background-color: transparent;
+}
+.BtnChange{
+    transform: rotate(180deg);
+}
+.helpCenter_text .text_contents{
+    padding: 25px 0 25px 0;
+    line-height: 30px;
+}
+.helpCenter_text .text_contents .contents5{
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    line-height: 20px;
+}
+.helpCenter_text .text_contents .contents6{
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    line-height: 20px;
+}
+/* 공지사항 */
+.notice{
+    cursor: pointer;
+}
+.notice-date{
+    font-size: 12px;
+}
+.notice-contents{
+    margin-top: 30px;
+    line-height: 20px;
+}
+.noticeContentsBtn{
+    display: block;
+    margin: 30px auto;
+    width: 300px;
+    padding: 15px;
+    border: 1px solid #42799b;
+    border-radius: 10px;
+    font-size: 13px;
+    color: #42799b;
+    font-weight: 500;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+.noticeContentsBtn:hover{
+    font-weight: 800;
+}
+
+
+/* 1대1 문의 */
+.support-1on1{
+    height: 500px;
+    border-top: 2px solid black;
+    border-bottom: 1px solid black;
+    line-height: 500px;
+    text-align: center;
+}
+.sportBtn{
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    color: #333;
+    background-color: transparent;
+}
+/* 고객센터 전화번호 */
+.helpCenter_tel{
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-left: 50px;
+    height: 752px;
+    background-color: #ddd;
+}
+.helpCenter_tel .helpCenter_tel1{
+    width: 250px;
+    padding: 30px 30px 15px 30px;
+    background-color: #fff;
+    border-radius: 10px 10px 0 0;
+}
+.helpCenter_tel .helpCenter_tel1 .tel1_title{
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+}
+.helpCenter_tel .helpCenter_tel1 .tel_list{
+    padding: 20px 0 20px 0;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+}
+.helpCenter_tel .helpCenter_tel1 .chatLi{
+    height: 91px;
+}
+.chatBtn{
+    display: block;
+    width: 190px;
+    height: 51px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: #42799b;
+    background-color: #42799b;
+    color: #fff;
+}
+
+.helpCenter_tel .helpCenter_tel1 .tel_list .fa-phone{
+    margin-right: 10px;
+}
+.helpCenter_tel .helpCenter_tel1 .tel_list .info_tel{
+    font-size: 21px;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #42799b;
+}
+.helpCenter_tel .helpCenter_tel2{
+    /* background-color: #ddd; */
+    border-radius: 0 0 10px 10px;
+    width: 250px;
+    padding: 30px 10px 30px 10px;
+}
+.helpCenter_tel .helpCenter_tel2 .tel2_title{
+    margin-bottom: 20px;
+}
+.helpCenter_tel .helpCenter_tel2 .tel2_title .fa-circle-info{
+    margin-right: 10px;
+}
+.helpCenter_tel .helpCenter_tel2 .tel2_info{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+.helpCenter_tel .helpCenter_tel2 .tel2_info2{
+    font-size: 11px;
+    margin-left: 12px;
+}
+
+
+/* 전체 영역 */
+#board {
+    max-width: 673px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+#board h2,
+#board_wrap2 h2,
+#board_wrap3 h2,
+#board_wrap4 h2{
+    font-size: 18px;
+    font-weight: 500;
+    padding: 30px 0 17px 0;
+    float: left;
+}
+
+/* 상단 제목 */
+#board .text_title {
+    margin-bottom: 36px;
+    font-size: 30px;
+    font-weight: 600;
+    font-family: "Noto Sans KR";
+}
+
+/* 게시판 래퍼 */
+#board #board_wrap {
+    border-top: 2px solid #222;
+    margin-bottom: 20px;
+}
+
+/* 테이블 */
+#board table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+#board table .boardTitle button{
+    font-size: 15px;
+    line-height: 20px;
+    max-width: 393px;
+    width: 393px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 36px;
+}
+
+#board .sportBtn{
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 12px 10px;
+    text-align: left;
+    float: left;
+    margin: 15px 3px 0;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    width: fit-content;
+
+}
+
+/* 헤더 */
+#board table tr:first-child {
+    /* background-color: #42799b; */
+    font-weight: 600;
+    border-bottom: 2px solid #bdbdbd;
+}
+
+/* 셀 공통 */
+#board td {
+    padding: 10px 6px;
+    border-bottom: 1px solid #eee;
+    word-break: break-word;
+    line-height: 21px;
+}
+#board th{
+    font-weight: 500;
+    text-align: center;
+    line-height: 51px;
+    font-size: 14px;
+    color: #000;
+}
+
+/* 번호 */
+#board td:nth-child(1) {
+    width: 45px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* 제목 */
+#board td:nth-child(2) {
+    max-width: 393px;
+    width: 393px;
+    white-space: nowrap;
+    overflow: hidden;  
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+/* 작성자 */
+#board td:nth-child(3) {
+    max-width: 100px;
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;  
+    text-overflow: ellipsis;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* 작성일 */
+#board td:nth-child(4) {
+    width: 83px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 17px;
+}
+
+/* 조회수 */
+#board td:nth-child(5) {
+    width: 45px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* 행 hover */
+/* #board tr:hover {
+    background-color: #fafafa;
+} */
+
+/* 제목 버튼 */
+#board button {
+    background: none;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+    float: left;
+}
+
+#board .btn.searchBtn{
+    height: 37px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #000;
+}
+
+#board td button:hover {
+    font-weight: 500;
+}
+
+#board .reple{
+    /* background-color: #eaf2f6; */
+    /* background-color: #f6f6f6; */
+
+}
+
+
+/* 댓글 들여쓰기 */
+#board .answer-wrap {
+    
+    font-size: 15px;
+    line-height: 20px;
+}
+#board .answer-wrap:hover,
+#board .answer-wrap:hover .answer
+{
+    font-weight: 500;
+}
+#board .answer-wrap .answer{
+    font-size: 14px;
+    color: #42799b;
+    font-weight: 500;
+    padding: 3px 7px;
+    border-radius: 50px;
+    border: 1px solid #42799b;
+}
+
+/* 페이지네이션 */
+#board .pagination {
+    text-align: center;
+    width: fit-content;
+    height: 31px;
+    margin: 0 auto;
+}
+
+#board .pagination button {
+    margin: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    width: fit-content;
+}
+
+#board .pagination button:hover {
+    background: #f2f2f2;
+    color: #000;
+}
+
+#board .pagination .active {
+    background-color: #42799b;
+    color: #fff;
+    /* border-color: #42799b; */
+    font-weight: 700;
+}
+
+/* 검색 영역 */
+#board .search-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin: 30px auto 0;
+    width: fit-content;
+}
+
+#board .search-wrap select,
+#board .search-wrap input {
+    border: 1px solid #ccc;
+    padding: 6px 8px;
+    font-size: 14px;
+}
+
+#board .search-wrap input {
+}
+
+#board .btn{
+    background-color: #222;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+#board .btn:hover,
+#board .sportBtn:hover{
+    background-color: #f2f2f2;
+}
+
+/* 게시글 없을 때 */
+#board .support-1on1 {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 21px;
+    color: #777;
+    line-height:444px;
+}
+
+
+#board_wrap2 td,
+#board_wrap3 td,
+#board_wrap4 td{
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+#board_wrap2 textarea,
+#board_wrap3 textarea{
+    border-color: #ddd;
+    margin: 8px 0;
+    max-width: 563px;
+    width: 563px;
+    font-family: 'arial';
+    font-size: 15px;
+    line-height: 21px;
+    padding: 10px;
+}
+#board_wrap2 td:first-child,
+#board_wrap3 td:first-child,
+#board_wrap4 td:first-child{
+    border-right: 1px solid #ddd;
+    background: #c7c7c72e;
+    color: #000;
+    font-size: 15px;
+    min-width: 97px;
+    max-width: 97px;
+}
+#board_wrap2 td:nth-child(2),
+#board_wrap3 td:nth-child(2),
+#board_wrap4 td:nth-child(2){
+    padding-left: 10px;
+    font-size: 15px;
+}
+
+#board_wrap2 td.boardContent,
+#board_wrap3 td.boardContent,
+#board_wrap4 td.boardContent{
+    width: 100%;
+    background-color: #fff;
+    border-right: 0;
+    padding: 25px;
+    line-height: 26px;
+}
+#board_wrap4 td:nth-child(2){
+    padding: 10px;
+}
+#board_wrap2 td:nth-child(2) input,
+#board_wrap3 td:nth-child(2) input,
+#board_wrap4 td:nth-child(2) input{
+    border: 1px solid #ccc;
+    font-size: 15px;
+    height: 37px;
+    width: 100%;
+    padding: 0px 10px;
+    margin: 8px 0;
+    line-height: 37px;
+}
+#board_wrap2 .ans_btn input,
+#board_wrap3 .ans_btn input,
+#board_wrap4 .ans_btn input{
+    height: 37px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #000;
+    padding: 6px 10px;
+    margin: 20px 3px 0;
+    cursor: pointer;
+}
+
+#board_wrap3 .red{
+    color: #ff8585;
+    display: block;
+    font-size: 13px;
+    line-height: 20px;
+}
+#board_wrap4 td:nth-child(2) input:first-child{
+    width: 200px;
+    margin: 0;
+}
+#board_wrap4 td:nth-child(2) input:nth-child(2){
+    width: 50px;
+    cursor: pointer;
+    margin: 0;
+    margin-left: 5px;
+    line-height: 35px;
+
+}
+
+#board_wrap3 .download,
+#board_wrap4 .download{
+    background-color: #fff;
+    border: 0;
+    color: #264f69;
+}

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="resort.reservation.mapper.ReservationMapper">
+	
+	<!-- 비회원 예약 내역 insert / public int ginsertReservation(ReservationDTO redto); -->
+	<insert id="gInsertReservation" parameterType="ReservationDTO">
+		INSERT INTO reservation (g_code, reservation_no, r_code, booker_name, check_in_date, check_out_date, original_price, discount_rate, final_price) 
+		VALUES(#{g_code}, #{reservation_no}, #{r_code}, #{booker_name}, #{check_in_date}, #{check_out_date}, #{original_price}, #{discount_rate}, #{final_price})
+	</insert>
+	
+	<!-- // 회원 예약 내역 insert public int mInsertReservation(ReservationDTO redto); -->
+	<insert id="mInsertReservation" parameterType="ReservationDTO">
+		INSERT INTO reservation (m_code, reservation_no, r_code, booker_name, check_in_date, check_out_date, original_price, discount_rate, coupon_used, final_price)
+		VALUES(#{m_code}, #{reservation_no}, #{r_code}, #{booker_name}, #{check_in_date}, #{check_out_date}, #{original_price}, #{discount_rate}, #{coupon_used}, #{final_price})
+	</insert>
+	
+	<!-- // 회원 예약 내역 select public ResInfoDTO resSelect(@Param("reservation_no") String reservation_no); -->
+	<select id="resSelect" resultType="ResInfoDTO">
+		SELECT h.hotelName, r.roomName, re.check_in_date, re.check_out_date, re.original_price, re.discount_rate, re.coupon_used, re.final_price, re.booker_name, re.reserved_at, re.reservation_no FROM reservation re
+		INNER JOIN room r
+		ON r.r_code = re.r_code
+		INNER JOIN hotel h
+		ON h.h_code = r.h_code
+		WHERE TRIM(re.reservation_no) = TRIM(#{reservation_no})
+	</select>
+	
+	<!-- // 비회원의 g_check가 0이면서 axios로 받아온 데이터와 동일한 예약정보만 select public ResInfoDTO guestSelect(@Param("reservation_no") String reservation_no, @Param("g_phone") String g_phone); -->
+	<select id="guestSelect" resultType="ResInfoDTO">
+		SELECT h.hotelName, r.roomName, re.check_in_date, re.check_out_date, re.original_price, re.discount_rate, re.coupon_used, re.final_price, re.booker_name, re.reserved_at, re.reservation_no FROM reservation re
+		INNER JOIN room r
+		ON r.r_code = re.r_code
+		INNER JOIN hotel h
+		ON h.h_code = r.h_code
+		INNER JOIN guest g
+		ON g.g_code = re.g_code
+		WHERE TRIM(re.reservation_no) = TRIM(#{reservation_no}) AND TRIM(g.g_phone) = TRIM(#{g_phone}) AND g.g_check = 0 
+	</select>
+	
+	<!-- // 모든 예약 내역 출력	public List<ReservationDTO> getAllReservation(); -->
+	<select id="getAllRescount" resultType="int">
+		SELECT COUNT(*) FROM reservation 
+	</select>
+	
+	<!-- 예약정보 리스트 -->
+	<select id="getResPagelist" resultType="ReservationDTO">
+		SELECT *FROM reservation r LEFT JOIN member m 
+			on r.m_code = m.m_code 
+			LEFT JOIN guest g 
+			on r.g_code = g.g_code ORDER BY re_code DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	
+	
+	<select id="getSearchResCount" resultType="int">
+			SELECT COUNT(*) FROM reservation 
+			<where>
+				<choose>
+					<when test="searchType == 'booker_name'">
+						booker_name LIKE CONCAT("%",#{searchKeyword},"%")
+					</when>
+					<otherwise>
+						reservation_no LIKE CONCAT("%",#{searchKeyword},"%")				
+					</otherwise>
+				</choose>
+			</where>
+		</select>
+	
+		<select id="getSearchResPageList" resultType="ReservationDTO">
+			SELECT * FROM reservation r LEFT JOIN member m 
+			on r.m_code = m.m_code 
+			LEFT JOIN guest g 
+			on r.g_code = g.g_code
+			<where>
+				<choose>
+					<when test="searchType == 'booker_name'">
+						booker_name LIKE CONCAT("%",#{searchKeyword},"%")
+					</when>
+					<otherwise>
+						reservation_no LIKE CONCAT("%",#{searchKeyword},"%")				
+					</otherwise>
+				</choose>
+			</where>
+			ORDER BY re_code DESC
+			LIMIT #{startRow}, #{pageSize}
+		</select>
+		
+		<!-- // 리뷰 상태 업데이트 함수 public int reviewStatusMod(@Param("m_email") String m_email);  -->
+		<update id="reviewStatusMod">
+			UPDATE reservation SET review_status = 2 WHERE DATE_ADD(check_out_date, INTERVAL 2 DAY) &lt; CURDATE() AND review_status = 0
+		</update>
+		
+		<!-- public int updateResercation(ReservationDTO redto); -->
+		<update id="deleteResercation" parameterType="int">
+			UPDATE reservation r LEFT JOIN member m 
+			on r.m_code = m.m_code 
+			LEFT JOIN guest g 
+			on r.g_code = g.g_code SET r.cancel = 1, r.cancel_date = now(), g.g_check = 1 WHERE r.re_code=#{re_code}
+		</update>
+		
+		
+		<!-- public int updateResercation(@Param("booker_name") String booker_name, @Param("re_code") int re_code, @Param("g_phone") String g_phone); -->
+		<update id="updateResercation" >
+			UPDATE reservation r 
+			LEFT JOIN guest g 
+			on r.g_code = g.g_code SET booker_name = #{booker_name}, g_phone = #{g_phone} WHERE re_code=#{re_code}
+		</update>
+		
+		<!-- public int reviewMod(@Param("re_code") int re_code); -->
+		<update id="reviewMod">
+			UPDATE reservation SET review_status = 1 WHERE re_code = #{re_code}
+		</update>
+	
+</mapper>
