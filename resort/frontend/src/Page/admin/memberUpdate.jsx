@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function MemberUdate(){
 
-    const {userEmail, setRender, render} = useContext(ResortDataContext)
+    const {userEmail} = useContext(ResortDataContext)
 
 
     const {m_code} = useParams();
