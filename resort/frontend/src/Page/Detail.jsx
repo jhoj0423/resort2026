@@ -10,7 +10,7 @@ import Calendar from './Calendar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
+//
 export default function Detail(){  
     const {h_code} = useParams();
     const navigate = useNavigate();
