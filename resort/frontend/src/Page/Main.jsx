@@ -8,8 +8,46 @@ import Calendar from './Calendar';
 export default function Main(){    
     // 2026-03-04 병합
     // 호텔, 객실데이터 useContext로 가져오는 훅
-    const {setSelectMonth, hotelMerge, HotelData, hotelRatingAvgData, DayData, setDayData,town,setTown,serchHandler, wish, wishHandler,cityEn,countryEn,dateFilter,setDateFilter,townfilter, guestCount, setGuestCount} = useContext(ResortDataContext);
+    const {setSelectMonth, 
+        hotelMerge, HotelData, hotelRatingAvgData, 
+        DayData, setDayData,town,setTown,serchHandler, wish, wishHandler,cityEn,countryEn,dateFilter,setDateFilter,townfilter, guestCount, setGuestCount} = useContext(ResortDataContext);
     
+    // const [HotelData , setHotelData] = useState([]);
+    // const [hotelRatingAvgData, setHotelRatingAvgData] = useState([]);
+    // const [hotelMerge,setHotelMerge] = useState([])
+
+    // useEffect(() => {
+    //     // HotelData
+    //     axios.get('/api/hotel/context')
+    //     .then((res) => {
+    //         console.log("호텔 데이터 : ", res.data);
+    //         setHotelData(res.data);
+    //     })
+    //     .catch((error) => {
+    //         console.error("error", error)
+    //     })
+
+    //     axios.get('/api/board/hotelRatingAvg')
+    //     .then((res) => {
+    //         console.log("호텔(평점) 평균 데이터 : ", res.data);
+    //         setHotelRatingAvgData(res.data);
+    //     })
+    //     .catch((error) => {
+    //         console.error("error", error)
+    //     })
+
+    //     // HotelMergeData
+    //     axios.get('/api/hotel/hotelMarge')
+    //     .then((res) => {
+    //         console.log("호텔총합 데이터 : ", res.data);
+    //         setHotelMerge(res.data);
+    //     })
+    //     .catch((error) => {
+    //         console.error("error", error)
+    //     })
+    // },[])
+
+
     // 호텔 input 아래 모달 상태변수
     const [isInput, setIsInput] = useState(false);
     // 호텔 input 아래 모달 map 사용할 오브젝트 배열
@@ -90,21 +128,24 @@ export default function Main(){
     // 호텔 해외 필터
     useEffect(() => {
         // const overseas = HotelData.filter(item => item.country !== 'Korea' && item.score >= 4);
+        if (!hotelMerge || hotelMerge.length === 0) return
         const overseas = hotelMerge.filter(item => item.country !== 'Korea');
-        const overseasRate = [...overseas].sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
-        setOverSeasHotel(overseasRate)
-    },[])
+        // const overseasRate = [...overseas].sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
+        setOverSeasHotel(overseas)
+    },[hotelMerge])
 
     // 호텔 국내 필터
     useEffect(() => {
+        if (!hotelMerge || hotelMerge.length === 0) return
         const internal = hotelMerge.filter(item => item.country === 'Korea');
-        const internalHotelSort =internal.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
-        setInternalHotel(internalHotelSort)
+        // const internalHotelSort =internal.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
+        setInternalHotel(internal)
         
-    },[])
+    },[hotelMerge])
 
     // 호텔 타입 모달 - map
     useEffect(() => {
+        if (!hotelMerge || hotelMerge.length === 0) return
         const hotel_modal1 = hotelMerge.filter((item) => 
             (item.type === 'Hotel' ? '호텔' : 
             item.type === 'Resort' ? '리조트' : 
@@ -112,14 +153,15 @@ export default function Main(){
             item.type === 'GuestHouse' ? '게스트 하우스' : 
             item.type === 'Camping' ? '캠핑' : 
             null ) === hotelType[htypeModalOpen2].typeName)
-            const hotelTypeRating = hotel_modal1.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
-        setTypeAndHotel(hotelTypeRating)
-    }, [htypeModalOpen])
+            // const hotelTypeRating = hotel_modal1.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
+        setTypeAndHotel(hotel_modal1)
+    }, [htypeModalOpen, hotelMerge])
 
         
 
     // 지역별 호텔 모달 - map
     useEffect(() => {
+        if (!hotelMerge || hotelMerge.length === 0) return
         const hotel_modal2 = hotelMerge.filter((item) => 
             (item.city === 'Seoul' ? '서울' : 
             item.city === 'Jeju' ? '제주도' : 
@@ -127,10 +169,10 @@ export default function Main(){
             item.city === 'Sapporo' ? '삿포로' : 
             item.city === 'New York' ? '뉴욕' : 
             item.city === 'Paris' ? '파리' : 
-            null ) === popularRating[RatingModalOpen2].cityName && item.hotelAvgScore >= 2)
-            const hotelCityRating = hotel_modal2.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
-        setCityAndHotel(hotelCityRating)
-    }, [RatingModalOpen])
+            null ) === popularRating[RatingModalOpen2].cityName)
+            // const hotelCityRating = hotel_modal2.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
+        setCityAndHotel(hotel_modal2)
+    }, [RatingModalOpen, hotelMerge])
     
     // 버튼을 클릭한 횟수를 저장하는 상태변수
     const [btnCount1, setBtnCount1] = useState(0);
@@ -358,7 +400,7 @@ export default function Main(){
     }, [internalHotel]);
     
     //추천호텔 별점 이미지
-    const [recommStar, setRecommStar] = useState(null);
+    const [recommStar, setRecommStar] = useState(0);
     useEffect(() => {
 
         if (!internalHotel) return;
@@ -395,7 +437,8 @@ export default function Main(){
 
     }, [hotelStar, internalHotel]);
 
-    if(!isLoading || !internalHotel || recommStar.length === 0) return <div>로딩중...</div>;
+    // if(!isLoading || !internalHotel || recommStar.length === 0) return <div>로딩중...</div>;
+    if(!internalHotel || !hotelMerge) return <div>로딩중...</div>;
 
     return(
         <div className='main_container' onClick={closeUl1} style={{overflowX:'hidden'}}>
@@ -590,9 +633,9 @@ export default function Main(){
                                             <div className='popularAccom_review'>
                                                 <span className='popularAccom_score'>
                                                     <i className="fa-solid fa-star"></i>
-                                                    <span className='starScore'>{(hotelRatingAvgData[item.h_code - 1].hotelAvg - Math.floor(hotelRatingAvgData[item.h_code - 1].hotelAvg) === 0) ? hotelRatingAvgData[item.h_code - 1].hotelAvg+'.0' : Math.trunc((hotelRatingAvgData[item.h_code - 1].hotelAvg) * 10) / 10}</span>
+                                                    <span className='starScore'>{(hotelMerge[item.h_code - 1]?.hotelAvgScore - Math.floor(hotelMerge[item.h_code - 1]?.hotelAvgScore) === 0) ? hotelMerge[item.h_code - 1].hotelAvgScore+'.0' : Math.trunc((hotelMerge[item.h_code - 1].hotelAvgScore) * 10) / 10}</span>
                                                 </span>
-                                                <span className='popularAccom_count'>{(hotelRatingAvgData[item.h_code - 1].scoreCount).toLocaleString()}명 참여</span>
+                                                {/* <span className='popularAccom_count'>{(hotelRatingAvgData[item.h_code - 1].scoreCount).toLocaleString()}명 참여</span> */}
                                             </div>
                                             {item.discount === 1 ? (
                                                 <>
@@ -628,9 +671,9 @@ export default function Main(){
                                         <div className='popularAccom_review'>
                                             <span className='popularAccom_score'>
                                                 <i className="fa-solid fa-star"></i>
-                                                <span className='starScore'>{(hotelRatingAvgData[item.h_code - 1].hotelAvg).toFixed(1)}</span>
+                                                <span className='starScore'>{(hotelMerge[item.h_code - 1]?.hotelAvgScore - Math.floor(hotelMerge[item.h_code - 1]?.hotelAvgScore) === 0) ? hotelMerge[item.h_code - 1].hotelAvgScore+'.0' : Math.trunc((hotelMerge[item.h_code - 1].hotelAvgScore) * 10) / 10}</span>
                                             </span>
-                                            <span className='popularAccom_count'>{(hotelRatingAvgData[item.h_code - 1].scoreCount).toLocaleString()}명 참여</span>
+                                            {/* <span className='popularAccom_count'>{(hotelRatingAvgData[item.h_code - 1].scoreCount).toLocaleString()}명 참여</span> */}
                                         </div>
                                         {item.discount === 1 ? (
                                             <>
@@ -666,9 +709,9 @@ export default function Main(){
                                         <div className='popularAccom_review'>
                                             <span className='popularAccom_score'>
                                                 <i className="fa-solid fa-star"></i>
-                                                <span className='starScore'>{(hotelRatingAvgData[item.h_code - 1].hotelAvg).toFixed(1)}</span>
+                                                <span className='starScore'>{(hotelMerge[item.h_code - 1]?.hotelAvgScore - Math.floor(hotelMerge[item.h_code - 1]?.hotelAvgScore) === 0) ? hotelMerge[item.h_code - 1].hotelAvgScore+'.0' : Math.trunc((hotelMerge[item.h_code - 1].hotelAvgScore) * 10) / 10}</span>
                                             </span>
-                                            <span className='popularAccom_count'>{(hotelRatingAvgData[item.h_code - 1].scoreCount).toLocaleString()}명 참여</span>
+                                            {/* <span className='popularAccom_count'>{(hotelRatingAvgData[item.h_code - 1].scoreCount).toLocaleString()}명 참여</span> */}
                                         </div>
                                         {item.discount === 1 ? (
                                             <>
@@ -722,11 +765,12 @@ export default function Main(){
                                         <h2><Link to={`/detail/${item.h_code}`} onClick={() => window.scrollTo(0,0)}>{item.hotelName}</Link></h2>
                                         <div className="room-intro_main">
                                             <div className="intro-left_main">
-                                                <span>
+                                                <span className='starScore'>{(hotelMerge[item.h_code - 1]?.hotelAvgScore - Math.floor(hotelMerge[item.h_code - 1]?.hotelAvgScore) === 0) ? hotelMerge[item.h_code - 1].hotelAvgScore+'.0' : Math.trunc((hotelMerge[item.h_code - 1].hotelAvgScore) * 10) / 10}</span>
+                                                {/* <span>
                                                     {recommStar[index].map((star,ind)=>(
                                                         <img src={star} alt="score" key={ind} className='star' />
                                                     ))}
-                                                </span>
+                                                </span> */}
                                             </div>
                                             <div className="intro-right_main">
                                                 <Link to = {`/detail/${item.h_code}`} onClick={() => window.scrollTo(0,0)}>
