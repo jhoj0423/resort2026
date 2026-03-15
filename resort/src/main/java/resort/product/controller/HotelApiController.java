@@ -1,6 +1,7 @@
 package resort.product.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,9 @@ public class HotelApiController {
 	@Autowired
 	HotelService hotelService;
 	
+//	@Autowired
+//	HotelMergeDTO hmdto;
+	
 	// 호텔 전체 정보 보내는 컨트롤러
 	@GetMapping("/hotel/context")
 	public List<HotelDTO> allHotel(){
@@ -72,6 +76,11 @@ public class HotelApiController {
 	@GetMapping("/hotel/hotelMarge")
 	public  List<HotelMergeDTO> allHotelMarge(){
 		System.out.println("HotelApiController : allHotelMarge(^^) 메서드 확인");
+//		List<HotelMergeDTO> result = new ArrayList<HotelMergeDTO>();
+		
+//		if(hmdto.getHotelAvgScore() != null) {
+//			result = hotelService.getHotelMerge();
+//		}
 		return hotelService.getHotelMerge();
 	}
 	

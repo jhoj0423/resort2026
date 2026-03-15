@@ -213,13 +213,13 @@ console.log(WishAvg);
                                                 <div className="room-intro">
                                                     <div className="intro-left">
                                                         {wishStar[filterIndex[index]] && wishStar[filterIndex[index]]?.map((star, ind) => (
-                                                            <img src={star} alt="roomScore" key={ind} />
+                                                            <img src={star} alt="roomScore" className='img7' key={ind} />
                                                         ))}
                                                         <span className='starScore' style={{color:'#000'}}>
                                                             {/* {(WishAvg[filterIndex[index]]?.scoreAvg - Math.floor(WishAvg[filterIndex[index]]?.scoreAvg) === 0) ? WishAvg[filterIndex[index]]?.scoreAvg+'.0' : Math.trunc(WishAvg[filterIndex[index]]?.scoreAvg * 10) / 10} */}
                                                             {WishAvg[filterIndex[index]]?.scoreAvg != null && (
-                                                                (WishAvg[filterIndex[index]].scoreAvg % 1 === 0)
-                                                                    ? WishAvg[filterIndex[index]].scoreAvg + '.0'
+                                                                ((WishAvg[filterIndex[index]].scoreAvg - Math.floor(WishAvg[filterIndex[index]].scoreAvg)) < 0.5)
+                                                                    ? Math.floor(WishAvg[filterIndex[index]].scoreAvg) + '.0'
                                                                     : Math.trunc(WishAvg[filterIndex[index]].scoreAvg * 10) / 10
                                                             )}
 
@@ -248,12 +248,12 @@ console.log(WishAvg);
                                                     <div className="room-pay">
                                                         {item.discount === 1 ? 
                                                             <>
-                                                                <span className='origin-price'>{WishAvg[filterIndex[index]]?.minPrice.toLocaleString()}원</span>
-                                                                <span className='final-price'>{(WishAvg[filterIndex[index]]?.minPrice - (WishAvg[filterIndex[index]]?.minPrice*0.1)).toLocaleString()}원<span>/1박</span></span>
+                                                                <span className='origin-price'>{wishArray[filterIndex[index]]?.minPrice.toLocaleString()}원</span>
+                                                                <span className='final-price'>{(wishArray[filterIndex[index]]?.minPrice - (wishArray[filterIndex[index]]?.minPrice*0.1)).toLocaleString()}원<span>/1박</span></span>
                                                             </>                                                    
                                                         :                                                    
                                                             <>
-                                                                <span className='final-price'>{WishAvg[filterIndex[index]]?.minPrice.toLocaleString()}원<span>/1박</span></span>
+                                                                <span className='final-price'>{wishArray[filterIndex[index]]?.minPrice.toLocaleString()}원<span>/1박</span></span>
                                                             </>
                                                         }
                                                         <button type='button' className='cart' onClick={()=>wishHandler(item.h_code)}>

@@ -9,7 +9,7 @@ import axios from "axios";
 export default function MyPage(){
     const {DayData,setSelectday,userEmail,loginSave,logout,setHeaderChange, MemberAllData, userNickName} = useContext(ResortDataContext);
     const {toggle,setModalContent} = useContext(ModalContext);
-    
+    // 2026-03-11
     //회원의 예약정보 가져오기
     const[myPage, setMyPage] = useState([]);
     //회원의 회원정보 가져오기
@@ -530,7 +530,7 @@ export default function MyPage(){
             {/* 예약내역 */}
             {listType === 1 && listView && detailView === 0 &&
             (<div className='reserVation_text'>
-                <h1 className='text_title'>예약 내역</h1>
+                <h1 className='text_title'>예약 내역 <span>※ 예약일자가 최신인 순으로 보여집니다. </span></h1>
                 <div className='reserVation_texts' style={{borderTop:'2px solid black'}}>
                     <div className="wish-wrap" onClick={()=>setCal(false)}>
                         <section className="reserVation-wrap">
@@ -559,7 +559,7 @@ export default function MyPage(){
                                                         item.cancel === 0 ? (
                                                         <Fragment key={item.re_code}>
                                                             <li style={{padding: '0',background: 'transparent',marginBottom: '10px'}}>
-                                                                <p className='room-title wish'>{item.reserved_at?.slice(0, 10)} 예약
+                                                                <p className='room-title wish'>{item.reserved_at?.slice(0, 10)}({['일','월','화','수','목','금','토'][new Date(item.reserved_at?.slice(0,10)).getDay()]}) 예약건
                                                                     <span className='del detail' onClick={()=>contentHandeler(item.re_code)}>상세보기 <i className="fa-solid fa-angle-right"></i></span>
                                                                     {item.check_in_date.slice(0,10) > today && ( 
                                                                         <span className='del' onClick={()=>{reserveCancel(item.re_code)}}><i className="fa-solid fa-ban" style={{color:'#f94239'}}></i> 취소하기</span>
@@ -637,7 +637,7 @@ export default function MyPage(){
                                                         item.cancel === 0 ? (
                                                         <Fragment key={item.re_code}>
                                                         <li style={{padding: '0',background: 'transparent',marginBottom: '10px'}}>
-                                                            <p className='room-title wish'>{item.reserved_at?.slice(0, 10)} 예약
+                                                            <p className='room-title wish'>{item.reserved_at?.slice(0, 10)}({['일','월','화','수','목','금','토'][new Date(item.reserved_at?.slice(0,10)).getDay()]}) 예약건
                                                                 <span className='del detail' onClick={()=>contentHandeler(item.re_code)}>상세보기 <i className="fa-solid fa-angle-right"></i></span>
                                                                 {item.check_in_date.slice(0,10) > today && ( 
                                                                     <span className='del' onClick={()=>{reserveCancel(item.re_code)}}><i className="fa-solid fa-ban" style={{color:'#f94239'}}></i> 취소하기</span>
@@ -882,7 +882,7 @@ export default function MyPage(){
             {/* 취소내역 */}
             {listType === 2 && listView && detailView === 0 &&
             (<div className='reserVation_text'>
-                <h1 className='text_title'>취소 내역</h1>
+                <h1 className='text_title'>취소 내역 <span>※ 취소일자가 최신인 순으로 보여집니다. </span></h1>
                 <div className='reserVation_texts' style={{borderTop:'2px solid black'}}>
                     <div className="wish-wrap" onClick={()=>setCal(false)}>
                         <section className="reserVation-wrap">
@@ -904,7 +904,7 @@ export default function MyPage(){
                                                     item.cancel !== 0 ? (
                                                     <Fragment key={item.re_code}>
                                                         <li style={{padding: '0',background: 'transparent',marginBottom: '10px'}}>
-                                                            <p className='room-title wish'>{item.cancel_date?.slice(0, 10)} 취소
+                                                            <p className='room-title wish'>{item.cancel_date?.slice(0, 10)}({['일','월','화','수','목','금','토'][new Date(item.cancel_date?.slice(0,10)).getDay()]}) 취소건
                                                                 <span className='del detail' onClick={()=>contentHandeler(item.re_code)}>상세보기 <i className="fa-solid fa-angle-right"></i></span>                                                           
                                                             </p>
                                                         </li>
@@ -937,7 +937,7 @@ export default function MyPage(){
                                                     item.cancel !== 0 ? (
                                                     <Fragment key={item.re_code}>
                                                     <li style={{padding: '0',background: 'transparent',marginBottom: '10px'}}>
-                                                        <p className='room-title wish'>{item.cancel_date?.slice(0, 10)} 취소
+                                                        <p className='room-title wish'>{item.cancel_date?.slice(0, 10)}({['일','월','화','수','목','금','토'][new Date(item.cancel_date?.slice(0,10)).getDay()]}) 취소건
                                                             <span className='del detail' onClick={()=>contentHandeler(item.re_code)}>상세보기 <i className="fa-solid fa-angle-right"></i></span>
                                                         </p>
                                                     </li>
