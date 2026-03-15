@@ -14,6 +14,7 @@ export default function AdminPage(){
     const [searchType, setSearchType] = useState("phone");
     const [searchKeyword, setSearchKeyword] = useState("");
     const [serch,setSerch] = useState("")
+    const [Num,setNum] = useState("")
     useEffect(()=>{
         axios.get('/api/member/list',{
             params: {
@@ -35,6 +36,17 @@ export default function AdminPage(){
             console.error("error", error)
         })
         console.log(page)
+
+
+        // 회원 총 수
+        axios.get('/api/member/getAllcount')
+        .then((res) => {
+            setNum(res.data);
+        })
+        .catch((error) => {
+            console.error("error", error)
+        })
+
     },[page,searchType,searchKeyword])
 
     const pages = [];
@@ -172,7 +184,8 @@ export default function AdminPage(){
                             <table className="list_table" >
                                 <thead >
                                     <tr className="table_head">
-                                        <th width="90px">Num</th>
+                                        <th width="90px">No.</th>
+                                        <th width="90px">회원번호</th>
                                         <th width="190px">E_mail</th>
                                         <th width="150px">전화번호</th>
                                         <th width="150px">생일</th>
@@ -190,15 +203,17 @@ export default function AdminPage(){
                                         const birth_Date = member_birth.toLocaleDateString('ko-KR')
                                         const member_reg = new Date(item.m_regDate)
                                         const reg_Date = member_reg.toLocaleString('ko-KR')
+                                        const num = Num - (10*(page-1)) - index
                                         return(
                                             <tr key={index} className="table_head">
+                                                <td>{num}</td>
                                                 <td>{item.m_code}</td>
                                                 <td>{item.m_email}</td>
                                                 <td>{item.m_phone}</td>
                                                 <td>{birth_Date}</td>
                                                 <td>{item.m_gender === 0? "남":"여"}</td>
                                                 <td>{item.m_nickName}</td>
-                                                <td>{item.m_coupon}</td>
+                                                <td>{item.m_coupon === 0? "미보유":"보유"}</td>
                                                 <td>{reg_Date}</td>
                                                 <td><Link to={`/memberUpdate/${item.m_code}`}><button className="table_btn" onClick>회원수정</button> </Link></td>
                                                 {/* <td><button type="button" onClick={()=>delHandler(item.m_email)} className="table_btn">회원삭제</button></td> */}

@@ -147,14 +147,14 @@ export default function NoticeUpdate(){
                             <table className="list_table"  style={{width:"800px"}}>
                                 <thead >
                                     <tr>
-                                        <th width="200px">n_title</th>
+                                        <th width="200px">제목</th>
                                         <th style={{backgroundColor:"#f6f8fc",color:"#333",borderBottom:"1px solid #ddd"}}>
                                             <input type="text" name="n_title" onChange={(e)=>setN_title(e.target.value)} style={{width:"500px",height:"40px"}}
                                             value={n_title === null? noticelist.n_title:n_title}/>
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th width="200px">n_content</th>
+                                        <th width="200px">내용</th>
                                         <th style={{backgroundColor:"#f6f8fc",color:"#333",height:"300px" ,borderBottom:"1px solid #ddd"}}>
                                             {/* <input type="" name="roomName" onChange={handleChange} /> */}
                                             <textarea name="n_content" id="n_content" cols="30" style={{height:"250px",width:"500px"}}
