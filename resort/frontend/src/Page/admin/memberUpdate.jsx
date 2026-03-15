@@ -8,7 +8,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function MemberUdate(){
 
+<<<<<<< HEAD
     const {userEmail, setRender, render ,MemberAllData} = useContext(ResortDataContext)
+=======
+    const {userEmail} = useContext(ResortDataContext)
+>>>>>>> c368be55f24757dc15f8b5052695bd9bfdeaadff
 
 
     const {m_code} = useParams();
