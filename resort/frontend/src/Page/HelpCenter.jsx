@@ -1091,7 +1091,7 @@ export default function HelpCenter(){
                                         <input type="button" onClick={modifyButton} value="수정하기" />
                                         {/* 삭제하기 눌렀을때 관리자가 아니면 비밀번호 입력 */}
                                         {!delState && userEmail !== "admin@resort.com" &&
-                                            <input type="button" onClick={deleteButton} value="삭제하기" />
+                                            <input type="button" onClick={()=>{deleteButton();setPassword();}} value="삭제하기" />
                                         }
                                         {/* 삭제하기 눌렀을때 관리자면 비밀번호 입력안해도 삭제 */}
                                         {!delState && userEmail === "admin@resort.com" &&
@@ -1140,9 +1140,8 @@ export default function HelpCenter(){
                                     </tr>
                                     <tr height="40">
                                         <td align="center" style={{ width: '150px' }}>비밀번호
-                                             {/* <span className='red'>(필수입력)</span> */}
                                         </td>
-                                        <td style={{ width: '450px' }}><input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} /></td>
+                                        <td style={{ width: '450px' }}><input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />{userEmail === "admin@resort.com" && <span style={{color:'#ff0000',lineHeight:'24px',fontSize:'14px'}}>* 관리자는 아무거나 한글자 이상 입력</span>}</td>
                                     </tr>
                                     <tr height="40">
                                         <td align="center" style={{ width: '150px' }}>글내용</td>
