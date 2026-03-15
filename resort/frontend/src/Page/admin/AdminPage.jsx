@@ -41,6 +41,7 @@ export default function AdminPage(){
         // 회원 총 수
         axios.get('/api/member/getAllcount')
         .then((res) => {
+            console.log("총원",res.data)
             setNum(res.data);
         })
         .catch((error) => {
