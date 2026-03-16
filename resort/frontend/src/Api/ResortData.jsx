@@ -32,7 +32,7 @@ export default function ResortData({children}){
         // HotelData
         axios.get('/api/hotel/context')
         .then((res) => {
-            // console.log("호텔 데이터 : ", res.data);
+            console.log("호텔 데이터 : ", res.data);
             setHotelData(res.data);
         })
         .catch((error) => {
@@ -62,7 +62,7 @@ export default function ResortData({children}){
         // ReviewRating
         axios.get('/api/board/rating')
         .then((res) => {
-            // console.log("객실(평점) 데이터 : ", res.data);
+             console.log("객실(평점) 데이터 : ", res.data);
             setRatingData(res.data);
         })
         .catch((error) => {
@@ -184,7 +184,7 @@ export default function ResortData({children}){
 
     const [selectMonth,setSelectMonth] = useState(()=>{
         const saved = localStorage.getItem('selectMonth')
-        //저장된 value가 있으면 복원, 없으면 빈 배열
+        //저장된 value가 없으면 복원, 없으면 기본 
         return saved ===null ?JSON.parse(saved): new Date("2026-03-01") 
     }) 
 

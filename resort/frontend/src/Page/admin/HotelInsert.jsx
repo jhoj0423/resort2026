@@ -87,6 +87,7 @@ export default function HotelInsert(){
         .then((res)=>{
             if(res.data === 1){
                 alert("호텔상품등록 성공")
+                window.scrollTo(0, 0)
                 navigate("/adminpage2")
             }
         })

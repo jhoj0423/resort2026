@@ -439,7 +439,7 @@ export default function Main(){
                             </>}
                         </div>
                         <i className="fa-solid fa-magnifying-glass searchIcon"></i>
-                        <button type='button' onClick={() => setOpenC(!openC)} className='calenertBtn'>
+                        <button type='button' onClick={() => {setOpenC(!openC),setSelectDay([])}} className='calenertBtn'>
                             <i className="fa-solid fa-calendar"></i>
                             <span style={{marginRight:'5px'}}>{DayData.length < 2 ? '일정을 선택해 주세요' : `${DayData[0]} - ${DayData[1]}`}</span>
                         </button>

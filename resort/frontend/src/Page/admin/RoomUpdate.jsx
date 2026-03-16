@@ -35,6 +35,7 @@ export default function RoomUpdate(){
         .then((res) => {
             console.log("수정 성공");
             alert("객실정보 수정이 완료되었습니다")
+            window.scrollTo(0, 0)
             navigate('/adminPage3'); 
         })
         .catch((error) => {

@@ -44,11 +44,15 @@
 	</select>
 	
 	<!-- 예약정보 리스트 -->
-	<select id="getResPagelist" resultType="ReservationDTO">
-		SELECT *FROM reservation r LEFT JOIN member m 
+	<select id="getResPagelist" resultType="ReservationMergeDTO">
+		SELECT * FROM reservation r LEFT JOIN member m 
 			on r.m_code = m.m_code 
 			LEFT JOIN guest g 
-			on r.g_code = g.g_code ORDER BY re_code DESC
+			on r.g_code = g.g_code
+            LEFT JOIN room rm
+            on rm.r_code = r.r_code
+            LEFT JOIN hotel h
+            on rm.h_code = h.h_code ORDER BY re_code DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 	
@@ -68,11 +72,15 @@
 			</where>
 		</select>
 	
-		<select id="getSearchResPageList" resultType="ReservationDTO">
+		<select id="getSearchResPageList" resultType="ReservationMergeDTO">
 			SELECT * FROM reservation r LEFT JOIN member m 
 			on r.m_code = m.m_code 
 			LEFT JOIN guest g 
 			on r.g_code = g.g_code
+            LEFT JOIN room rm
+            on rm.r_code = r.r_code
+            LEFT JOIN hotel h
+            on rm.h_code = h.h_code
 			<where>
 				<choose>
 					<when test="searchType == 'booker_name'">

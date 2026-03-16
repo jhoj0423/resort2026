@@ -35,6 +35,7 @@ export default function NoticeInsert(){
         .then((res)=>{
             if(res.data === 1){
                 alert("공지사항등록 성공")
+                window.scrollTo(0, 0)
                 navigate("/adminpage6")
             }
         })
