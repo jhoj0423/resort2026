@@ -221,6 +221,12 @@ public class MemberServiceImpl implements MemberService {
 
 	    return (updated == 1) ? user_pwMod_success : user_pwMod_fail;
 	}
+
+	@Override
+	public MemberDTO oneMember(int m_code) {
+		System.out.println("MemberServiceImpl : oneMember^(@-@)^ 메서드 확인");
+		return membermapper.oneMember(m_code);
+	}
 		
 	
 	

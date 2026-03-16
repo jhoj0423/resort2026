@@ -140,7 +140,7 @@ public class HotelApiController {
 			@RequestParam("h_s_Img3")MultipartFile h_s_Img3,
 			@RequestParam("h_s_Img4")MultipartFile h_s_Img4
 			) throws Exception{
-		System.out.println("자동차 등록 요청");
+		System.out.println("호텔등록 등록 요청메서드 insertHotel(%%%%%)");
 		
 		// JSON 문자열 → TestImgDTO 변환
         ObjectMapper mapper = new ObjectMapper();
@@ -241,6 +241,13 @@ public class HotelApiController {
 	public int adminupdatehotel(@RequestBody HotelDTO hdto) {
 		System.out.println("HotelApiController : adminupdatehotel() 메서드 확인");
 		return hotelService.updateHotel(hdto);
+	}
+	
+	// 호텔 상품의 총 개수
+	@GetMapping("/hotel/getAllCount")
+	public int gethotelAllCount() {
+		System.out.println("HotelApiController : gethotelAllCount() 메서드 확인");
+		return hotelService.getAllHotelcount();
 	}
 	
 }

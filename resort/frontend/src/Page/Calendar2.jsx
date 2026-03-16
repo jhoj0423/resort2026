@@ -333,7 +333,7 @@ export default function Calendar2(){
                 <button type="button" onClick={next} className="nextBtn calBtn"><i className="fa-solid fa-angle-right"></i></button>
                 <div className="line"></div>
                 <div className="choose_day">
-                    <p>{selectDate.length===2?`${selectDate[0]} 부터 - ${selectDate[1]} 까지`:'일정을 선택해 주세요'}</p>
+                    <p>{DayData.length===2?`${DayData[0]} 부터 - ${DayData[1]} 까지`:'일정을 선택해 주세요'}</p>
                 </div>
             </div>
             

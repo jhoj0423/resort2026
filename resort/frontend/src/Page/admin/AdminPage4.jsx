@@ -213,7 +213,7 @@ export default function AdminPage4(){
                                         <th width="180px">예약코드</th>
                                         <th width="50px">방코드</th>
                                         <th width="100px">예약자명</th>
-                                        <th width="50px">취소여부</th>
+                                        <th width="50px">예약상태</th>
                                         <th width="150px">취소시간</th>
                                         <th width="50px">상세보기</th>
                                         <th width="50px">예약수정</th>
@@ -278,7 +278,7 @@ export default function AdminPage4(){
                                                         <p><span>원가격</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].original_price.toLocaleString()}원</span></p>
                                                     </li>
                                                     <li>
-                                                        <p><span>쿠폰사용여부</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].coupon_used}</span></p>
+                                                        <p><span>쿠폰사용여부</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].coupon_used===0? "쿠폰 미사용": "쿠폰 사용"}</span></p>
                                                     </li>
                                                     <li>
                                                         <p><span>할인율</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].discount_rate}%</span></p>
