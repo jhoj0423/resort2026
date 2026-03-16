@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function RoomInsert(){
 
     const {userEmail,setRender,render ,HotelData} = useContext(ResortDataContext)
-    
+    const [hotelData,setHotelData] = useState([])
     const [room,setRoom] = useState({
         h_code:'',
         roomName:'',
@@ -20,8 +20,21 @@ export default function RoomInsert(){
     const [r_img,setR_img] = useState('')
     const navigate = useNavigate();
     //상품 들록하는 submit 함수
+
+    useEffect(()=>{
+        axios.get("/api/hotel/chkAllHotel")
+        .then((res)=>{
+            console.log(res.data)
+            setHotelData(res.data)
+        })
+        .catch((error)=>{
+            console.log("출력실패")
+        })
+    },[])
+
     const submitHandler=()=>{
-        if(HotelData.find((f)=>f.h_code === Number(room.h_code)) === undefined){
+        
+        if(hotelData.find((f)=>f.h_code === Number(room.h_code)) === undefined){
             alert("등록된 호텔중 해당하는 호텔이 존재하지 않습니다.");
             return;
         }
@@ -52,6 +65,7 @@ export default function RoomInsert(){
         .then((res)=>{
             if(res.data === 1){
                 alert("객실상품등록 성공")
+                window.scrollTo(0, 0)
                 navigate("/adminpage3")
             }
         })

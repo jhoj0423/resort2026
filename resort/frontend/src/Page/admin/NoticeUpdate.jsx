@@ -44,6 +44,7 @@ export default function NoticeUpdate(){
         .then((res) => {
             console.log("수정 성공");
             alert("공지사항이 수정이 완료되었습니다")
+            window.scrollTo(0, 0)
             navigate('/adminPage6'); 
         })
         .catch((error) => {

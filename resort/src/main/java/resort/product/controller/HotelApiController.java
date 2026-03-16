@@ -250,4 +250,9 @@ public class HotelApiController {
 		return hotelService.getAllHotelcount();
 	}
 	
+	@GetMapping("/hotel/chkAllHotel")
+	public List<HotelDTO> chkAllHotel(){
+		System.out.println("HotelApiController : gethotelAllCount() 메서드 확인");
+		return hotelService.chkAllHotel();
+	}
 }

@@ -34,11 +34,21 @@ export default function MyPage(){
     const [userGender, setUserGender] = useState(0);
     // 닉네임
     const [nickname, setNickname] = useState('');
+    // 변경 닉네임
+    const [changeNick, setChangeNick] = useState('');
 
     const navigate = useNavigate();
 
     // 리뷰 작성 성공
     const [reviewCom, setReviewCom] = useState(0);
+
+    const [nickChange, setNickChange] = useState(true);
+
+    const nickChangeHandler = (e) => {
+        setNickname(e.target.value)
+        setChangeNick(e.target.value)
+        setNickChange(false)
+    }
 
     useEffect(() => {    
         if (!userEmail) return;
@@ -55,11 +65,11 @@ export default function MyPage(){
 
         try{
             const res = await axios.put('/api/reservation/reviewStatusMod')
-            console.log('리뷰 업데이트 됐나?',res.data)
+            // console.log('리뷰 업데이트 됐나?',res.data)
             const res02 = await axios.get('/api/member/mypage', {
                 params: { m_email: userEmail }
             })
-            console.log("마이페이지 데이터 : ", res02.data);
+            // console.log("마이페이지 데이터 : ", res02.data);
             setMyPage(res02.data);
         }catch(error){
             console.error("error", error)
@@ -74,7 +84,7 @@ export default function MyPage(){
             params: { m_email: userEmail }
         })
         .then((res) => {
-            console.log("회원 데이터 : ", res.data);
+            // console.log("회원 데이터 : ", res.data);
             setMemberInfo(res.data);
             const phone = res.data.m_phone;
             const userNumFront = phone.substring(3, 7);
@@ -106,8 +116,8 @@ export default function MyPage(){
         }
         axios.put('/api/reservation/cancel',null,{params:{re_code:code}})
         .then((res) => {
-            console.log("-----------------------------------------");
-            console.log(res.data);
+            // console.log("-----------------------------------------");
+            // console.log(res.data);
             if(res.data === true){
                 alert("예약이 취소 되었습니다");
                 fetchMyPage();
@@ -123,7 +133,6 @@ export default function MyPage(){
         })
     }
     
-
     // 왼쪽 리스트 클릭시 컨텐츠 전환
     const [listType, setListType] = useState(1);
 
@@ -164,7 +173,7 @@ export default function MyPage(){
 
     //예약내역 필터링
     const activeList = myPage.filter(item => item.cancel === 0);
-    console.log('activeList', activeList)
+    // console.log('activeList', activeList)
     //취소내역 필터링
     const cancelList = myPage.filter(item => item.cancel === 1);
 
@@ -204,9 +213,9 @@ export default function MyPage(){
         return;
     }
 
-    console.log('-------------------------', dateFilter)
+    // console.log('-------------------------', dateFilter)
     const [dayClick, setDayClick] = useState(false); 
-    console.log('dayClick',dayClick)
+    // console.log('dayClick',dayClick)
     //------------------------------------------------------ 회원정보 수정관련
 
     // 마우스 변경
@@ -267,6 +276,29 @@ export default function MyPage(){
         })
     }
 
+    // 닉네임 중복확인 -> 닉네임이 존재하는지 체크
+    const [nickChk, setNickChk] = useState(null);
+
+    const nickNameChk = () => {
+        axios.get('/api/member/nicknameSel',{
+            params : {
+                m_nickName : nickname
+            }
+        })
+        .then((res) => {
+            console.log('닉네임 중복확인',res.data)
+            if(res.data === -3){
+                alert('이미 존재하는 닉네임입니다.')
+            }else{
+                alert('사용 가능한 닉네임입니다.')
+            }
+            setNickChk(res.data)
+        })
+        .catch((error) => {
+            console.error("error", error)
+        })
+    }
+
     // 정규식 .test() => ()안에있는게 앞의 조건에 맞으면 true를 반환 아니면 false를 반환
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     const isValidEmail = emailRegex.test(userMail);
@@ -284,16 +316,19 @@ export default function MyPage(){
     // 정보수정 시 버튼 활성화 조건
     useEffect(() => {
         if(
+            (nickChange || userNickName === changeNick) &&
             isValidEmail &&
             isAllowedDomain &&
             userPw_before.length >=8 &&
             ((userPw !== "" && userPw.length >= 8 )||userPw === "") && 
             userPwConfirm === userPw && 
+            (/^\d{4}$/.test(userNumFront) && /^\d{4}$/.test(userNumBack)) &&
             BirthYear.length >= 4 && 
             (1 <= m && m <= 12) &&
             (1 <= d && d <= 31) &&
             userGender !== '' &&
-            nickname !== ''
+            (nickname.length >= 2 && nickname.length <= 20) &&
+            nickChk !== -3
         ){
                 setIsDisabledSignup(false)
                 setMouseCursor(true)
@@ -301,7 +336,7 @@ export default function MyPage(){
                 setIsDisabledSignup(true)
                 setMouseCursor(false)
             }
-    }, [userMail, userPw, userPwConfirm, BirthYear, BirthMonth, BirthDate, userGender, nickname, userPw_before])
+    }, [userMail, userPw, userPwConfirm, userNumFront, userNumBack, BirthYear, BirthMonth, BirthDate, userGender, nickname, userPw_before, nickChk])
 
 
     const validatePwAlert_before = () => {
@@ -368,8 +403,8 @@ export default function MyPage(){
     const [rating, setRating] = useState(0);
     const [roomCode, setRoomCode] = useState(0);
     const [reviewIndex, setReviewIndex] = useState(0);
-    console.log('roomCode', roomCode)
-    console.log('reviewIndex', reviewIndex)
+    // console.log('roomCode', roomCode)
+    // console.log('reviewIndex', reviewIndex)
     
 
     const starHandler = (num) => {
@@ -424,7 +459,7 @@ export default function MyPage(){
             try{
                 const res = await axios.post('/api/board/reviewSend', {rb_score: rating, m_code : memberNum, r_code: roomCode, re_code : reviewIndex})
                 if(res.data === 1){
-                    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~',res.data)
+                    // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~',res.data)
                     setModalContent(<p style={{fontSize:'18px',fontWeight:'700'}}>리뷰를 작성해주셔서 감사합니다.</p>)
                     toggle();
                     const res02 = await axios.put('/api/reservation/resMod', null,{
@@ -432,7 +467,7 @@ export default function MyPage(){
                             re_code : reviewIndex
                         }
                     })
-                    console.log(res02.data)
+                    // console.log(res02.data)
                     setReviewCom(prev => prev + 1);
                     setStar1(false);
                     setStar2(false);
@@ -470,7 +505,7 @@ export default function MyPage(){
                     setModalContent(<p style={{fontSize:'18px',fontWeight:'700'}}>리뷰 수정에 실패하였습니다.</p>)
                     toggle();
                 }
-                console.log('리뷰?????????',res.data)
+                // console.log('리뷰?????????',res.data)
                 setReviewCom(prev => prev + 1);
                 setStar1(false);
                 setStar2(false);
@@ -495,10 +530,10 @@ export default function MyPage(){
         }
 
         const today = new Date().toLocaleDateString('sv-SE');
-        console.log('today', today)
+        // console.log('today', today)
 
-        console.log('myPagemyPage',myPage)
-        console.log('myPage[reviewIndex].rb_code', reviewIndex)
+        // console.log('myPagemyPage',myPage)
+        // console.log('myPage[reviewIndex].rb_code', reviewIndex)
     return(
         <div className="reserVation_container">
             {/* 왼쪽 메뉴 */}
@@ -1192,8 +1227,8 @@ export default function MyPage(){
                                 <label>전화번호<span style={{color:'red'}}> * 앞자리(010)는 고정입니다.</span></label><br/>
                                 <div className='signup2_sub'>
                                     <input type='text' id='usertel' name='usertel' value='010' disabled style={{color:'black'}} maxLength="3"/> <span>-</span>
-                                    <input type='text' id='usertelFront' name='usertel' placeholder='1234' value={userNumFront} onChange={(e) => setUserNumFront(e.target.value)} maxLength="4" /><span>-</span>
-                                    <input type='text' id='usertelBack' name='usertel' placeholder='5678' value={userNumBack} onChange={(e) => setUserNumBack(e.target.value)} maxLength="4" />
+                                    <input type='text' id='usertelFront' name='usertel' placeholder='1234' value={userNumFront} onChange={(e) => setUserNumFront(e.target.value)} minLength="4" maxLength="4" /><span>-</span>
+                                    <input type='text' id='usertelBack' name='usertel' placeholder='5678' value={userNumBack} onChange={(e) => setUserNumBack(e.target.value)} minLength="4" maxLength="4" />
                                 </div>
                             </div>
                             {/* 생년월일 */}
@@ -1216,7 +1251,10 @@ export default function MyPage(){
                             {/* 닉네임 */}
                             <div className='signup4'>
                                 <label htmlFor="nickname">닉네임<span style={{color:'red'}}> * 필수입력</span></label>
-                                <input type="text" id='nickname' name='nickname' value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder='2글자 이상 적어주세요' onBlur={validateNickNameAlert} />
+                                <div style={{display:'flex'}}>
+                                    <input type="text" id='nickname' name='nickname' value={nickname} onChange={nickChangeHandler} placeholder='2글자 이상 적어주세요' onBlur={validateNickNameAlert} />
+                                    <button type="button" className="nicknameCheckBtn" onClick={() => {nickNameChk(); setNickChange(true);}}>중복 확인</button>
+                                </div>
                             </div>
                             {/* 버튼 */}
                             <div className="buttons">

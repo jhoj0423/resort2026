@@ -69,6 +69,7 @@ export default function HotelUpdate(){
         .then((res) => {
             console.log("수정 성공");
             alert("호텔정보 수정이 완료되었습니다")
+            window.scrollTo(0, 0)
             navigate('/adminpage2'); 
         })
         .catch((error) => {

@@ -119,8 +119,6 @@ export default function Detail(){
     //호텔코드 비교
     const Room = RoomData.filter((item)=>item.h_code === Hotel.h_code);
 
-    console.log('rooooooooooooooooooom', Hotel);
-    console.log(Room)
 
     useEffect(() => {
         if(hotelRatingAvgData.length <= 0 || hotelRatingAvgData === null){
@@ -131,7 +129,6 @@ export default function Detail(){
         console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',a)
     },[hotelRatingAvgData,h_code])
 
-    console.log('12121212121211121122',hotelScore)
 
 
     //객실 전체 리뷰 데이터
@@ -144,9 +141,6 @@ export default function Detail(){
     //3번객실 전체 리뷰데이터
     const [RoomReview03, setRoomReview03Arr] = useState([]);
 
-console.log("///////////////////////////////////////")     
-console.log(RoomReviewArr)
-
     useEffect(() => {
         const RoomReview01 = roomReview?.filter((item) => item.r_code === Room[0]?.r_code) ?? [];
         const RoomReview02 = Room[1] ? roomReview?.filter(item => item.r_code === Room[1].r_code) : [];
@@ -155,9 +149,6 @@ console.log(RoomReviewArr)
         setRoomReview01Arr(RoomReview01);
         setRoomReview02Arr(RoomReview02);
         setRoomReview03Arr(RoomReview03);
-        console.log('RoomReview01',RoomReview01)
-        console.log('RoomReview02',RoomReview02)
-        console.log('RoomReview03',RoomReview03)
         
     },[roomReview,h_code])
 
@@ -482,8 +473,7 @@ console.log(RoomReviewArr)
         return <p>로딩중...</p>;
     }
 
-    console.log("hotelScore.hotelAvg~~~~~~~~~~~~~~~~~~~~~~~~~");
-    console.log(hotelScore.hotelAvg);
+
 
 
     const cityMap = {
@@ -509,7 +499,7 @@ console.log(RoomReviewArr)
     Paris: '프랑스, 파리'
     };
 
-
+    
     return(
         <div className="detail" onClick={()=>setCal(false)}>
             <section className="detail-wrap">
@@ -570,7 +560,7 @@ console.log(RoomReviewArr)
                                         (hotelScore.hotelAvg >= 4 && hotelScore.hotelAvg < 4.5) ? <img className='img2' src='/img/size20-4-0.png' alt="score" /> :
                                         (hotelScore.hotelAvg >= 4.5 && hotelScore.hotelAvg < 5) ? <img className='img2' src='/img/size20-4-5.png' alt="score" /> :
                                         <img className='img2' src='/img/size20-5-0.png' alt="score" />
-                                    }                                  
+                                    }
                                     <span className='starScore'>{(hotelScore.hotelAvg - Math.floor(hotelScore.hotelAvg) < 0.5) ?  Math.floor(hotelScore.hotelAvg)+'.0' : Math.trunc(hotelScore.hotelAvg * 10) / 10}</span>
                                     <span className='scoreCount'>{(hotelScore.scoreCount).toLocaleString()}명 평가</span>                                   
                                 </div>
@@ -688,7 +678,6 @@ console.log(RoomReviewArr)
                                                 :
                                                 ""
                                                 }
-                                            
                                         </div>
                                         <div className="room-right">
                                             <h2>{item.roomName}</h2>

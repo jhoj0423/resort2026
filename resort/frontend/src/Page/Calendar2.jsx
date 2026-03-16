@@ -277,7 +277,7 @@ export default function Calendar2(){
                                                 } table_num`}
                                             style={{
                                                 /* 현재 일자 이전 일자 색상 회색처리 - 비활성화 */
-                                                color:items<selectMonth.getDate()?'gray':item[0]===items?'red':'black',
+                                                color:/* items<selectMonth.getDate()?'gray': */item[0]===items?'red':'black',
                                                 cursor:items<selectMonth.getDate()?'default':'pointer',
                                                
                                             }}><span className="cal_num">{items}</span></td>

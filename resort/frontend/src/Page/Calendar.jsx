@@ -28,6 +28,7 @@ export default function Calendar(){
         console.log(thisyears)
         console.log(thisdate)
         console.log(thismonth)
+        setSelectday([])
         if(selectDate.length < 2 || (selectMonth.getMonth() === thismonth && selectDate.length === 2)){
             setSelectMonth(new Date(thisyears,thismonth,thisdate))
         }
