@@ -184,7 +184,7 @@ export default function ResortData({children}){
 
     const [selectMonth,setSelectMonth] = useState(()=>{
         const saved = localStorage.getItem('selectMonth')
-        //저장된 value가 있으면 복원, 없으면 빈 배열
+        //저장된 value가 없으면 복원, 없으면 기본 
         return saved ===null ?JSON.parse(saved): new Date("2026-03-01") 
     }) 
 
