@@ -726,6 +726,7 @@ export default function MyPage(){
                                                 {dayClick === true ? (DayData.length < 2 ? `${year}-${month+1}-${date+1}` : `${DayData[1]}`) : ('조회날짜를 설정해주세요.')}
                                             </span>
                                         </p>
+                                        {/*  */}
                                         <button type='button' onClick={ e =>{
                                             setCal((Cal === true) ? false : true);
                                             setDayClick(true);
