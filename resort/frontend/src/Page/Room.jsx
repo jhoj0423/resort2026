@@ -34,6 +34,9 @@ export default function Room(){
 
     const [test,setTest] = useState('ㅋㅋ')
     //검색어 한국어 , 영문으로 변환
+
+    // 호텔 input 아래 모달 상태변수
+    const [isInput, setIsInput] = useState(false);
    
     useEffect(() => {
         console.log('myhotel02@@@@@@@@@@@@@@@@', myhotel02.length)
@@ -200,32 +203,91 @@ export default function Room(){
     const year = new Date().getFullYear()
     const month = new Date().getMonth()
     const date = new Date().getDate()
-//
+
     // 검색어 입력한것 저장
     const townHandler =(e)=>{
         setTown(e.target.value)
     }
     
-
+    const closeUl1 = (e) => {
+        if (!e.target.closest('.hotelModal')) {
+            setIsInput(false);
+        }
+        if (!e.target.closest('.calenderWrap')) {
+            setOpenC(false);
+        } 
+        
+    }
 
     return(
         <>
           
-        <div className="Room_wrap" onClick={()=>setOpenC(false)}>
+        <div className="Room_wrap" onClick={closeUl1}>
             {/* 상품 메뉴영역 */}
             <div className="Room_section">
                 <div className="serch_box">
-                    <input type="text" placeholder="도시나 나라를 검색해주세요 ex)파리,속초" className="city_name" onChange={(e)=>townHandler(e)} value={town}/>
-                    <button type='button' onClick={(e) => {setOpenC(true);e.stopPropagation();}} style={{border:!openC?'2px solid #42799b55':'2px solid #7ED6E4'}} className='calenertBtn'>
-                        <i className="fa-solid fa-calendar" style={{color:!openC?'#42799b55':'#7ED6E4'}}></i>
-                        <span style={{marginRight:'5px'}}>{DayData.length < 2 ? '일정을 선택해 주세요': `${DayData[0]} - ${DayData[1]}`}</span>
-                    </button>
-                    <button type="button" className="serch_btn" onClick={()=>{serchHandler(),setOpenC(false)}}>검색하기</button>
-                    {openC && 
-                    <div className="calendar_box" onClick={(e) => {setOpenC(true);e.stopPropagation();}}>
-                        <Calendar/>
+                    <div className='hotelModal'>
+                        <input type="text" placeholder="도시나 나라를 검색해주세요 ex)파리,속초" className="city_name" onClick={() => setIsInput(true)} onChange={(e)=>townHandler(e)} value={town}/>
+                        {/* input 클릭시 나오는 순위 */}
+                        {isInput &&
+                        <>
+                            <ul className='rankBoxRoom'>
+                                <li className='rankBoxLiRoom'>
+                                    <span className='inputInfoMainRoom'>국내</span>
+                                </li>
+                                <li className='rankNameRoom' onClick={() => setTown('서울')}>서울</li>
+                                <li className='rankNameRoom' onClick={() => setTown('부산')}>부산</li>
+                                <li className='rankNameRoom' onClick={() => setTown('강릉')}>강릉</li>
+                                <li className='rankNameRoom' onClick={() => setTown('속초')}>속초</li>
+                                <li className='rankNameRoom' onClick={() => setTown('경주')}>경주</li>
+                                <li className='rankNameRoom' onClick={() => setTown('여수')}>여수</li>
+                                <li className='rankNameRoom' onClick={() => setTown('대전')}>대전</li>
+                                <li className='rankNameRoom' onClick={() => setTown('광주')}>광주</li>
+                                <li className='rankNameRoom' onClick={() => setTown('제주')}>제주</li>
+                                <li className='rankNameRoom' onClick={() => setTown('포항')}>포항</li>
+                                <li className='rankBoxLiRoom'>
+                                    <span className='inputInfoMainRoom'>해외</span>
+                                </li>
+                                <li className='rankBoxLiRoom'>
+                                    <span className='inputInfoRoom'>일본</span>
+                                </li>
+                                <li className='rankNameRoom' onClick={() => setTown('도쿄')}>도쿄</li>
+                                <li className='rankNameRoom' onClick={() => setTown('삿포로')}>삿포로</li>
+                                <li className='rankBoxLiRoom'>
+                                    <span className='inputInfoRoom' >미국</span>
+                                </li>
+                                <li className='rankNameRoom' onClick={() => setTown('로스앤젤레스')}>로스앤젤레스</li>
+                                <li className='rankNameRoom' onClick={() => setTown('뉴욕')}>뉴욕</li>
+                                <li className='rankNameRoom' onClick={() => setTown('괌')}>괌</li>
+                                <li className='rankBoxLiRoom'>
+                                    <span className='inputInfoRoom'>중국</span>
+                                </li>
+                                <li className='rankNameRoom' onClick={() => setTown('장가계')}>장가계</li>
+                                <li className='rankNameRoom' onClick={() => setTown('상하이')}>상하이</li>
+                                <li className='rankBoxLiRoom'>
+                                    <span className='inputInfoRoom'>이탈리아</span>
+                                </li>
+                                <li className='rankNameRoom' onClick={() => setTown('로마')}>로마</li>
+                                <li className='rankNameRoom' onClick={() => setTown('베네치아')}>베네치아</li>
+                                <li className='rankBoxLiRoom'>
+                                    <span className='inputInfoRoom'>프랑스</span>
+                                </li>
+                                <li className='rankNameRoom' onClick={() => setTown('파리')}>파리</li>
+                            </ul>
+                        </>}
                     </div>
-                    }
+                    <div className="calenderWrap">
+                        <button type='button' onClick={(e) => {setOpenC(true)}} style={{border:!openC?'2px solid #42799b55':'2px solid #7ED6E4'}} className='calenertBtn'>
+                            <i className="fa-solid fa-calendar" style={{color:!openC?'#42799b55':'#7ED6E4'}}></i>
+                            <span style={{marginRight:'5px'}}>{DayData.length < 2 ? '일정을 선택해 주세요': `${DayData[0]} - ${DayData[1]}`}</span>
+                        </button>
+                        <button type="button" className="serch_btn" onClick={()=>{serchHandler(),setOpenC(false)}}>검색하기</button>
+                        {openC && 
+                        <div className="calendar_box" onClick={(e) => {setOpenC(true);e.stopPropagation();}}>
+                            <Calendar/>
+                        </div>
+                        }
+                    </div>
                 </div>
                 {/* 상단 필터 영역 */}
                 <div className="filter_menu">
