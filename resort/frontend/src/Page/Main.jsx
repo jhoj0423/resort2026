@@ -181,31 +181,6 @@ export default function Main(){
         }
     }
 
-    // // num에 해당하는 번호를 누르면 그에 해당하는 지역이 input에 들어가는 함수
-    // const inputHandeler = (num) => {
-    //     if(num === 1){
-    //         setTown('서울')
-    //     }else if(num === 2){
-    //         setTown('부산')
-    //     }else if(num === 3){
-    //         setTown('강릉')
-    //     }else if(num === 4){
-    //         setTown('속초')
-    //     }else if(num === 5){
-    //         setTown('경주')
-    //     }else if(num === 6){
-    //         setTown('여수')
-    //     }else if(num === 7){
-    //         setTown('대전')
-    //     }else if(num === 8){
-    //         setTown('광주')
-    //     }else if(num === 9){
-    //         setTown('제주')
-    //     }else{
-    //         setTown('포항')
-    //     }
-    // }
-
     // input 인원수 함수
     const minusBtn = () => {
         if(guestCount > 1){
@@ -460,24 +435,6 @@ export default function Main(){
                                     <li className='rankName' onClick={() => setTown('파리')}>파리</li>
                                 </ul>
                             </>}
-                            {/* {isInput &&
-                            <>
-                                <ul className='rankBox'>
-                                    <li className='rankBoxLi'>
-                                        <span className='inputInfo'>EcoStay 검색 순위</span>
-                                    </li>
-                                    {cityRanking.map((item) => (
-                                    <li className='rankBoxLi' key={item.id} >
-                                        <span className='countryInRank' onClick={() => inputHandeler(item.id)}>
-                                            {item.id}
-                                        </span>
-                                        <span className='rankName' onClick={() => inputHandeler(item.id)}>
-                                            {item.localName}
-                                        </span>
-                                    </li>
-                                    ))}
-                                </ul>
-                            </>} */}
                         </div>
                         <i className="fa-solid fa-magnifying-glass searchIcon"></i>
                         <button type='button' onClick={() => setOpenC(!openC)} className='calenertBtn'>
@@ -527,7 +484,7 @@ export default function Main(){
                     <i className="fa-solid fa-angle-right"></i>
                 </button>
                 {eventBennerImg.slice(eventImgS,eventImgE).map((item, index) => (
-                    <Link to='/helpCenter' onClick={() => {window.scrollTo(0,0); setListType(2);}}>
+                    <Link to='/helpCenter' onClick={() => {window.scrollTo(0,0); setListType(2);}} key={index}>
                         <img src={item} alt='eventBennerImg' className='event' key={index} />
                     </Link>
                 ))}

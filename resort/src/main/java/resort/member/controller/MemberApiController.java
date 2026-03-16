@@ -206,4 +206,12 @@ public class MemberApiController {
 		System.out.println("MemberApiController : oneMember 요청됨");
 		return memberservice.oneMember(m_code);
 	}
+	
+	// 03-16 수정
+	// 닉네임 중복 확인
+	@GetMapping("/member/nicknameSel")
+	public int nickSel(@RequestParam("m_nickName") String m_nickName) {
+		System.out.println("MemberApiController : nickSel 요청됨");
+		return memberservice.nickSel(m_nickName);
+	}
 }

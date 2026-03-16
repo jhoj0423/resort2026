@@ -12,6 +12,105 @@
     margin-left: 10px;
     width: 650px;
 }
+/* ------------------------------------------------------------------------------------------ */
+
+/* hotelModal 기준점 만들기 */
+.Room_wrap .Room_section .hotelModal{
+    position: relative;
+}
+
+/* 검색창 ul */
+.Room_wrap .Room_section .hotelModal .rankBoxRoom{
+    position: absolute;
+    top: calc(100% + 47px);
+    left: 0;
+    width: 260px;
+    max-height: 430px;
+    margin: 0;
+    padding: 18px 12px 18px 18px;
+    list-style: none;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    box-sizing: border-box;
+    z-index: 9999;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    /* scrollbar-width: thin; */
+}
+
+/* 스크롤바 스타일 */
+.Room_wrap .Room_section .hotelModal .rankBoxRoom::-webkit-scrollbar{
+    width: 6px;
+}
+
+.Room_wrap .Room_section .hotelModal .rankBoxRoom::-webkit-scrollbar-thumb{
+    background: #a3a3a3;
+    border-radius: 999px;
+}
+
+.Room_wrap .Room_section .hotelModal .rankBoxRoom::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+/* 섹션 제목 li */
+.Room_wrap .Room_section .hotelModal .rankBoxRoom .rankBoxLiRoom{
+    width: 100%;
+    padding: 0;
+    margin: 18px 0 8px;
+}
+
+.Room_wrap .Room_section .hotelModal .rankBoxRoom .rankBoxLiRoom:first-child{
+    margin-top: 0;
+}
+
+/* 국내 / 해외 / 일본 같은 제목 */
+.Room_wrap .Room_section .hotelModal .rankBoxRoom .rankBoxLiRoom .inputInfoRoom{
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 700;
+    color: #256085;
+    margin: 10px;
+    line-height: 1.4;
+}
+.Room_wrap .Room_section .hotelModal .rankBoxRoom .rankBoxLiRoom .inputInfoMainRoom{
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 700;
+    color: #113a53;
+    margin-left: 10px;
+    line-height: 1.4;
+}
+
+/* 도시명 */
+.Room_wrap .Room_section .hotelModal .rankBoxRoom .rankNameRoom{
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    margin: 0;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #111;
+    box-sizing: border-box;
+    transition: background-color 0.2s;
+}
+
+/* 검색창 클릭시 나오는 지역 css */
+.Room_wrap .Room_section .hotelModal .rankBoxRoom .rankNameRoom{
+    cursor: pointer;
+}
+
+/* hover */
+.Room_wrap .Room_section .hotelModal .rankBoxRoom .rankNameRoom:hover{
+    background-color: #f5f7fa;
+    color: #42799b;
+    font-weight: 600;
+}
+
+
+/* ------------------------------------------------------------------------------------------- */
+
 .Room_section .serch_box .serch_btn{
     height: 40px;
     margin-left: 5px;

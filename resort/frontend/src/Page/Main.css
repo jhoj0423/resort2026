@@ -63,6 +63,7 @@
     justify-content: space-between;
     position: relative;
 }
+
 .main_container .mainImgBenner .hotelSearch .hotelInput #citySearch{
     width: 400px;
     height: 50px;
@@ -80,53 +81,6 @@
 .main_container .mainImgBenner .hotelSearch .hotelInput #citySearch:hover::placeholder{
     color: #505050;
 }
-/* .rankBox{
-    width: 280px;
-    max-height: 420px;
-    overflow-y: auto;
-    list-style: none;
-    padding: 15px;
-    margin: 0;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px 10px;
-} */
-
-/* 섹션 제목 */
-/* .rankBoxLi{
-    grid-column: 1 / -1;
-    margin-top: 12px;
-}
-
-.rankBoxLi:first-child{
-    margin-top: 0;
-}
-
-.inputInfo{
-    font-size: 13px;
-    font-weight: 600;
-    color: #888;
-} */
-
-/* 도시 이름 */
-/* .rankName{
-    font-size: 14px;
-    padding: 6px 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
-} */
-
-/* hover */
-/* .rankName:hover{
-    background: #f5f5f5;
-    color: #ff5a5f;
-    font-weight: 500;
-} */
 
 /* hotelInput 기준점 만들기 */
 .main_container .mainImgBenner .hotelSearch .hotelInput{
@@ -224,11 +178,6 @@
 }
 
 /* 검색창 순위 */
-/* .main_container .mainImgBenner .hotelSearch .hotelInput .rankBox .rankBoxLi .countryInRank{
-    padding-right: 30px;
-    width: 50px;
-    display: inline-block;
-} */
 .main_container .mainImgBenner .hotelSearch .hotelInput .Search_Btn{
     width: 100px;
     height: 50px;
