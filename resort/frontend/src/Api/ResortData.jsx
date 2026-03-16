@@ -176,6 +176,7 @@ export default function ResortData({children}){
         //저장된 value가 있으면 복원, 없으면 빈 배열
         return saved ? JSON.parse(saved) : []
     })
+    //
 
     useEffect(()=>{
         localStorage.setItem('selectday',JSON.stringify(selectday))
@@ -186,11 +187,18 @@ export default function ResortData({children}){
         const saved = localStorage.getItem('selectMonth')
         //저장된 value가 없으면 복원, 없으면 기본 
         return saved ===null ?JSON.parse(saved): new Date("2026-03-01") 
+        //return saved !== null ?JSON.parse(saved): new Date("2026-03-01") 
     }) 
 
     useEffect(()=>{
         localStorage.setItem('selectMonth',JSON.stringify(selectMonth));
     },[selectMonth]) 
+
+
+    // 로그인 한 후 닉네임 저장
+    const [userNickName, setUserNickName] = useState(null);
+    // 로그인 한 후 이메일 저장
+    const [userEmail, setUserEmail] = useState(null);
 
     //모달 프로바이더
     const {toggle,setModalContent} = useContext(ModalContext);
@@ -199,34 +207,75 @@ export default function ResortData({children}){
     const [wish, setWish] = useState([]);
 
     useEffect(()=>{
+
         //찜목록 불러오기
-        let wishList = JSON.parse(cookie.get('wishList') || '[]');          
+        let wishList;
+        try{
+            wishList = JSON.parse(cookie.get('wishList') || '[]');
+        }catch{
+            wishList = [];
+        }          
         let now = Date.now();
         wishList = wishList.filter(item=>item.expires > now);
-        cookie.set('wishList', JSON.stringify(wishList), {expires: 7, path:'/'});
-        setWish(wishList);
+        
+        const userEmailValue = userEmail ?? null;
+
+        // 이메일 기준 필터
+        const filtered = wishList.filter(item => item.email === userEmailValue);
+
+        setWish(filtered);
+
+        //cookie.set('wishList', JSON.stringify(wishList), {expires: 7, path:'/'});
+        //setWish(wishList);
         //console.log(wishList.length);
-    },[]);
+    },[userEmail]);
     //console.log(wish);
 
     //찜목록 쿠키 저장 및 삭제
     const wishHandler = (h_code) =>{
-        let wishList = JSON.parse(cookie.get('wishList') || '[]');          
+        let wishList;
+        try{
+            wishList = JSON.parse(cookie.get('wishList') || '[]');
+        }catch{
+            wishList = [];
+        }        
         let now = Date.now();
 
         wishList = wishList.filter(item=>item.expires > now);
 
-        //이미 추가된 아이디가 있으면 삭제
+        const userEmailValue = userEmail ?? null;
+
+        //이미 추가된 호텔이 있으면 삭제
         for(let i=0; i<wishList.length; i++){
-            if(wishList[i].h_code === Number(h_code)){
-                wishList = wishList.filter((item)=>item.h_code !== Number(h_code));
+            if(
+                wishList[i].h_code === Number(h_code) &&
+                wishList[i].email === userEmailValue
+            ){
+                wishList = wishList.filter(
+                    (item)=> !(item.h_code === Number(h_code) && item.email === userEmailValue)
+                );
+
                 cookie.set('wishList', JSON.stringify(wishList), {expires: 7, path:'/'});
-                setWish(wishList);
+
+                const filtered = wishList.filter(item => item.email === userEmailValue);
+                setWish(filtered);
+                //setWish(wishList);
                 return;
             }
         }
-        //갯수 50개 제한
-        if(wishList.length > 50){
+        // for(let i=0; i<wishList.length; i++){
+        //     if(wishList[i].h_code === Number(h_code)){
+        //         wishList = wishList.filter((item)=>item.h_code !== Number(h_code));
+        //         cookie.set('wishList', JSON.stringify(wishList), {expires: 7, path:'/'});
+        //         setWish(wishList);
+        //         return;
+        //     }
+        // }
+
+        const userWishCount = wishList.filter(item => item.email === userEmailValue).length;
+
+        //갯수 30개 제한
+        if(userWishCount >= 30){
             setModalContent(
                 <>
                     <p className='icon' style={{border: '0',
@@ -247,7 +296,7 @@ export default function ResortData({children}){
                         fontWeight: '700',
                         color: '#000',
                         margin: '15px 0 11px'
-                    }}>찜은 50개까지 추가 가능합니다.</p>
+                    }}>찜은 30개까지 추가 가능합니다.</p>
                 </>
             );
             toggle();
@@ -256,10 +305,15 @@ export default function ResortData({children}){
         
         //7일간 보관(추가한 리스트 개별로)
         const EXPIRE_DAYS = 7;
-        wishList.push({h_code: Number(h_code), expires: now + EXPIRE_DAYS*24*60*60*1000});
+        wishList.push({h_code: Number(h_code), expires: now + EXPIRE_DAYS*24*60*60*1000, email: userEmailValue});
+
+        // cookie.set('wishList', JSON.stringify(wishList), {expires: EXPIRE_DAYS, path:'/'});   
+        // setWish(wishList);
 
         cookie.set('wishList', JSON.stringify(wishList), {expires: EXPIRE_DAYS, path:'/'});   
-        setWish(wishList);
+
+        const filtered = wishList.filter(item => item.email === userEmailValue);
+        setWish(filtered);
     }
 
     //찜목록 h_code불러온후 해당 호텔정보 배열로 저장
@@ -350,10 +404,7 @@ export default function ResortData({children}){
     
     
         //console.log(wishArray);
-        // 로그인 한 후 닉네임 저장
-        const [userNickName, setUserNickName] = useState(null);
-        // 로그인 한 후 이메일 저장
-        const [userEmail, setUserEmail] = useState(null);
+        
 
         useEffect(() => {
             const saveNickName = sessionStorage.getItem('userNickName');

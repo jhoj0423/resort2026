@@ -119,8 +119,6 @@ export default function Detail(){
     //호텔코드 비교
     const Room = RoomData.filter((item)=>item.h_code === Hotel.h_code);
 
-    console.log('rooooooooooooooooooom', Hotel);
-    console.log(Room)
 
     useEffect(() => {
         if(hotelRatingAvgData.length <= 0 || hotelRatingAvgData === null){
@@ -131,7 +129,6 @@ export default function Detail(){
         console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',a)
     },[hotelRatingAvgData,h_code])
 
-    console.log('12121212121211121122',hotelScore)
 
 
     //객실 전체 리뷰 데이터
@@ -144,9 +141,6 @@ export default function Detail(){
     //3번객실 전체 리뷰데이터
     const [RoomReview03, setRoomReview03Arr] = useState([]);
 
-console.log("///////////////////////////////////////")     
-console.log(RoomReviewArr)
-
     useEffect(() => {
         const RoomReview01 = roomReview?.filter((item) => item.r_code === Room[0]?.r_code) ?? [];
         const RoomReview02 = Room[1] ? roomReview?.filter(item => item.r_code === Room[1].r_code) : [];
@@ -155,9 +149,6 @@ console.log(RoomReviewArr)
         setRoomReview01Arr(RoomReview01);
         setRoomReview02Arr(RoomReview02);
         setRoomReview03Arr(RoomReview03);
-        console.log('RoomReview01',RoomReview01)
-        console.log('RoomReview02',RoomReview02)
-        console.log('RoomReview03',RoomReview03)
         
     },[roomReview,h_code])
 
@@ -482,8 +473,7 @@ console.log(RoomReviewArr)
         return <p>로딩중...</p>;
     }
 
-    console.log("hotelScore.hotelAvg~~~~~~~~~~~~~~~~~~~~~~~~~");
-    console.log(hotelScore.hotelAvg);
+
 
 
     const cityMap = {
@@ -509,7 +499,7 @@ console.log(RoomReviewArr)
     Paris: '프랑스, 파리'
     };
 
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',RatingAvgData)
+    
     return(
         <div className="detail" onClick={()=>setCal(false)}>
             <section className="detail-wrap">
@@ -1108,20 +1098,20 @@ console.log(RoomReviewArr)
                         }
                         <div className="hotel-day">
                             <p className='day-wrap'>
-                                <span className='day-tit'>예약일</span>
+                                <span className='day-tit'>체크인</span>
                                 <span className='day-txt'>{DayData.length < 2 ? `일정을 선택해주세요.` : `${DayData[0]}`}</span>
                             </p>
                             <p className='day-wrap'>
-                                <span className='day-tit'>종료일</span>
+                                <span className='day-tit'>체크아웃</span>
                                 <span className='day-txt'>{DayData.length < 2 ? `일정을 선택해주세요.` : `${DayData[1]}`}</span>
                             </p>
                             <button type='button' onClick={ e =>{
                                 setCal((Cal === true) ? false : true);
                                 e.stopPropagation();
-                            }}>예약일 변경</button>
+                            }}>숙박일 변경</button>
                         </div>
                         <div className="hotel-headcount">
-                            <p className='head-tit'>예약인원 선택</p>
+                            <p className='head-tit'>투숙인원 선택</p>
                             <div className="head-select">
                                 <span className='head-txt'>인원</span>
                                 <div className="btns">

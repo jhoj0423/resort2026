@@ -345,7 +345,8 @@ button{
 }
 .detail-wrap .detail-content .detail-left .room-select .empty-room{
     text-align: center;
-    padding-top: 24px;
+    /* padding-top: 24px; */
+    padding-top: 90px;
 }
 .detail-wrap .detail-content .detail-left .room-select .empty-room .x-icon{
     border: 0;
@@ -372,7 +373,8 @@ button{
     color: #707070;
     font-weight: 600;
     letter-spacing: -0.5px;
-    padding-bottom: 55px;
+    /* padding-bottom: 55px; */
+    padding-bottom: 125px;
 }
 .detail-wrap .detail-content .detail-left .room-select .empty-room .empty-bottom{
     text-align: left;
