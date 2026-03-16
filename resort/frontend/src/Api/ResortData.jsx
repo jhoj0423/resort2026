@@ -32,7 +32,7 @@ export default function ResortData({children}){
         // HotelData
         axios.get('/api/hotel/context')
         .then((res) => {
-            // console.log("호텔 데이터 : ", res.data);
+            console.log("호텔 데이터 : ", res.data);
             setHotelData(res.data);
         })
         .catch((error) => {
