@@ -345,7 +345,7 @@ export default function Room(){
                             const otherService01 = JSON.parse(item.otherservice);
                             const publicService01 = JSON.parse(item.publicservice);
                             const roomservice01 = JSON.parse(item.roomservice);
-
+                            const star = HotelRatingDate.filter((f)=>f.r_h_code === item.h_code)
                             return(
                                 <>
                                     <li key={item.h_code} className="room_list">
@@ -359,7 +359,8 @@ export default function Room(){
                                                 {item.city === 'Sokcho'?'대한민국, 강원도 속초시':item.city === 'Gyeongju'?'대한민국, 경상북도 경주시':item.city === 'Busan'?'대한민국, 부산시':item.city === 'Gangneung'?'대한민국, 강원도 강릉시':item.city === 'Yeosu'?'대한민국, 전라남도 여수시':item.city === 'Daejeon'?'대한민국, 대전시':item.city === 'Gwangju'?'대한민국, 광주시':item.city === 'Jeju'?'대한민국, 제주도':item.city === 'Pohang'?'대한민국, 경상북도 포항시':item.city === 'Seoul'?'대한민국, 서울시':item.city === 'Tokyo'?'일본, 도쿄':item.city === 'Sapporo'?'일본, 훗카이도 삿포로':item.city === 'LosAngeles'?'미국, 캘리포니아 로스앤젤레스':item.city === 'New York'?'미국, 뉴욕':item.city === 'Guam'?'미국, 괌':item.city === 'Zhangjiajie'?'중국, 후난성 장가계':item.city === 'Shanghai'?'중국, 상하이':item.city === 'Rome'?'이탈리아, 로마':item.city === 'Venice'?'이탈리아, 베네치아':item.city === 'Paris'?'프랑스, 파리':null}
                                             </p>
                                             <p className="menu_score"><i className="fa-solid fa-star" style={{lineHeight:'12px'}}></i> 
-                                            {HotelRatingDate[item.h_code-1]===undefined?0: (HotelRatingDate[item.h_code-1].h_rating - Math.floor(HotelRatingDate[item.h_code-1].h_rating) === 0) ? HotelRatingDate[item.h_code-1].h_rating+'.0' : Math.trunc((HotelRatingDate[item.h_code-1].h_rating) * 10) / 10 }점</p>
+                                            {/* {HotelRatingDate[item.h_code-1]===undefined?0: (HotelRatingDate[item.h_code-1].h_rating - Math.floor(HotelRatingDate[item.h_code-1].h_rating) === 0) ? HotelRatingDate[item.h_code-1].h_rating+'.0' : Math.trunc((HotelRatingDate[item.h_code-1].h_rating) * 10) / 10 }점</p> */}
+                                            {star[0]?.h_rating===undefined?0:star[0]?.h_rating}점</p>
                                             
                                             <div className="service_list">
                                                 <p style={{marginBottom:'10px'}}>

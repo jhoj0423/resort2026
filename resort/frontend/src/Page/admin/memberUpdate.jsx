@@ -57,6 +57,7 @@ export default function MemberUdate(){
             alert("이미 존재하는 전화번호입니다.")
         }else{
             alert("회원정보 수정이 완료되었습니다")
+            window.scrollTo(0, 0)
             navigate('/adminpage');
         }
     }

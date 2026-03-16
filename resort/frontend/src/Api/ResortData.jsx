@@ -32,7 +32,7 @@ export default function ResortData({children}){
         // HotelData
         axios.get('/api/hotel/context')
         .then((res) => {
-            // console.log("호텔 데이터 : ", res.data);
+            console.log("호텔 데이터 : ", res.data);
             setHotelData(res.data);
         })
         .catch((error) => {
@@ -62,7 +62,7 @@ export default function ResortData({children}){
         // ReviewRating
         axios.get('/api/board/rating')
         .then((res) => {
-            // console.log("객실(평점) 데이터 : ", res.data);
+             console.log("객실(평점) 데이터 : ", res.data);
             setRatingData(res.data);
         })
         .catch((error) => {

@@ -10,7 +10,7 @@ export default function Main(){
     // 호텔, 객실데이터 useContext로 가져오는 훅
     const {setSelectMonth, 
         hotelMerge, HotelData, hotelRatingAvgData, setListType,
-        DayData, setDayData,town,setTown,serchHandler, wish, wishHandler,cityEn,countryEn,dateFilter,setDateFilter,townfilter, guestCount, setGuestCount} = useContext(ResortDataContext);
+        DayData, setDayData,town,setTown,serchHandler, wish, wishHandler,cityEn,countryEn,dateFilter,setDateFilter,townfilter, guestCount, setGuestCount,setSelectDay} = useContext(ResortDataContext);
 
 
     // 호텔 input 아래 모달 상태변수
@@ -480,7 +480,7 @@ export default function Main(){
                             </>} */}
                         </div>
                         <i className="fa-solid fa-magnifying-glass searchIcon"></i>
-                        <button type='button' onClick={() => setOpenC(!openC)} className='calenertBtn'>
+                        <button type='button' onClick={() => {setOpenC(!openC),setSelectDay([])}} className='calenertBtn'>
                             <i className="fa-solid fa-calendar"></i>
                             <span style={{marginRight:'5px'}}>{DayData.length < 2 ? '일정을 선택해 주세요' : `${DayData[0]} - ${DayData[1]}`}</span>
                         </button>

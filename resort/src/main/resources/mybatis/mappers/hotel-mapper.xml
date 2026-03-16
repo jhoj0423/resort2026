@@ -123,5 +123,9 @@
 		UPDATE hotel SET hotelName =#{hotelName},country =#{country},city =#{city},type =#{type},h_address =#{h_address},discount =#{discount},startDate =#{startDate},
 		endDate =#{endDate},roomservice =#{roomservice},publicservice =#{publicservice},otherservice =#{otherservice} WHERE h_code =#{h_code}
 	</update>
-
+	
+	<!-- 호텔 정보가 있는지 확인을 위한 전체 -->
+	<select id="chkAllHotel" resultType="HotelDTO">
+		SELECT * FROM hotel
+	</select>
 </mapper>
