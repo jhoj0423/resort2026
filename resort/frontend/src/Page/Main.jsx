@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import Calendar from './Calendar';
 
 export default function Main(){    
-    // 2026-03-04 병합
+    // 2026-03-16 병합
     // 호텔, 객실데이터 useContext로 가져오는 훅
     const {setSelectMonth, 
         hotelMerge, HotelData, hotelRatingAvgData, setListType,
