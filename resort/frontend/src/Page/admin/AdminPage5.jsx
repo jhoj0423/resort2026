@@ -174,7 +174,7 @@ export default function AdminPage5(){
                             <table className="list_table" >
                                 <thead >
                                     <tr className="table_head">
-                                        <th style={{width:"5%"}}>Num</th>
+                                        <th style={{width:"5%"}}>No.</th>
                                         <th style={{width:"40%"}}>제목</th>
                                         <th style={{width:"20%"}}>작성자명</th>
                                         <th style={{width:"15%"}}>작성일자</th>
