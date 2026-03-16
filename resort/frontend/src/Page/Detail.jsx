@@ -1109,20 +1109,20 @@ console.log(RoomReviewArr)
                         }
                         <div className="hotel-day">
                             <p className='day-wrap'>
-                                <span className='day-tit'>예약일</span>
+                                <span className='day-tit'>체크인</span>
                                 <span className='day-txt'>{DayData.length < 2 ? `일정을 선택해주세요.` : `${DayData[0]}`}</span>
                             </p>
                             <p className='day-wrap'>
-                                <span className='day-tit'>종료일</span>
+                                <span className='day-tit'>체크아웃</span>
                                 <span className='day-txt'>{DayData.length < 2 ? `일정을 선택해주세요.` : `${DayData[1]}`}</span>
                             </p>
                             <button type='button' onClick={ e =>{
                                 setCal((Cal === true) ? false : true);
                                 e.stopPropagation();
-                            }}>예약일 변경</button>
+                            }}>숙박일 변경</button>
                         </div>
                         <div className="hotel-headcount">
-                            <p className='head-tit'>예약인원 선택</p>
+                            <p className='head-tit'>투숙인원 선택</p>
                             <div className="head-select">
                                 <span className='head-txt'>인원</span>
                                 <div className="btns">

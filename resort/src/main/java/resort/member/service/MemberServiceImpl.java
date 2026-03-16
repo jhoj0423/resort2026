@@ -229,5 +229,21 @@ public class MemberServiceImpl implements MemberService {
 	}
 		
 	
+	@Override
+	public int phoneCheck(String m_phone) {
+		System.out.println("MemberServiceImpl : phoneCheck() 메서드 확인");
+		
+		//회원가입 중복체크 (true면 중복, false면 중복X)
+		boolean isMemberPhone = membermapper.isMemberPhone(m_phone);
+
+
+		//회원가입 중복체크 통과했다면
+		if(isMemberPhone == false) {
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+	
 	
 }

@@ -715,30 +715,26 @@ export default function MyPage(){
                                     }
                                     <div className="hotel-day" >
                                         <p className='day-wrap'>
-                                            <span className='day-tit'>예약일</span>
-                                            {/* <span className='day-txt'>{DayData.length < 2 ? `${year}-${month+1}-${date}` : `${DayData[0]}`}</span> */}
-                                            <span className='day-txt'>{dayClick === true ? (DayData.length < 2 ? `${year}-${month+1}-${date}` : `${DayData[0]}`) : ('조회날짜를 설정해주세요.')}</span>
-                                        </p>
-                                        <p className='day-wrap'>
-                                            <span className='day-tit'>예약일</span>
-                                            <span className='day-txt'>
-                                                {/* <span className='day-txt'>{DayData.length < 2 ? `${year}-${month+1}-${date + 1}` : `${DayData[1]}`}</span> */}
-                                                {dayClick === true ? (DayData.length < 2 ? `${year}-${month+1}-${date+1}` : `${DayData[1]}`) : ('조회날짜를 설정해주세요.')}
+                                            {dayClick === true ?
+                                            <span className='day-txt'><i style={{color:'#6f6f6f'}} className="fa-solid fa-calendar"></i> 
+                                                {DayData.length < 2 ? `${year}-${month+1}-${date}` : `${DayData[0]}`} ~ {DayData.length < 2 ? `${year}-${month+1}-${date+1}` : `${DayData[1]}`}
                                             </span>
+                                            : <span className='day-txt'><i style={{color:'#6f6f6f'}} className="fa-solid fa-calendar"></i> 조회할 기간을 설정해주세요.</span>}
                                         </p>
                                         {/*  */}
-                                        <button type='button' onClick={ e =>{
+                                        <button type='button' style={{width:'60%'}} onClick={ e =>{
                                             setCal((Cal === true) ? false : true);
                                             setDayClick(true);
                                             setSelectday([]);
                                             e.stopPropagation();
                                         }}>조회기간 설정</button>
+                                        <button type='button' style={{width:'37%',marginLeft:'6px'}} className='search' onClick={()=>{setDayClick(false);setListType(1);setListView(true);setDetailView(0);setSearch(false);setCal(false);}}><i className="fa-solid fa-arrow-rotate-right"></i> 초기화</button>
                                     </div>
                                     <div className="hotel-headcount">
                                         <button type='button' className='search' onClick={()=>{searchClick();setCal(false);}}>조회하기</button>
                                     </div>
                                     <div className="reserve-select">
-                                        <p className='select-tit'>검색 전 참고사항</p>
+                                        <p className='select-tit'>조회 전 참고사항</p>
                                         <p className='select-txt'>· 조회기간을 설정하시기 전에는 모든 예약내역이 보여집니다.</p>
                                         <p className='select-txt'>· 예약내역 조회는 숙박일 기준이 아닌, <span className='bold'>예약일(결제일)</span>을 기준으로 검색해주시기 바랍니다.</p>
                                     </div>
@@ -978,30 +974,28 @@ export default function MyPage(){
                                         </div>
                                     }
                                     <div className="hotel-day" >
-                                        <p className='day-wrap'>
-                                            <span className='day-tit'>취소일</span>
-                                            <span className='day-txt'>{dayClick === true ? (DayData.length < 2 ? `${year}-${month+1}-${date}` : `${DayData[0]}`) : ('조회날짜를 설정해주세요.')}</span>
-                                        </p>
-                                        <p className='day-wrap'>
-                                            <span className='day-tit'>취소일</span>
-                                            <span className='day-txt'>
-                                                {dayClick === true ? (DayData.length < 2 ? `${year}-${month+1}-${date+1}` : `${DayData[1]}`) : ('조회날짜를 설정해주세요.')}
+                                        <p className='day-wrap day-wrap2'>
+                                            {dayClick === true ?
+                                            <span className='day-txt'><i style={{color:'#6f6f6f'}} className="fa-solid fa-calendar"></i> 
+                                                {DayData.length < 2 ? `${year}-${month+1}-${date}` : `${DayData[0]}`} ~ {DayData.length < 2 ? `${year}-${month+1}-${date+1}` : `${DayData[1]}`}
                                             </span>
+                                            : <span className='day-txt'><i style={{color:'#6f6f6f'}} className="fa-solid fa-calendar"></i> 조회할 기간을 설정해주세요.</span>}
                                         </p>
-                                        <button type='button' onClick={ e =>{
+                                        <button type='button' style={{width:'60%'}} onClick={ e =>{
                                             setCal((Cal === true) ? false : true);
                                             setDayClick(true);
                                             setSelectday([]);
                                             e.stopPropagation();
                                         }}>조회기간 설정</button>
+                                        <button type='button' style={{width:'37%',marginLeft:'6px'}} className='search' onClick={()=>{setDayClick(false);setListType(2);setListView(true);setDetailView(0);setSearch(false);setCal(false);}}><i className="fa-solid fa-arrow-rotate-right"></i> 초기화</button>
                                     </div>
-                                    <div className="hotel-headcount">
+                                    <div className="hotel-headcount">                                        
                                         <button type='button' className='search' onClick={()=>{searchClick2();setCal(false);}}>조회하기</button>
                                     </div>
                                     <div className="reserve-select">
-                                        <p className='select-tit'>검색 전 참고사항</p>
+                                        <p className='select-tit'>조회 전 참고사항</p>
                                         <p className='select-txt'>· 조회기간을 설정하시기 전에는 모든 취소내역이 보여집니다.</p>
-                                        <p className='select-txt'>· 취소내역 조회는 예약일 기준이 아닌, <span className='bold'>취소일</span>을 기준으로 검색해주시기 바랍니다.</p>
+                                        <p className='select-txt'>· 취소내역 조회는 예약일 기준이 아닌, <span className='bold'>취소(신청)일</span>을 기준으로 조회해주시기 바랍니다.</p>
                                     </div>
                                 </div>
                             </div>               

@@ -884,11 +884,11 @@ export default function HelpCenter(){
                         <div className="word">
                             <h2>전체 문의글</h2>
                             <button type="button" className="sportBtn" onClick={writeButton} style={{marginLeft:'15px'}}>
-                                <i class="fa-regular fa-circle-question" style={{color:'#42799b'}}></i> 문의하기
+                                <i className="fa-regular fa-circle-question" style={{color:'#42799b'}}></i> 문의하기
                             </button>
                             {!(userEmail == "" || userEmail == null) &&
                                 <button type="button" className="sportBtn" onClick={()=>{myloadList();}}>
-                                    <i class="fa-regular fa-user" style={{color:'#42799b'}}></i> 나의 문의글
+                                    <i className="fa-regular fa-user" style={{color:'#42799b'}}></i> 나의 문의글
                                 </button>
                             }                        
                         </div>
@@ -1009,9 +1009,9 @@ export default function HelpCenter(){
                          onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault();handleSearch();}}}
                             style={{ height: "37px", width: "250px", padding: "0 10px" }}/>
                         <button type="button" className="btn searchBtn" onClick={handleSearch} >
-                            <i class="fa-solid fa-magnifying-glass" style={{color:'#42799b'}}></i> 검색</button>
+                            <i className="fa-solid fa-magnifying-glass" style={{color:'#42799b'}}></i> 검색</button>
                         <button type="button" className="btn searchBtn" onClick={resetBoard} >
-                            <i class="fa-solid fa-list" style={{color:'#42799b'}}></i> 전체목록
+                            <i className="fa-solid fa-list" style={{color:'#42799b'}}></i> 전체목록
                         </button>
                     </div>                    
                 </div>
@@ -1069,7 +1069,7 @@ export default function HelpCenter(){
                                         <td style={{ width: '100%',borderBottom:'0' }}>
                                             {detail.b_upload ? (
                                                 <button className='download' onClick={() => handleDownload(detail.b_upload)}>
-                                                    <i class="fa-solid fa-download"></i> {detail.b_upload}
+                                                    <i className="fa-solid fa-download"></i> {detail.b_upload}
                                                 </button>
                                             ) : (
                                                 "첨부파일 없음"
@@ -1163,7 +1163,7 @@ export default function HelpCenter(){
                                         <td style={{ width: '450px' }}>
                                             {detail.b_upload ? (
                                                 <button className='download' onClick={() => handleDownload(detail.b_upload)}>
-                                                    <i class="fa-solid fa-download"></i> {detail.b_upload}
+                                                    <i className="fa-solid fa-download"></i> {detail.b_upload}
                                                 </button>
                                             ) : (
                                                 "첨부파일 없음"

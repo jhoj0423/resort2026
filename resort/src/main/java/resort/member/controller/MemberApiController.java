@@ -34,13 +34,22 @@ public class MemberApiController {
 	public int insertMember(@RequestBody MemberDTO mdto){
 		System.out.println("MemberApiController : insertMember() 메서드 확인");
 		return memberservice.insertMember(mdto);
-	}	
+	}
+	
+	//폰번호 중복확인
+	@GetMapping("/member/phoneCheck")
+	public int phoneCheck(@RequestParam("m_phone") String m_phone){
+		System.out.println("MemberApiController : phoneCheck() 메서드 확인");
+		System.out.println("======================================"+m_phone);
+		return memberservice.phoneCheck(m_phone);
+	}
+	
 	//회원 전체 목록 검색
 	@GetMapping("/member/allmember")
 	public List<MemberDTO> allSelectMember(){
 		System.out.println("MemberApiController : allSelectMember() 메서드 확인");
 		return memberservice.allSelectMember();
-	}	
+	}
 	
 	//개인 한 사람의 정보를 검색
 	@GetMapping("/member/onemember")
@@ -84,11 +93,11 @@ public class MemberApiController {
 		
 		if(searchType != null && !searchKeyword.trim().isEmpty()) {
 			totalCnt=memberservice.getSearchCount(searchType, searchKeyword);
-		}else if(searchType == "gender" && searchKeyword.trim()=="남"){
+		}else if("gender".equals(searchType) && "남".equals(searchKeyword.trim())){
 			System.out.println("성별 남자 확인용");
 			System.out.println(searchKeyword);
 			totalCnt=memberservice.getSearchCount(searchType, "0");
-		}else if(searchType == "gender" && searchKeyword.trim()=="여"){
+		}else if("gender".equals(searchType) && "여".equals(searchKeyword.trim())){
 			System.out.println("성별 여자 확인용");
 			System.out.println(searchKeyword);
 			totalCnt=memberservice.getSearchCount(searchType, "1");

@@ -104,7 +104,7 @@
 		</where>
 	</select>
 
-	<select id="getSearchPageList" resultType="memberDTO">
+	<select id="getSearchPageList" resultType="MemberDTO">
 		SELECT * FROM member 
 		<where>
 			<choose>
