@@ -509,7 +509,7 @@ console.log(RoomReviewArr)
     Paris: '프랑스, 파리'
     };
 
-
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',RatingAvgData)
     return(
         <div className="detail" onClick={()=>setCal(false)}>
             <section className="detail-wrap">
@@ -570,7 +570,7 @@ console.log(RoomReviewArr)
                                         (hotelScore.hotelAvg >= 4 && hotelScore.hotelAvg < 4.5) ? <img className='img2' src='/img/size20-4-0.png' alt="score" /> :
                                         (hotelScore.hotelAvg >= 4.5 && hotelScore.hotelAvg < 5) ? <img className='img2' src='/img/size20-4-5.png' alt="score" /> :
                                         <img className='img2' src='/img/size20-5-0.png' alt="score" />
-                                    }                                  
+                                    }
                                     <span className='starScore'>{(hotelScore.hotelAvg - Math.floor(hotelScore.hotelAvg) < 0.5) ?  Math.floor(hotelScore.hotelAvg)+'.0' : Math.trunc(hotelScore.hotelAvg * 10) / 10}</span>
                                     <span className='scoreCount'>{(hotelScore.scoreCount).toLocaleString()}명 평가</span>                                   
                                 </div>
@@ -688,7 +688,6 @@ console.log(RoomReviewArr)
                                                 :
                                                 ""
                                                 }
-                                            
                                         </div>
                                         <div className="room-right">
                                             <h2>{item.roomName}</h2>

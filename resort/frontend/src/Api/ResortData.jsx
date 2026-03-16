@@ -52,7 +52,7 @@ export default function ResortData({children}){
         // ReviewData
         axios.get('/api/board/review')
         .then((res) => {
-            console.log("리뷰(평점) 데이터 : ", res.data);
+            // console.log("리뷰(평점) 데이터 : ", res.data);
             setReviewData(res.data);
         })
         .catch((error) => {
@@ -90,7 +90,7 @@ export default function ResortData({children}){
         // })
         axios.get('/api/board/hotelRatingAvg')
         .then((res) => {
-            console.log("호텔(평점) 평균 데이터 : ", res.data);
+            // console.log("호텔(평점) 평균 데이터 : ", res.data);
             setHotelRatingAvgData(res.data);
         })
         .catch((error) => {
@@ -179,7 +179,7 @@ export default function ResortData({children}){
 
     useEffect(()=>{
         localStorage.setItem('selectday',JSON.stringify(selectday))
-        console.log(selectDate,selectday,'12-19확인ㅇㅅ')
+        // console.log(selectDate,selectday,'12-19확인ㅇㅅ')
     },[selectday])
 
     const [selectMonth,setSelectMonth] = useState(()=>{
@@ -281,9 +281,9 @@ export default function ResortData({children}){
         .filter(Boolean);
         
         setWishArray(wishArray2);
-        console.log(wish);
-        console.log(wishIdArray);
-        console.log(wishArray2);
+        // console.log(wish);
+        // console.log(wishIdArray);
+        // console.log(wishArray2);
 
         Promise.all(
             wishIdArray.map(code =>
@@ -300,8 +300,8 @@ export default function ResortData({children}){
             }));
 
             setWishAvg(avgList);
-            console.log("-----------------------------------");
-            console.log(responses.data)
+            // console.log("-----------------------------------");
+            // console.log(responses.data)
         })
         .catch(error => {
             console.error("error", error);
@@ -342,8 +342,8 @@ export default function ResortData({children}){
             }
         }
         setWishStar(wishStarImg);
-        console.log(WishAvg);
-        console.log(wishStarImg);
+        // console.log(WishAvg);
+        // console.log(wishStarImg);
         
     },[WishAvg]); 
     
@@ -395,8 +395,12 @@ export default function ResortData({children}){
     // 국내호텔 해외호텔 나누기 위한 변수
     const [Domestic, setDomestic] = useState(0)
 
-    const countryEn = town === '대한민국' || town ===  '한국' || town ===  '한' || town ===  'gksrnr'? 'Korea' : town === '일본' || town ===  '일'? 'Japan' : town === '미국'? 'USA' : town === '중국'? 'China': town === '이탈리아' || town ===  '이테리'? 'Italy' : town === '프랑스'? 'France':null
-    const cityEn = town === '속초'? 'Sokcho':town === '경주'? 'Gyeongju':town === '부산'? 'Busan':town === '강릉'? 'Gangneung':town === '여수'? 'Yeosu':town === '대전'? 'Daejeon':town === '광주'? 'Gwangju':town === '제주' || town ===  '제주도'? 'Jeju':town === '포항'? 'Pohang':town === '서울'? 'Seoul':town === '도쿄'? 'Tokyo':town === '삿포로'? 'Sapporo':town === '로스앤젤레스'? 'LosAngeles':town === '뉴욕'? 'New York':town === '괌'? 'Guam':town === '장가계'? 'Zhangjiajie':town === '상하이'? 'Shanghai':town === '로마'? 'Rome':town === '베네치아'? 'Venice':town === '파리'? 'Paris':null
+    useEffect(() => {
+        setTown(town.charAt(0).toUpperCase() + town.slice(1).toLowerCase())
+    },[town])
+
+    const countryEn = town === '대한민국' || town ===  '한국' || town ===  '한' || town ===  'gksrnr'? 'Korea' : town === '일본' || town ===  '일'? 'Japan' : town === '미국'? 'USA' : town === '중국'? 'China': town === '이탈리아' || town ===  '이테리'? 'Italy' : town === '프랑스'? 'France': town === '' ? null : town
+    const cityEn = town === '속초'? 'Sokcho':town === '경주'? 'Gyeongju':town === '부산'? 'Busan':town === '강릉'? 'Gangneung':town === '여수'? 'Yeosu':town === '대전'? 'Daejeon':town === '광주'? 'Gwangju':town === '제주' || town ===  '제주도'? 'Jeju':town === '포항'? 'Pohang':town === '서울'? 'Seoul':town === '도쿄'? 'Tokyo':town === '삿포로'? 'Sapporo':town === '로스앤젤레스'? 'LosAngeles':town === '뉴욕'? 'New York':town === '괌'? 'Guam':town === '장가계'? 'Zhangjiajie':town === '상하이'? 'Shanghai':town === '로마'? 'Rome':town === '베네치아'? 'Venice':town === '파리'? 'Paris': town === '' ? null : town
     const townfilter = hotelMerge.filter((f)=>f.city===cityEn || f.country===countryEn)
     const townfilter2 = HotelData.filter((f)=>f.city===cityEn || f.country===countryEn)
     //검색 핸들러

@@ -60,4 +60,7 @@ public interface MemberService {
 	// 하나의 회원
 	public MemberDTO oneMember(@PathVariable int m_code);
 
+	// 03-16 수정
+	// 닉네임 중복 확인
+	public int nickSel(String m_nickName);
 }

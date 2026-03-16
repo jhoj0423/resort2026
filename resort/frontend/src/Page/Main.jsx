@@ -6,10 +6,10 @@ import 'leaflet/dist/leaflet.css';
 import Calendar from './Calendar';
 
 export default function Main(){    
-    // 2026-03-16 병합
+    // 2026-03-16 오후 병합
     // 호텔, 객실데이터 useContext로 가져오는 훅
     const {setSelectMonth, 
-        hotelMerge, HotelData, hotelRatingAvgData, setListType,
+        hotelMerge, HotelData, hotelRatingAvgData, setListType, setRender,render,
         DayData, setDayData,town,setTown,serchHandler, wish, wishHandler,cityEn,countryEn,dateFilter,setDateFilter,townfilter, guestCount, setGuestCount} = useContext(ResortDataContext);
 
 
@@ -52,6 +52,9 @@ export default function Main(){
     const [hotelStar, setHotelStar] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+        setRender(!render);
+    },[])
     
 
     useEffect(()=>{
@@ -79,19 +82,18 @@ export default function Main(){
 
     // 호텔 해외 필터
     useEffect(() => {
-        // const overseas = HotelData.filter(item => item.country !== 'Korea' && item.score >= 4);
         if (!hotelMerge || hotelMerge.length === 0) return
         const overseas = hotelMerge.filter(item => item.country !== 'Korea');
-        // const overseasRate = [...overseas].sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
-        setOverSeasHotel(overseas)
+        const overseasRate = [...overseas].sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
+        setOverSeasHotel(overseasRate)
     },[hotelMerge])
 
     // 호텔 국내 필터
     useEffect(() => {
         if (!hotelMerge || hotelMerge.length === 0) return
         const internal = hotelMerge.filter(item => item.country === 'Korea');
-        // const internalHotelSort =internal.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
-        setInternalHotel(internal)
+        const internalHotelSort =internal.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
+        setInternalHotel(internalHotelSort)
         
     },[hotelMerge])
 
@@ -105,8 +107,8 @@ export default function Main(){
             item.type === 'GuestHouse' ? '게스트 하우스' : 
             item.type === 'Camping' ? '캠핑' : 
             null ) === hotelType[htypeModalOpen2].typeName)
-            // const hotelTypeRating = hotel_modal1.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
-        setTypeAndHotel(hotel_modal1)
+            const hotelTypeRating = hotel_modal1.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
+        setTypeAndHotel(hotelTypeRating)
     }, [htypeModalOpen, hotelMerge])
 
         
@@ -122,8 +124,8 @@ export default function Main(){
             item.city === 'New York' ? '뉴욕' : 
             item.city === 'Paris' ? '파리' : 
             null ) === popularRating[RatingModalOpen2].cityName)
-            // const hotelCityRating = hotel_modal2.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
-        setCityAndHotel(hotel_modal2)
+            const hotelCityRating = hotel_modal2.sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
+        setCityAndHotel(hotelCityRating)
     }, [RatingModalOpen, hotelMerge])
     
     // 버튼을 클릭한 횟수를 저장하는 상태변수
@@ -180,31 +182,6 @@ export default function Main(){
             null
         }
     }
-
-    // // num에 해당하는 번호를 누르면 그에 해당하는 지역이 input에 들어가는 함수
-    // const inputHandeler = (num) => {
-    //     if(num === 1){
-    //         setTown('서울')
-    //     }else if(num === 2){
-    //         setTown('부산')
-    //     }else if(num === 3){
-    //         setTown('강릉')
-    //     }else if(num === 4){
-    //         setTown('속초')
-    //     }else if(num === 5){
-    //         setTown('경주')
-    //     }else if(num === 6){
-    //         setTown('여수')
-    //     }else if(num === 7){
-    //         setTown('대전')
-    //     }else if(num === 8){
-    //         setTown('광주')
-    //     }else if(num === 9){
-    //         setTown('제주')
-    //     }else{
-    //         setTown('포항')
-    //     }
-    // }
 
     // input 인원수 함수
     const minusBtn = () => {
@@ -460,24 +437,6 @@ export default function Main(){
                                     <li className='rankName' onClick={() => setTown('파리')}>파리</li>
                                 </ul>
                             </>}
-                            {/* {isInput &&
-                            <>
-                                <ul className='rankBox'>
-                                    <li className='rankBoxLi'>
-                                        <span className='inputInfo'>EcoStay 검색 순위</span>
-                                    </li>
-                                    {cityRanking.map((item) => (
-                                    <li className='rankBoxLi' key={item.id} >
-                                        <span className='countryInRank' onClick={() => inputHandeler(item.id)}>
-                                            {item.id}
-                                        </span>
-                                        <span className='rankName' onClick={() => inputHandeler(item.id)}>
-                                            {item.localName}
-                                        </span>
-                                    </li>
-                                    ))}
-                                </ul>
-                            </>} */}
                         </div>
                         <i className="fa-solid fa-magnifying-glass searchIcon"></i>
                         <button type='button' onClick={() => setOpenC(!openC)} className='calenertBtn'>
@@ -527,7 +486,7 @@ export default function Main(){
                     <i className="fa-solid fa-angle-right"></i>
                 </button>
                 {eventBennerImg.slice(eventImgS,eventImgE).map((item, index) => (
-                    <Link to='/helpCenter' onClick={() => {window.scrollTo(0,0); setListType(2);}}>
+                    <Link to='/helpCenter' onClick={() => {window.scrollTo(0,0); setListType(2);}} key={index}>
                         <img src={item} alt='eventBennerImg' className='event' key={index} />
                     </Link>
                 ))}
@@ -635,7 +594,7 @@ export default function Main(){
                                                     <i className="fa-solid fa-star"></i>
                                                     <span className='starScore'>{(hotelMerge[item.h_code - 1]?.hotelAvgScore - Math.floor(hotelMerge[item.h_code - 1]?.hotelAvgScore) === 0) ? hotelMerge[item.h_code - 1].hotelAvgScore+'.0' : Math.trunc((hotelMerge[item.h_code - 1].hotelAvgScore) * 10) / 10}</span>
                                                 </span>
-                                                {/* <span className='popularAccom_count'>{(hotelRatingAvgData[item.h_code - 1].scoreCount).toLocaleString()}명 참여</span> */}
+                                                <span className='popularAccom_count'>{(hotelMerge[item.h_code - 1].hotelReviewCount).toLocaleString()}명 참여</span>
                                             </div>
                                             {item.discount === 1 ? (
                                                 <>
@@ -673,7 +632,7 @@ export default function Main(){
                                                 <i className="fa-solid fa-star"></i>
                                                 <span className='starScore'>{(hotelMerge[item.h_code - 1]?.hotelAvgScore - Math.floor(hotelMerge[item.h_code - 1]?.hotelAvgScore) === 0) ? hotelMerge[item.h_code - 1].hotelAvgScore+'.0' : Math.trunc((hotelMerge[item.h_code - 1].hotelAvgScore) * 10) / 10}</span>
                                             </span>
-                                            {/* <span className='popularAccom_count'>{(hotelRatingAvgData[item.h_code - 1].scoreCount).toLocaleString()}명 참여</span> */}
+                                            <span className='popularAccom_count'>{(hotelMerge[item.h_code - 1].hotelReviewCount).toLocaleString()}명 참여</span>
                                         </div>
                                         {item.discount === 1 ? (
                                             <>
@@ -711,7 +670,7 @@ export default function Main(){
                                                 <i className="fa-solid fa-star"></i>
                                                 <span className='starScore'>{(hotelMerge[item.h_code - 1]?.hotelAvgScore - Math.floor(hotelMerge[item.h_code - 1]?.hotelAvgScore) === 0) ? hotelMerge[item.h_code - 1].hotelAvgScore+'.0' : Math.trunc((hotelMerge[item.h_code - 1].hotelAvgScore) * 10) / 10}</span>
                                             </span>
-                                            {/* <span className='popularAccom_count'>{(hotelRatingAvgData[item.h_code - 1].scoreCount).toLocaleString()}명 참여</span> */}
+                                            <span className='popularAccom_count'>{(hotelMerge[item.h_code - 1].hotelReviewCount).toLocaleString()}명 참여</span>
                                         </div>
                                         {item.discount === 1 ? (
                                             <>
@@ -752,61 +711,76 @@ export default function Main(){
                 <div className="room-select_main" style={{borderTop:'0px'}}>
                     <p className='room-title_main'>국내 인기 스테이 PICK!</p>
                     <ul className='roomUl'>
-                        {internalHotel.slice(0,4).map((item,index)=>{
-
-                            return(
-                                <li key={index} style={{display:'flex'}}>
-                                    <div className="room-left_main">
-                                        <Link to={`/detail/${item.h_code}`} onClick={() => window.scrollTo(0,0)}>
-                                            <img src={`/img/${item.h_Img}`} alt={item.hotelName} />
-                                        </Link>
-                                    </div>
-                                    <div className="room-right_main">
-                                        <h2><Link to={`/detail/${item.h_code}`} onClick={() => window.scrollTo(0,0)}>{item.hotelName}</Link></h2>
-                                        <div className="room-intro_main">
-                                            <div className="intro-left_main">
-                                                <span className='starScore'>{(hotelMerge[item.h_code - 1]?.hotelAvgScore - Math.floor(hotelMerge[item.h_code - 1]?.hotelAvgScore) === 0) ? hotelMerge[item.h_code - 1].hotelAvgScore+'.0' : Math.trunc((hotelMerge[item.h_code - 1].hotelAvgScore) * 10) / 10}</span>
-                                                {/* <span>
-                                                    {recommStar[index].map((star,ind)=>(
-                                                        <img src={star} alt="score" key={ind} className='star' />
-                                                    ))}
-                                                </span> */}
-                                            </div>
-                                            <div className="intro-right_main">
-                                                <Link to = {`/detail/${item.h_code}`} onClick={() => window.scrollTo(0,0)}>
-                                                    <button type='button'>상세정보 <i className="fa-solid fa-angle-right"></i></button>
-                                                </Link>
-                                            </div>
+                        {internalHotel.slice(0,4).map((item,index)=>(
+                            <li key={index} style={{display:'flex'}}>
+                                <div className="room-left_main">
+                                    <Link to={`/detail/${item.h_code}`} onClick={() => window.scrollTo(0,0)}>
+                                        <img src={`/img/${item.h_Img}`} alt={item.hotelName} />
+                                    </Link>
+                                </div>
+                                <div className="room-right_main">
+                                    <h2><Link to={`/detail/${item.h_code}`} onClick={() => window.scrollTo(0,0)}>{item.hotelName}</Link></h2>
+                                    <div className="room-intro_main">
+                                        <div className="intro-left_main">
+                                            {
+                                                (() => {
+                                                    const score = hotelMerge.find(it => it.h_code === item.h_code)?.hotelAvgScore ?? 0;
+                                                    return (
+                                                        (score >= 0 && score < 0.5) ? <img className='Mainstar1' src='/img/size20-0-0.png' alt="score" /> :
+                                                        (score >= 0.5 && score < 1) ? <img className='Mainstar1' src='/img/size20-0-5.png' alt="score" /> :
+                                                        (score >= 1 && score < 1.5) ? <img className='Mainstar1' src='/img/size20-1-0.png' alt="score" /> :
+                                                        (score >= 1.5 && score < 2) ? <img className='Mainstar1' src='/img/size20-1-5.png' alt="score" /> :
+                                                        (score >= 2 && score < 2.5) ? <img className='Mainstar1' src='/img/size20-2-0.png' alt="score" /> :
+                                                        (score >= 2.5 && score < 3) ? <img className='Mainstar1' src='/img/size20-2-5.png' alt="score" /> :
+                                                        (score >= 3 && score < 3.5) ? <img className='Mainstar1' src='/img/size20-3-0.png' alt="score" /> :
+                                                        (score >= 3.5 && score < 4) ? <img className='Mainstar1' src='/img/size20-3-5.png' alt="score" /> :
+                                                        (score >= 4 && score < 4.5) ? <img className='Mainstar1' src='/img/size20-4-0.png' alt="score" /> :
+                                                        (score >= 4.5 && score < 5) ? <img className='Mainstar1' src='/img/size20-4-5.png' alt="score" /> :
+                                                        <img className='Mainstar1' src='/img/size20-5-0.png' alt="score" />
+                                                    )                                    
+                                                })()
+                                            }
+                                            <span className='starScore2'>{(hotelMerge[item.h_code - 1]?.hotelAvgScore - Math.floor(hotelMerge[item.h_code - 1]?.hotelAvgScore) === 0) ? hotelMerge[item.h_code - 1].hotelAvgScore+'.0' : Math.trunc((hotelMerge[item.h_code - 1].hotelAvgScore) * 10) / 10}</span>
+                                            {/* <span>
+                                                {recommStar[index].map((star,ind)=>(
+                                                    <img src={star} alt="score" key={ind} className='star' />
+                                                ))}
+                                            </span> */}
                                         </div>
-                                        <div className="room-info_main">
-                                            <p><i className="fa-regular fa-clock"></i> 체크인 <span className='bold_main'>15:00</span> ~ 체크아웃 <span className='bold_main'>11:00</span></p>
-                                            <p><i className="fa-solid fa-user-group"></i> 최대 투숙객 수 : 2 ~ 4명</p>
-                                            <p><i className="fa-solid fa-tag"></i> <span className='bold_main'>할인혜택 :</span>
-                                                <span className='red_main'>
-                                                    {item.discount === 1 ? 
-                                                        '10%할인 이벤트 중'
-                                                    :
-                                                        '회원가입시 10,000원 할인쿠폰'
-                                                    }
-                                                </span>
-                                            </p>
-                                            <div className="room-pay_main">
+                                        <div className="intro-right_main">
+                                            <Link to = {`/detail/${item.h_code}`} onClick={() => window.scrollTo(0,0)}>
+                                                <button type='button'>상세정보 <i className="fa-solid fa-angle-right"></i></button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                    <div className="room-info_main">
+                                        <p><i className="fa-regular fa-clock"></i> 체크인 <span className='bold_main'>15:00</span> ~ 체크아웃 <span className='bold_main'>11:00</span></p>
+                                        <p><i className="fa-solid fa-user-group"></i> 최대 투숙객 수 : 2 ~ 4명</p>
+                                        <p><i className="fa-solid fa-tag"></i> <span className='bold_main'>할인혜택 :</span>
+                                            <span className='red_main'>
                                                 {item.discount === 1 ? 
-                                                    <>
-                                                        <span className='origin-price_main'>{(hotelMerge[item.h_code-1].hotelPrice).toLocaleString()}원</span>
-                                                        <span className='final-price_main'>{((hotelMerge[item.h_code-1].hotelPrice) - ((hotelMerge[item.h_code-1].hotelPrice)*0.1)).toLocaleString()}원<span>/1박</span></span>
-                                                    </>                                                    
-                                                :                                                    
-                                                    <>
-                                                        <span className='final-price_main'>{(hotelMerge[item.h_code-1].hotelPrice).toLocaleString()}원<span>/1박</span></span>
-                                                    </>
+                                                    '10%할인 이벤트 중'
+                                                :
+                                                    '회원가입시 10,000원 할인쿠폰'
                                                 }
-                                            </div>
+                                            </span>
+                                        </p>
+                                        <div className="room-pay_main">
+                                            {item.discount === 1 ? 
+                                                <>
+                                                    <span className='origin-price_main'>{(hotelMerge[item.h_code-1].hotelPrice).toLocaleString()}원</span>
+                                                    <span className='final-price_main'>{((hotelMerge[item.h_code-1].hotelPrice) - ((hotelMerge[item.h_code-1].hotelPrice)*0.1)).toLocaleString()}원<span>/1박</span></span>
+                                                </>                                                    
+                                            :                                                    
+                                                <>
+                                                    <span className='final-price_main'>{(hotelMerge[item.h_code-1].hotelPrice).toLocaleString()}원<span>/1박</span></span>
+                                                </>
+                                            }
                                         </div>
                                     </div>
-                                </li>
-                                )
-                            }
+                                </div>
+                            </li>
+                            )
                         )}
                     </ul>
                 </div>
