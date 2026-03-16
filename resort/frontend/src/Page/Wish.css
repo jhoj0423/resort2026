@@ -75,3 +75,8 @@
     color: #6d6d6d;
     line-height: 1.2;
 }
+
+.room-select ul li .room-right .room-intro .intro-left .img7{
+    margin-right: 1px;
+    width: 15px;
+}
