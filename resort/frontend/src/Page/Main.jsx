@@ -6,66 +6,16 @@ import 'leaflet/dist/leaflet.css';
 import Calendar from './Calendar';
 
 export default function Main(){    
-    // 2026-03-04 병합
+    // 2026-03-16 병합
     // 호텔, 객실데이터 useContext로 가져오는 훅
     const {setSelectMonth, 
-        hotelMerge, HotelData, hotelRatingAvgData, 
+        hotelMerge, HotelData, hotelRatingAvgData, setListType,
         DayData, setDayData,town,setTown,serchHandler, wish, wishHandler,cityEn,countryEn,dateFilter,setDateFilter,townfilter, guestCount, setGuestCount} = useContext(ResortDataContext);
-    
-    // const [HotelData , setHotelData] = useState([]);
-    // const [hotelRatingAvgData, setHotelRatingAvgData] = useState([]);
-    // const [hotelMerge,setHotelMerge] = useState([])
-
-    // useEffect(() => {
-    //     // HotelData
-    //     axios.get('/api/hotel/context')
-    //     .then((res) => {
-    //         console.log("호텔 데이터 : ", res.data);
-    //         setHotelData(res.data);
-    //     })
-    //     .catch((error) => {
-    //         console.error("error", error)
-    //     })
-
-    //     axios.get('/api/board/hotelRatingAvg')
-    //     .then((res) => {
-    //         console.log("호텔(평점) 평균 데이터 : ", res.data);
-    //         setHotelRatingAvgData(res.data);
-    //     })
-    //     .catch((error) => {
-    //         console.error("error", error)
-    //     })
-
-    //     // HotelMergeData
-    //     axios.get('/api/hotel/hotelMarge')
-    //     .then((res) => {
-    //         console.log("호텔총합 데이터 : ", res.data);
-    //         setHotelMerge(res.data);
-    //     })
-    //     .catch((error) => {
-    //         console.error("error", error)
-    //     })
-    // },[])
 
 
     // 호텔 input 아래 모달 상태변수
     const [isInput, setIsInput] = useState(false);
-    // 호텔 input 아래 모달 map 사용할 오브젝트 배열
-    const cityRanking = [
-        {id: 1, localName : '서울'}, 
-        {id: 2, localName : '부산'}, 
-        {id: 3, localName : '강릉'}, 
-        {id: 4, localName : '속초'}, 
-        {id: 5, localName : '경주'}, 
-        {id: 6, localName : '여수'}, 
-        {id: 7, localName : '대전'}, 
-        {id: 8, localName : '광주'}, 
-        {id: 9, localName : '제주'}, 
-        {id: 10, localName : '포항'},
-    ]
-
     
-
     // 관광지 클릭시 모달
     const [RatingModalOpen, setRatingModalOpen] = useState(null);
     const [RatingModalOpen2, setRatingModalOpen2] = useState(0);
@@ -101,6 +51,8 @@ export default function Main(){
     //호텔별점 이미지
     const [hotelStar, setHotelStar] = useState({});
     const [isLoading, setIsLoading] = useState(false);
+
+    
 
     useEffect(()=>{
         setSelectMonth(new Date('2026-03-01'))
@@ -229,30 +181,30 @@ export default function Main(){
         }
     }
 
-    // num에 해당하는 번호를 누르면 그에 해당하는 지역이 input에 들어가는 함수
-    const inputHandeler = (num) => {
-        if(num === 1){
-            setTown('서울')
-        }else if(num === 2){
-            setTown('부산')
-        }else if(num === 3){
-            setTown('강릉')
-        }else if(num === 4){
-            setTown('속초')
-        }else if(num === 5){
-            setTown('경주')
-        }else if(num === 6){
-            setTown('여수')
-        }else if(num === 7){
-            setTown('대전')
-        }else if(num === 8){
-            setTown('광주')
-        }else if(num === 9){
-            setTown('제주')
-        }else{
-            setTown('포항')
-        }
-    }
+    // // num에 해당하는 번호를 누르면 그에 해당하는 지역이 input에 들어가는 함수
+    // const inputHandeler = (num) => {
+    //     if(num === 1){
+    //         setTown('서울')
+    //     }else if(num === 2){
+    //         setTown('부산')
+    //     }else if(num === 3){
+    //         setTown('강릉')
+    //     }else if(num === 4){
+    //         setTown('속초')
+    //     }else if(num === 5){
+    //         setTown('경주')
+    //     }else if(num === 6){
+    //         setTown('여수')
+    //     }else if(num === 7){
+    //         setTown('대전')
+    //     }else if(num === 8){
+    //         setTown('광주')
+    //     }else if(num === 9){
+    //         setTown('제주')
+    //     }else{
+    //         setTown('포항')
+    //     }
+    // }
 
     // input 인원수 함수
     const minusBtn = () => {
@@ -453,7 +405,7 @@ export default function Main(){
                 {/* 국내, 해외 숙박 검색 */}
                 <div className='hotelSearch'>
                     {/* input form */}
-                    <form className='hotelInput'>
+                    <div className='hotelInput'>
                         <div className='hotelModal'>
                             <input type='text' id='citySearch' name='citySearch' 
                             value={town}
@@ -463,6 +415,52 @@ export default function Main(){
                             />
                             {/* input 클릭시 나오는 순위 */}
                             {isInput &&
+                            <>
+                                <ul className='rankBox'>
+                                    <li className='rankBoxLi'>
+                                        <span className='inputInfoMain'>국내</span>
+                                    </li>
+                                    <li className='rankName' onClick={() => setTown('서울')}>서울</li>
+                                    <li className='rankName' onClick={() => setTown('부산')}>부산</li>
+                                    <li className='rankName' onClick={() => setTown('강릉')}>강릉</li>
+                                    <li className='rankName' onClick={() => setTown('속초')}>속초</li>
+                                    <li className='rankName' onClick={() => setTown('경주')}>경주</li>
+                                    <li className='rankName' onClick={() => setTown('여수')}>여수</li>
+                                    <li className='rankName' onClick={() => setTown('대전')}>대전</li>
+                                    <li className='rankName' onClick={() => setTown('광주')}>광주</li>
+                                    <li className='rankName' onClick={() => setTown('제주')}>제주</li>
+                                    <li className='rankName' onClick={() => setTown('포항')}>포항</li>
+                                    <li className='rankBoxLi'>
+                                        <span className='inputInfoMain'>해외</span>
+                                    </li>
+                                    <li className='rankBoxLi'>
+                                        <span className='inputInfo'>일본</span>
+                                    </li>
+                                    <li className='rankName' onClick={() => setTown('도쿄')}>도쿄</li>
+                                    <li className='rankName' onClick={() => setTown('삿포로')}>삿포로</li>
+                                    <li className='rankBoxLi'>
+                                        <span className='inputInfo' >미국</span>
+                                    </li>
+                                    <li className='rankName' onClick={() => setTown('로스앤젤레스')}>로스앤젤레스</li>
+                                    <li className='rankName' onClick={() => setTown('뉴욕')}>뉴욕</li>
+                                    <li className='rankName' onClick={() => setTown('괌')}>괌</li>
+                                    <li className='rankBoxLi'>
+                                        <span className='inputInfo'>중국</span>
+                                    </li>
+                                    <li className='rankName' onClick={() => setTown('장가계')}>장가계</li>
+                                    <li className='rankName' onClick={() => setTown('상하이')}>상하이</li>
+                                    <li className='rankBoxLi'>
+                                        <span className='inputInfo'>이탈리아</span>
+                                    </li>
+                                    <li className='rankName' onClick={() => setTown('로마')}>로마</li>
+                                    <li className='rankName' onClick={() => setTown('베네치아')}>베네치아</li>
+                                    <li className='rankBoxLi'>
+                                        <span className='inputInfo'>프랑스</span>
+                                    </li>
+                                    <li className='rankName' onClick={() => setTown('파리')}>파리</li>
+                                </ul>
+                            </>}
+                            {/* {isInput &&
                             <>
                                 <ul className='rankBox'>
                                     <li className='rankBoxLi'>
@@ -479,7 +477,7 @@ export default function Main(){
                                     </li>
                                     ))}
                                 </ul>
-                            </>}
+                            </>} */}
                         </div>
                         <i className="fa-solid fa-magnifying-glass searchIcon"></i>
                         <button type='button' onClick={() => setOpenC(!openC)} className='calenertBtn'>
@@ -518,7 +516,7 @@ export default function Main(){
                         <Link to='/room'>
                             <button type='button' className='Search_Btn' onClick={()=>serchHandler()}>검색</button>
                         </Link>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -529,7 +527,9 @@ export default function Main(){
                     <i className="fa-solid fa-angle-right"></i>
                 </button>
                 {eventBennerImg.slice(eventImgS,eventImgE).map((item, index) => (
-                    <img src={item} alt='eventBennerImg' className='event' key={index} />
+                    <Link to='/helpCenter' onClick={() => {window.scrollTo(0,0); setListType(2);}}>
+                        <img src={item} alt='eventBennerImg' className='event' key={index} />
+                    </Link>
                 ))}
                 <button type='button' className='eventRightBtn' onClick={eventBennerRightHandeler}>
                     <i className="fa-solid fa-angle-right"></i>
