@@ -105,7 +105,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-    scrollbar-width: thin;
+    /* scrollbar-width: thin; */
 }
 
 /* 스크롤바 스타일 */
@@ -120,6 +120,7 @@
 
 .main_container .mainImgBenner .hotelSearch .hotelInput .rankBox::-webkit-scrollbar-track{
     background: transparent;
+    margin: 10px 0;
 }
 
 /* 섹션 제목 li */
@@ -626,6 +627,19 @@
 .room-select_main .roomUl li .room-right_main .room-intro_main .intro-left_main{
     float: left;
 }
+.room-select_main .roomUl li .room-right_main .room-intro_main .intro-left_main .Mainstar1{
+    margin-right: 0;
+    height: 14px;
+    width: auto;
+}
+.starScore2{
+    font-size: 15px;
+    font-weight: 600;
+    vertical-align: top;
+    margin-left: 7px;
+    color: #6d6d6d;
+    line-height: 0.9;
+}
 .room-select_main .roomUl li .room-right_main .room-intro_main .intro-right_main{
     float: right;
 }
@@ -675,7 +689,7 @@
 .room-select_main .roomUl li .room-right_main .room-info_main p .red_main{
     background-color: #ffedea;
     color: #f94239;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
     padding: 2px 5px;
     text-decoration: none !important;

@@ -52,6 +52,7 @@
 
 .Room_wrap .Room_section .hotelModal .rankBoxRoom::-webkit-scrollbar-track{
     background: transparent;
+    margin: 10px 0;
 }
 
 /* 섹션 제목 li */
