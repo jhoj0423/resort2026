@@ -530,7 +530,7 @@ export default function MyPage(){
             {/* 예약내역 */}
             {listType === 1 && listView && detailView === 0 &&
             (<div className='reserVation_text'>
-                <h1 className='text_title'>예약 내역</h1>
+                <h1 className='text_title'>예약 내역 <span>※ 예약일자가 최신인 순으로 보여집니다. </span></h1>
                 <div className='reserVation_texts' style={{borderTop:'2px solid black'}}>
                     <div className="wish-wrap" onClick={()=>setCal(false)}>
                         <section className="reserVation-wrap">
@@ -559,7 +559,7 @@ export default function MyPage(){
                                                         item.cancel === 0 ? (
                                                         <Fragment key={item.re_code}>
                                                             <li style={{padding: '0',background: 'transparent',marginBottom: '10px'}}>
-                                                                <p className='room-title wish'>{item.reserved_at?.slice(0, 10)} 예약
+                                                                <p className='room-title wish'>{item.reserved_at?.slice(0, 10)}({['일','월','화','수','목','금','토'][new Date(item.reserved_at?.slice(0,10)).getDay()]}) 예약건
                                                                     <span className='del detail' onClick={()=>contentHandeler(item.re_code)}>상세보기 <i className="fa-solid fa-angle-right"></i></span>
                                                                     {item.check_in_date.slice(0,10) > today && ( 
                                                                         <span className='del' onClick={()=>{reserveCancel(item.re_code)}}><i className="fa-solid fa-ban" style={{color:'#f94239'}}></i> 취소하기</span>
@@ -637,7 +637,7 @@ export default function MyPage(){
                                                         item.cancel === 0 ? (
                                                         <Fragment key={item.re_code}>
                                                         <li style={{padding: '0',background: 'transparent',marginBottom: '10px'}}>
-                                                            <p className='room-title wish'>{item.reserved_at?.slice(0, 10)} 예약
+                                                            <p className='room-title wish'>{item.reserved_at?.slice(0, 10)}({['일','월','화','수','목','금','토'][new Date(item.reserved_at?.slice(0,10)).getDay()]}) 예약건
                                                                 <span className='del detail' onClick={()=>contentHandeler(item.re_code)}>상세보기 <i className="fa-solid fa-angle-right"></i></span>
                                                                 {item.check_in_date.slice(0,10) > today && ( 
                                                                     <span className='del' onClick={()=>{reserveCancel(item.re_code)}}><i className="fa-solid fa-ban" style={{color:'#f94239'}}></i> 취소하기</span>
@@ -726,6 +726,7 @@ export default function MyPage(){
                                                 {dayClick === true ? (DayData.length < 2 ? `${year}-${month+1}-${date+1}` : `${DayData[1]}`) : ('조회날짜를 설정해주세요.')}
                                             </span>
                                         </p>
+                                        {/*  */}
                                         <button type='button' onClick={ e =>{
                                             setCal((Cal === true) ? false : true);
                                             setDayClick(true);
@@ -882,7 +883,7 @@ export default function MyPage(){
             {/* 취소내역 */}
             {listType === 2 && listView && detailView === 0 &&
             (<div className='reserVation_text'>
-                <h1 className='text_title'>취소 내역</h1>
+                <h1 className='text_title'>취소 내역 <span>※ 취소일자가 최신인 순으로 보여집니다. </span></h1>
                 <div className='reserVation_texts' style={{borderTop:'2px solid black'}}>
                     <div className="wish-wrap" onClick={()=>setCal(false)}>
                         <section className="reserVation-wrap">
@@ -904,7 +905,7 @@ export default function MyPage(){
                                                     item.cancel !== 0 ? (
                                                     <Fragment key={item.re_code}>
                                                         <li style={{padding: '0',background: 'transparent',marginBottom: '10px'}}>
-                                                            <p className='room-title wish'>{item.cancel_date?.slice(0, 10)} 취소
+                                                            <p className='room-title wish'>{item.cancel_date?.slice(0, 10)}({['일','월','화','수','목','금','토'][new Date(item.cancel_date?.slice(0,10)).getDay()]}) 취소건
                                                                 <span className='del detail' onClick={()=>contentHandeler(item.re_code)}>상세보기 <i className="fa-solid fa-angle-right"></i></span>                                                           
                                                             </p>
                                                         </li>
@@ -937,7 +938,7 @@ export default function MyPage(){
                                                     item.cancel !== 0 ? (
                                                     <Fragment key={item.re_code}>
                                                     <li style={{padding: '0',background: 'transparent',marginBottom: '10px'}}>
-                                                        <p className='room-title wish'>{item.cancel_date?.slice(0, 10)} 취소
+                                                        <p className='room-title wish'>{item.cancel_date?.slice(0, 10)}({['일','월','화','수','목','금','토'][new Date(item.cancel_date?.slice(0,10)).getDay()]}) 취소건
                                                             <span className='del detail' onClick={()=>contentHandeler(item.re_code)}>상세보기 <i className="fa-solid fa-angle-right"></i></span>
                                                         </p>
                                                     </li>

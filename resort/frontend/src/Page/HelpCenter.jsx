@@ -4,10 +4,9 @@ import { ResortDataContext} from '../Api/ResortData';
 import axios from "axios";
 
 export default function HelpCenter(){
-    const {userEmail,userNickName,logout, headerChange, setHeaderChange} = useContext(ResortDataContext);
+    const {userEmail,userNickName,logout, headerChange, setHeaderChange, listType, setListType} = useContext(ResortDataContext);
 
-    // 왼쪽 리스트 클릭시 컨텐츠 전환
-    const [listType, setListType] = useState(1)
+    //
 
     // caret 버튼 클릭시 자주 묻는 질문 나타나게 하는 상태변수
         const [isContent1, setIsContent1] = useState(false);
@@ -575,7 +574,7 @@ export default function HelpCenter(){
                 style={{height:isContent1 ? '245px' : '0px',
                         overflow:'hidden', 
                         transition:'height 0.3s ease', 
-                        backgroundColor:'rgb(66 121 155 / 12%)',
+                        backgroundColor:'rgba(97, 149, 182, 0.12)',
                         padding:'0 20px 0 20px'
                     }}>
                     <br/> A. 예약 취소는 EcoStay앱 또는 웹의 ‘내 정보 → 예약/구매 내역’에서 직접 진행하실 수 있습니다. <br/>
@@ -602,7 +601,7 @@ export default function HelpCenter(){
                         height:isContent2 ? '220px' : '0px',
                         overflow:'hidden', 
                         transition:'height 0.3s ease',
-                        backgroundColor:'rgb(66 121 155 / 12%)',
+                        backgroundColor:'rgba(97, 149, 182, 0.12)',
                         padding:'0 20px 0 20px'
                 }}>
                     <br/> A. 기상 악화, 감염병 확산 등 불가항력적인 사유로 숙소 이용이 어려운 경우, <br/>
@@ -628,7 +627,7 @@ export default function HelpCenter(){
                         height:isContent3 ? '185px' : '0px',
                         overflow:'hidden', 
                         transition:'height 0.3s ease',
-                        backgroundColor:'rgb(66 121 155 / 12%)',
+                        backgroundColor:'rgba(97, 149, 182, 0.12)',
                         padding:'0 20px 0 20px'
                 }}>
                     <br/> A. 예약이 대기 상태인 경우, <br/>
@@ -653,7 +652,7 @@ export default function HelpCenter(){
                         height:isContent4 ? '250px' : '0px',
                         overflow:'hidden', 
                         transition:'height 0.3s ease',
-                        backgroundColor:'rgb(66 121 155 / 12%)',
+                        backgroundColor:'rgba(97, 149, 182, 0.12)',
                         padding:'0 20px 0 20px'
                 }}>
                    <br/>  A. 예약 결제가 완료된 이후에는 체크인 날짜 및 객실 타입 변경이 불가능합니다. <br/>
@@ -681,7 +680,7 @@ export default function HelpCenter(){
                         height:isContent5 ? '500px' : '0px',
                         overflow:'hidden', 
                         transition:'height 0.3s ease',
-                        backgroundColor:'rgb(66 121 155 / 12%)',
+                        backgroundColor:'rgba(97, 149, 182, 0.12)',
                         padding:'0 20px 0 20px'
                 }}>
                     <br/>A. 현금영수증은 현금성 결제 수단으로 결제한 경우에 한해 발급이 가능합니다.<br/>
@@ -728,7 +727,7 @@ export default function HelpCenter(){
                         height:isContent6 ? '400px' : '0px',
                         overflow:'hidden', 
                         transition:'height 0.3s ease',
-                        backgroundColor:'rgb(66 121 155 / 12%)',
+                        backgroundColor:'rgba(97, 149, 182, 0.12)',
                         padding:'0 20px 0 20px'
                 }}>
                     <br/> A. 예약 및 결제 정보가 포함된 영수증 또는 거래내역서는<br/>
@@ -787,11 +786,10 @@ export default function HelpCenter(){
                                     <p>{noticelist[noticeNum-1].n_title}</p>
                                     <p className='notice-date'>작성일 : {noticelist[noticeNum-1].n_date.slice(0,10)}</p>
                                 </div>
-                                <div className='notice-contents' style={{whiteSpace:"pre-wrap",backgroundColor:"#42799b0e",borderBottom:"1px solid #333",padding:"50px 10px",margin:"0"}}>
+                                <div className='notice-contents' style={{whiteSpace:"pre-wrap",backgroundColor:"rgba(90, 146, 180, 0.12)",borderBottom:"1px solid #333",padding:"50px 10px",margin:"0"}}>
                                     {noticelist[noticeNum-1].n_content}
                                 </div>
                                 <button type='button' className='noticeContentsBtn' onClick={()=>setNoticeNum(0)}>목록 보기</button>
-                                
                             </div>
                             
                         </>
@@ -1091,7 +1089,7 @@ export default function HelpCenter(){
                                         <input type="button" onClick={modifyButton} value="수정하기" />
                                         {/* 삭제하기 눌렀을때 관리자가 아니면 비밀번호 입력 */}
                                         {!delState && userEmail !== "admin@resort.com" &&
-                                            <input type="button" onClick={deleteButton} value="삭제하기" />
+                                            <input type="button" onClick={()=>{deleteButton();setPassword();}} value="삭제하기" />
                                         }
                                         {/* 삭제하기 눌렀을때 관리자면 비밀번호 입력안해도 삭제 */}
                                         {!delState && userEmail === "admin@resort.com" &&
@@ -1140,9 +1138,8 @@ export default function HelpCenter(){
                                     </tr>
                                     <tr height="40">
                                         <td align="center" style={{ width: '150px' }}>비밀번호
-                                             {/* <span className='red'>(필수입력)</span> */}
                                         </td>
-                                        <td style={{ width: '450px' }}><input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} /></td>
+                                        <td style={{ width: '450px' }}><input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />{userEmail === "admin@resort.com" && <span style={{color:'#ff0000',lineHeight:'24px',fontSize:'14px'}}>* 관리자는 아무거나 한글자 이상 입력</span>}</td>
                                     </tr>
                                     <tr height="40">
                                         <td align="center" style={{ width: '150px' }}>글내용</td>
@@ -1207,11 +1204,11 @@ export default function HelpCenter(){
                 <div className='helpCenter_tel1'>
                     <h1 className='tel1_title'>EcoStay 고객 센터</h1>
                     <ul>
-                        <li className='tel_list chatLi'>
+                        {/* <li className='tel_list chatLi'>
                             <button type='button' className='chatBtn'>
                                 채팅 상담
                             </button>
-                        </li>
+                        </li> */}
                         <li className='tel_list'>
                             <i className="fa-solid fa-phone"></i>
                             여행 상담센터
