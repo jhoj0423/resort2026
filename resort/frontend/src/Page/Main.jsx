@@ -451,8 +451,8 @@ export default function Main(){
                         </div>
                         <i className="fa-solid fa-magnifying-glass searchIcon"></i>
                         <button type='button' onClick={() => {setOpenC(!openC),setSelectDay([])}} className='calenertBtn'>
-                            <i className="fa-solid fa-calendar"></i>
-                            <span style={{marginRight:'5px'}}>{DayData.length < 2 ? '일정을 선택해 주세요' : `${DayData[0]} - ${DayData[1]}`}</span>
+                            <i className="fa-solid fa-calendar" style={{color:'#42799b'}}></i>
+                            <span style={{marginRight:'5px',fontWeight:'600'}}>{DayData.length < 2 ? '일정을 선택해 주세요' : `${DayData[0]} - ${DayData[1]}`}</span>
                         </button>
                         <div className='CalendarModal'>
                             {openC && <Calendar setDayData={setDayData}/>}
@@ -464,8 +464,8 @@ export default function Main(){
                             onClick={minusBtn} 
                             className='minus_btn' 
                             style={{
-                                backgroundColor : guestCount === 1 ? '#e7e7e7ff' : '#42799b',
-                                color:'#fff',
+                                backgroundColor : guestCount === 1 ? '#f3f3f3' : '#42799b',
+                                color: guestCount === 1 ? '#898989' : '#fff',
                                 cursor:guestCount === 1 ? 'not-allowed' : 'pointer'
                             }}>
                                 <i className="fa-solid fa-minus"></i>
@@ -475,8 +475,8 @@ export default function Main(){
                             onClick={plusBtn}
                             className='plus_btn'
                             style={{
-                                backgroundColor : guestCount === 4 ? '#e7e7e7ff' : '#42799b',
-                                color:'#fff',
+                                backgroundColor : guestCount === 4 ? '#f3f3f3' : '#42799b',
+                                color: guestCount === 4 ? '#898989' : '#fff',
                                 cursor:guestCount === 4 ? 'not-allowed' : 'pointer'
                             }}>
                                 <i className="fa-solid fa-plus"></i>
