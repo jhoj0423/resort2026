@@ -208,18 +208,18 @@ export default function AdminPage4(){
                             <table className="list_table" >
                                 <thead >
                                     <tr className="table_head">
-                                        <th width="50px">예약번호</th>
-                                        <th width="50px">회원번호</th>
-                                        <th width="80px">비회원번호</th>
-                                        <th width="50px">회원구분</th>
-                                        <th width="180px">예약코드</th>
-                                        <th width="50px">방코드</th>
-                                        <th width="100px">예약자명</th>
-                                        <th width="50px">예약상태</th>
-                                        <th width="150px">취소시간</th>
-                                        <th width="50px">상세보기</th>
-                                        <th width="50px">예약수정</th>
-                                        <th width="50px">예약취소</th>
+                                        <th width="70px">예약번호</th>
+                                        <th width="70px">회원번호</th>
+                                        <th width="110px">비회원번호</th>
+                                        <th width="70px">회원구분</th>
+                                        <th width="240px">예약코드</th>
+                                        <th width="65px">방코드</th>
+                                        <th width="135px">예약자명</th>
+                                        <th width="65px">예약상태</th>
+                                        <th width="200px">취소시간</th>
+                                        <th width="115px">상세보기</th>
+                                        <th width="135px">예약수정</th>
+                                        <th width="115px">예약취소</th>
                                         
                                     </tr>
                                 </thead>

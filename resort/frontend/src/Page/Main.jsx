@@ -97,6 +97,7 @@ export default function Main(){
         const overseas = hotelMerge.filter(item => item.country !== 'Korea');
         const overseasRate = [...overseas].sort((a,b) => b.hotelAvgScore - a.hotelAvgScore);
         setOverSeasHotel(overseasRate)
+        console.log('#################################',overseasHotel)
     },[hotelMerge])
 
     // 호텔 국내 필터
