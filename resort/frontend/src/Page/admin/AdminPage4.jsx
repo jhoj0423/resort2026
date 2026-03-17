@@ -238,7 +238,7 @@ export default function AdminPage4(){
                                                 <td>{item.reservation_no}</td>
                                                 <td>{item.r_code}</td>
                                                 <td>{item.booker_name}</td>
-                                                <td>{item.cancel === 0 ? "예약" : "취소"}</td>
+                                                <td>{item.cancel === 1 ? "취소" : "예약"}</td>
                                                 <td>{item.cancel_date!==null? `${item.cancel_date.slice(0,10)} - ${item.cancel_date.slice(11,16)}`:''}</td>
                                                 <td><button className="table_btn" onClick={()=>{setIsinfo(!isInfo),setNum(index)}}>상세정보</button></td>
                                                 <td>{item.m_code === null && item.cancel === 0 && item.g_check===0?  <button className="table_btn" style={{width:"100px"}} onClick={()=>{setIsinfo2(!isInfo2),setNum(index)}}>비회원수정</button>:""}</td>
@@ -275,7 +275,7 @@ export default function AdminPage4(){
                                                         <p><span>예약자명</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].booker_name}</span><span>예약자 전화번호 :</span> {reservation[num].g_phone!==null?reservation[num].g_phone:reservation[num].m_phone}</p>
                                                     </li>
                                                     <li>
-                                                        <p><span>예약시간</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].reserved_at.slice(0,10)}</span></p>
+                                                        <p><span>예약날짜</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].reserved_at.slice(0,10)}</span></p>
                                                     </li>
                                                     <li>
                                                         <p><span>체크인 날짜</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].check_in_date}</span><span>체크아웃 날짜 :</span>{reservation[num].check_out_date}</p>
