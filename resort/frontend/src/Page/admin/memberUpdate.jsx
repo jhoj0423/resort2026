@@ -21,7 +21,8 @@ export default function MemberUdate(){
     const [memberData,setMemberData] = useState({})
     const [oneData,setOneData] = useState(null)
 
-    
+    console.log('??????????????',find)
+    console.log('??????????????',MemberAllData[m_code-1]?.m_nickName)
     
     useEffect(()=>{
         axios.get(`/api/member/oneMember/${m_code}`)
