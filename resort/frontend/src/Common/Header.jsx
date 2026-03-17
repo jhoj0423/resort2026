@@ -9,7 +9,7 @@ import { useClickAway } from 'react-use';
 
 export default function Header(){
     const navigate = useNavigate();
-    const {userNickName, setGuestCount, userEmail,setUserEmail,setUserNickName, headerChange, setHeaderChange, setCustomer} = useContext(ResortDataContext);
+    const {userNickName, setGuestCount, userEmail,setUserEmail,setUserNickName, headerChange, setHeaderChange, setCustomer, setTown} = useContext(ResortDataContext);
     // const [headerChange, setHeaderChange] = useState(0);
     // 헤더 메뉴바 모달
     // useRef, useClickAway 를 사용하기 전 npm install react-use 를 해야 함.
@@ -51,7 +51,7 @@ export default function Header(){
             setUserEmail(null);
             setCustomer('');
             setHeaderChange(0);
-
+            setTown('');
             navigate('/', { replace: true });
 
         } catch (err) {
@@ -59,28 +59,6 @@ export default function Header(){
         }
         setA(!a);
     }
-
-
-    // const logoutHandeler = () => {
-
-    //     axios.get('/api/member/logout',{ withCredentials: true })
-    //      .then((res) => {
-    //         if(res.data === true){
-    //             sessionStorage.clear();
-    //             setUserNickName(null);
-    //             setUserEmail(null);
-    //             setCustomer('');
-    //             setHeaderChange(0);
-    //             navigate('/', { replace: true });              
-    //         }else{
-    //             //로그아웃 실패
-    //             alert("//로그아웃 실패");
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error("error", error)
-    //     })
-    // }
 
     // 컴포넌트 이동시 모달 닫기
     const location = useLocation();
