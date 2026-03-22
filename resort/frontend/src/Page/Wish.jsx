@@ -242,7 +242,7 @@ console.log(WishAvg);
                                                         <span className='starScore' style={{color:'#000'}}>
                                                             {/* {(WishAvg[filterIndex[index]]?.scoreAvg - Math.floor(WishAvg[filterIndex[index]]?.scoreAvg) === 0) ? WishAvg[filterIndex[index]]?.scoreAvg+'.0' : Math.trunc(WishAvg[filterIndex[index]]?.scoreAvg * 10) / 10} */}
                                                             {WishAvg[filterIndex[index]]?.scoreAvg != null && (
-                                                                ((WishAvg[filterIndex[index]].scoreAvg - Math.floor(WishAvg[filterIndex[index]].scoreAvg)) < 0.5)
+                                                                ((WishAvg[filterIndex[index]].scoreAvg - Math.floor(WishAvg[filterIndex[index]].scoreAvg)) === 0)
                                                                     ? Math.floor(WishAvg[filterIndex[index]].scoreAvg) + '.0'
                                                                     : Math.trunc(WishAvg[filterIndex[index]].scoreAvg * 10) / 10
                                                             )}

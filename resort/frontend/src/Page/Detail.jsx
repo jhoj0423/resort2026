@@ -218,9 +218,9 @@ export default function Detail(){
     }
     //주소복사 버튼
     const addressCopy = (address) =>{
+        toggle();
         navigator.clipboard.writeText(`${address}`);
-        //setModalContent(<p style={{fontSize:'18px',fontWeight:'700'}}>주소가 복사되었습니다.</p>);
-        toggle();        
+        setModalContent(<p style={{fontSize:'18px',fontWeight:'700'}}>주소가 복사되었습니다.</p>);                
     }
     //주소복사 버튼2
     const addressCopy2 = (address) =>{
@@ -298,9 +298,13 @@ export default function Detail(){
     //필터링후 Room r_code저장
     const [filterRcode, setFilterRcode] = useState([]);
 
+    //호텔 최상단에 보여주는 5개 이미지
+    const [bigImg, setBigImg] = useState(`/img/${Hotel.h_Img}`);
+
     //Room에서 필터된 hotel의 r_code 저장
     useEffect(() => {
         searchFilterHandler();
+        setBigImg(`/img/${Hotel.h_Img}`);
     },[Hotel]);
 
     //검색 필터링된 r_code 재저장
@@ -392,7 +396,7 @@ export default function Detail(){
     }
 
     const [slider, setSlider] = useState(false);
-    const [bigImg, setBigImg] = useState(`/img/${Hotel.h_Img}`);
+    
 
     useEffect(() => {
         // 날짜/인원 값이 준비된 순간 자동 조회
@@ -561,7 +565,7 @@ export default function Detail(){
                                         (hotelScore.hotelAvg >= 4.5 && hotelScore.hotelAvg < 5) ? <img className='img2' src='/img/size20-4-5.png' alt="score" /> :
                                         <img className='img2' src='/img/size20-5-0.png' alt="score" />
                                     }
-                                    <span className='starScore'>{(hotelScore.hotelAvg - Math.floor(hotelScore.hotelAvg) < 0.5) ?  Math.floor(hotelScore.hotelAvg)+'.0' : Math.trunc(hotelScore.hotelAvg * 10) / 10}</span>
+                                    <span className='starScore'>{(hotelScore.hotelAvg - Math.floor(hotelScore.hotelAvg) === 0) ?  Math.floor(hotelScore.hotelAvg)+'.0' : Math.trunc(hotelScore.hotelAvg * 10) / 10}</span>
                                     <span className='scoreCount'>{(hotelScore.scoreCount).toLocaleString()}명 평가</span>                                   
                                 </div>
                                 <div className="title-right">
@@ -708,7 +712,7 @@ export default function Detail(){
                                                         {
                                                             (() => {
                                                                 const score = RatingAvgData.find(it => it.r_code === item.r_code)?.scoreAvg ?? 0;
-                                                                return score - Math.floor(score) < 0.5
+                                                                return score - Math.floor(score) === 0
                                                                     ? Math.floor(score) + '.0'
                                                                     : Math.trunc(score * 10) / 10;
                                                             })()
@@ -794,7 +798,7 @@ export default function Detail(){
                                 <i className="fa-solid fa-location-dot"></i>&nbsp;
                                 {cityMap[Hotel.city]}
                                 &nbsp;{Hotel.hotelName}
-                                <button type='button' onClick={() => addressCopy(Hotel.h_address)}>주소복사</button>
+                                <button type='button' onClick={() =>{addressCopy(Hotel.h_address);}}>주소복사</button>
                                 {/* <p style={{position:'fixed',left:'50%',top:'50%',transform:'translate(-50%,-50%)',zIndex:'11111111111',backgroundColor:'#ffffffed',padding:'25px 33px',fontSize:'18px',fontWeight:'600',borderRadius:'10px'}}>주소가 복사되었습니다.</p> */}
                             </p>
                         </div>
@@ -828,7 +832,7 @@ export default function Detail(){
                                     </p>
                                     <p className='score'>
                                         {starCountTotal === 0 ? 0 :
-                                        ((hotelScore.hotelAvg - Math.floor(hotelScore.hotelAvg) < 0.5) ? Math.floor(hotelScore.hotelAvg)+'.0' : Math.trunc(hotelScore.hotelAvg * 10) / 10)}
+                                        ((hotelScore.hotelAvg - Math.floor(hotelScore.hotelAvg) === 0) ? Math.floor(hotelScore.hotelAvg)+'.0' : Math.trunc(hotelScore.hotelAvg * 10) / 10)}
                                         <span>/5</span></p>
                                 </div>
                                 <div className="score-middle">
@@ -1167,7 +1171,7 @@ export default function Detail(){
                                                     })()
                                                 }
                                                 <span className='starScore'>
-                                                    {RecommAvg[index] && ((RecommAvg[index].scoreAvg - Math.floor(RecommAvg[index].scoreAvg) < 0.5) ? Math.floor(RecommAvg[index].scoreAvg)+'.0' : Math.trunc(RecommAvg[index].scoreAvg * 10) / 10)}
+                                                    {RecommAvg[index] && ((RecommAvg[index].scoreAvg - Math.floor(RecommAvg[index].scoreAvg) === 0) ? Math.floor(RecommAvg[index].scoreAvg)+'.0' : Math.trunc(RecommAvg[index].scoreAvg * 10) / 10)}
                                                 </span>
                                                 <span className='scoreCount'>{RecommAvg[index] && RecommAvg[index].reviewCount}명 평가</span>                                    
                                             </div>
@@ -1233,7 +1237,7 @@ export default function Detail(){
                                                         <img src={star} alt="score" key={ind} className='star' />
                                                     ))}
                                                     <span className='starScore'>
-                                                        {(WishAvg[index].scoreAvg - Math.floor(WishAvg[index].scoreAvg) < 0.5) ? Math.floor(WishAvg[index].scoreAvg)+'.0' : Math.trunc(WishAvg[index].scoreAvg * 10) / 10}
+                                                        {(WishAvg[index].scoreAvg - Math.floor(WishAvg[index].scoreAvg) === 0) ? Math.floor(WishAvg[index].scoreAvg)+'.0' : Math.trunc(WishAvg[index].scoreAvg * 10) / 10}
                                                     </span>
                                                     <span className='scoreCount'>{(WishAvg[index].reviewCount).toLocaleString()}명 평가</span>
                                                 </div>
