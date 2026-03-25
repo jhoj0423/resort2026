@@ -53,4 +53,7 @@ public interface ReservationService {
 	
 	// 리뷰 작성후 수정
 	public int reviewMod(int re_code);
+	
+	// 리뷰 자동 업데이트
+	public void reviewStatusUpdate();
 }

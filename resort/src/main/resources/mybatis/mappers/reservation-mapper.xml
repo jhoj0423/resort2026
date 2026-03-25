@@ -99,7 +99,7 @@
 		
 		<!-- // 리뷰 상태 업데이트 함수 public int reviewStatusMod(@Param("m_email") String m_email);  -->
 		<update id="reviewStatusMod">
-			UPDATE reservation SET review_status = 2 WHERE DATE_ADD(check_out_date, INTERVAL 2 DAY) &lt; CURDATE() AND review_status = 0
+			UPDATE reservation SET review_status = 2 WHERE DATE_ADD(check_out_date, INTERVAL 7 DAY) &lt; CURDATE() AND review_status = 0
 		</update>
 		
 		<!-- public int updateResercation(ReservationDTO redto); -->
@@ -121,6 +121,11 @@
 		<!-- public int reviewMod(@Param("re_code") int re_code); -->
 		<update id="reviewMod">
 			UPDATE reservation SET review_status = 1 WHERE re_code = #{re_code}
+		</update>
+		
+		<!-- // 리뷰 자동 업데이트 public void reviewUpdate(); -->
+		<update id="reviewStatusUpdate">
+			UPDATE reservation SET review_status = 2 WHERE DATE_ADD(check_out_date, INTERVAL 7 DAY) &lt; CURDATE() AND review_status = 0
 		</update>
 	
 </mapper>

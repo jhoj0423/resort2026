@@ -3,6 +3,7 @@ package resort.reservation.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -90,6 +91,10 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationmapper.reviewMod(re_code);
 	}
 
-	
-	
+	@Override
+	@Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")
+	public void reviewStatusUpdate() {
+		System.out.println("ReservationServiceImpl : reviewStatusUpdate() 메서드 확인");
+		reservationmapper.reviewStatusUpdate();
+	}
 }
