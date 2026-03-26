@@ -69,7 +69,7 @@ export default function MyPage(){
             const res02 = await axios.get('/api/member/mypage', {
                 params: { m_email: userEmail }
             })
-            // console.log("마이페이지 데이터 : ", res02.data);
+            console.log("마이페이지 데이터 : ", res02.data);
             setMyPage(res02.data);
         }catch(error){
             console.error("error", error)
@@ -84,7 +84,7 @@ export default function MyPage(){
             params: { m_email: userEmail }
         })
         .then((res) => {
-            // console.log("회원 데이터 : ", res.data);
+            console.log("회원 데이터 : ", res.data);
             setMemberInfo(res.data);
             const phone = res.data.m_phone;
             const userNumFront = phone.substring(3, 7);
@@ -534,6 +534,30 @@ export default function MyPage(){
 
         // console.log('myPagemyPage',myPage)
         // console.log('myPage[reviewIndex].rb_code', reviewIndex)
+
+    const cityMap = {
+        Sokcho: '강원도 속초시',
+        Gyeongju: '경상북도 경주시',
+        Busan: '부산시',
+        Gangneung: '강원도 강릉시',
+        Yeosu: '전라남도 여수시',
+        Daejeon: '대전시',
+        Gwangju: '광주시',
+        Jeju: '제주도',
+        Pohang: '경상북도 포항시',
+        Seoul: '서울시',
+        Tokyo: '도쿄',
+        Sapporo: '훗카이도 삿포로',
+        LosAngeles: '캘리포니아 로스앤젤레스',
+        'New York': '뉴욕',
+        Guam: '괌',
+        Zhangjiajie: '후난성 장가계',
+        Shanghai: '상하이',
+        Rome: '로마',
+        Venice: '베네치아',
+        Paris: '파리'
+    };
+
     return(
         <div className="reserVation_container">
             {/* 왼쪽 메뉴 */}
@@ -647,6 +671,24 @@ export default function MyPage(){
                                                                     <div className="room-info">
                                                                         <p><i className="fa-solid fa-address-card"></i> 예약자명 : <span className='bold'>{item.booker_name}</span></p>                                                                
                                                                         <p><i className="fa-solid fa-couch"></i> 예약객실 : <span className='bold'>{item.roomName}</span></p>
+                                                                        <p><i className="fa-solid fa-star"></i> 나의 별점 :  
+                                                                            <span className='bold'>
+                                                                                {
+                                                                                    (item.rb_score >= 0 && item.rb_score < 0.5) ? <img className='img5' src='/img/size20-0-0.png' alt="score" /> :
+                                                                                    (item.rb_score >= 0.5 && item.rb_score < 1) ? <img className='img5' src='/img/size20-0-5.png' alt="score" /> :
+                                                                                    (item.rb_score >= 1 && item.rb_score < 1.5) ? <img className='img5' src='/img/size20-1-0.png' alt="score" /> :
+                                                                                    (item.rb_score >= 1.5 && item.rb_score < 2) ? <img className='img5' src='/img/size20-1-5.png' alt="score" /> :
+                                                                                    (item.rb_score >= 2 && item.rb_score < 2.5) ? <img className='img5' src='/img/size20-2-0.png' alt="score" /> :
+                                                                                    (item.rb_score >= 2.5 && item.rb_score < 3) ? <img className='img5' src='/img/size20-2-5.png' alt="score" /> :
+                                                                                    (item.rb_score >= 3 && item.rb_score < 3.5) ? <img className='img5' src='/img/size20-3-0.png' alt="score" /> :
+                                                                                    (item.rb_score >= 3.5 && item.rb_score < 4) ? <img className='img5' src='/img/size20-3-5.png' alt="score" /> :
+                                                                                    (item.rb_score >= 4 && item.rb_score < 4.5) ? <img className='img5' src='/img/size20-4-0.png' alt="score" /> :
+                                                                                    (item.rb_score >= 4.5 && item.rb_score < 5) ? <img className='img5' src='/img/size20-4-5.png' alt="score" /> :
+                                                                                    <img className='img5' src='/img/size20-5-0.png' alt="score" /> 
+                                                                                }  
+                                                                            </span>
+                                                                            <span className="starScore3">{item.rb_score}.0</span>
+                                                                        </p>
                                                                         <p><i className="fa-regular fa-calendar"></i> 숙박일 : <span className='bold'>{new Date(item.check_in_date)?.toISOString().slice(0, 10)}({new Date(item.check_in_date).getDay()===0?'일':new Date(item.check_in_date).getDay()===1?'월':new Date(item.check_in_date).getDay()===2?'화':new Date(item.check_in_date).getDay()===3?'수':new Date(item.check_in_date).getDay()===4?'목':new Date(item.check_in_date).getDay()===5?'금':new Date(item.check_in_date).getDay()===6?'토':undefined})
                                                                                 ~ {new Date(item.check_out_date)?.toISOString().slice(0, 10)}({new Date(item.check_out_date).getDay()===0?'일':new Date(item.check_out_date).getDay()===1?'월':new Date(item.check_out_date).getDay()===2?'화':new Date(item.check_out_date).getDay()===3?'수':new Date(item.check_out_date).getDay()===4?'목':new Date(item.check_out_date).getDay()===5?'금':new Date(item.check_out_date).getDay()===6?'토':undefined})</span></p>
                                                                         <span className='final-price'>{(item.final_price).toLocaleString()}원<span>/{(new Date(item.check_out_date).getTime()-new Date(item.check_in_date).getTime())/(1000*24*60*60)}박</span></span>                                                                
@@ -721,6 +763,24 @@ export default function MyPage(){
                                                                 <div className="room-info">
                                                                     <p><i className="fa-solid fa-address-card"></i> 예약자명 : <span className='bold'>{item.booker_name}</span></p>                                                                
                                                                     <p><i className="fa-solid fa-couch"></i> 예약객실 : <span className='bold'>{item.roomName}</span></p>
+                                                                    <p><i className="fa-solid fa-star"></i> 나의 별점 :  
+                                                                        <span className='bold'>
+                                                                            {
+                                                                                (item.rb_score >= 0 && item.rb_score < 0.5) ? <img className='img5' src='/img/size20-0-0.png' alt="score" /> :
+                                                                                (item.rb_score >= 0.5 && item.rb_score < 1) ? <img className='img5' src='/img/size20-0-5.png' alt="score" /> :
+                                                                                (item.rb_score >= 1 && item.rb_score < 1.5) ? <img className='img5' src='/img/size20-1-0.png' alt="score" /> :
+                                                                                (item.rb_score >= 1.5 && item.rb_score < 2) ? <img className='img5' src='/img/size20-1-5.png' alt="score" /> :
+                                                                                (item.rb_score >= 2 && item.rb_score < 2.5) ? <img className='img5' src='/img/size20-2-0.png' alt="score" /> :
+                                                                                (item.rb_score >= 2.5 && item.rb_score < 3) ? <img className='img5' src='/img/size20-2-5.png' alt="score" /> :
+                                                                                (item.rb_score >= 3 && item.rb_score < 3.5) ? <img className='img5' src='/img/size20-3-0.png' alt="score" /> :
+                                                                                (item.rb_score >= 3.5 && item.rb_score < 4) ? <img className='img5' src='/img/size20-3-5.png' alt="score" /> :
+                                                                                (item.rb_score >= 4 && item.rb_score < 4.5) ? <img className='img5' src='/img/size20-4-0.png' alt="score" /> :
+                                                                                (item.rb_score >= 4.5 && item.rb_score < 5) ? <img className='img5' src='/img/size20-4-5.png' alt="score" /> :
+                                                                                <img className='img5' src='/img/size20-5-0.png' alt="score" />
+                                                                            }
+                                                                            <span className="starScore3">{item.rb_score}.0</span>
+                                                                        </span>                                                                    
+                                                                    </p>
                                                                     <p><i className="fa-regular fa-calendar"></i> 숙박일 : <span className='bold'>{new Date(item.check_in_date)?.toISOString().slice(0, 10)}({new Date(item.check_in_date).getDay()===0?'일':new Date(item.check_in_date).getDay()===1?'월':new Date(item.check_in_date).getDay()===2?'화':new Date(item.check_in_date).getDay()===3?'수':new Date(item.check_in_date).getDay()===4?'목':new Date(item.check_in_date).getDay()===5?'금':new Date(item.check_in_date).getDay()===6?'토':undefined})
                                                                         ~ {new Date(item.check_out_date)?.toISOString().slice(0, 10)}({new Date(item.check_out_date).getDay()===0?'일':new Date(item.check_out_date).getDay()===1?'월':new Date(item.check_out_date).getDay()===2?'화':new Date(item.check_out_date).getDay()===3?'수':new Date(item.check_out_date).getDay()===4?'목':new Date(item.check_out_date).getDay()===5?'금':new Date(item.check_out_date).getDay()===6?'토':undefined})</span></p>
                                                                     <span className='final-price'>{(item.final_price).toLocaleString()}원<span>/{(new Date(item.check_out_date).getTime()-new Date(item.check_in_date).getTime())/(1000*24*60*60)}박</span></span>                                                                
@@ -815,6 +875,24 @@ export default function MyPage(){
                                                             <div className="room-info">
                                                                 <p><i className="fa-solid fa-address-card"></i> 예약자명 : <span className='bold'>{item.booker_name}</span></p>                                                                
                                                                 <p><i className="fa-solid fa-couch"></i> 예약객실 : <span className='bold'>{item.roomName}</span></p>
+                                                                <p><i className="fa-solid fa-star"></i> 나의 별점 :  
+                                                                    <span className='bold'>
+                                                                        {
+                                                                            (item.rb_score >= 0 && item.rb_score < 0.5) ? <img className='img5' src='/img/size20-0-0.png' alt="score" /> :
+                                                                            (item.rb_score >= 0.5 && item.rb_score < 1) ? <img className='img5' src='/img/size20-0-5.png' alt="score" /> :
+                                                                            (item.rb_score >= 1 && item.rb_score < 1.5) ? <img className='img5' src='/img/size20-1-0.png' alt="score" /> :
+                                                                            (item.rb_score >= 1.5 && item.rb_score < 2) ? <img className='img5' src='/img/size20-1-5.png' alt="score" /> :
+                                                                            (item.rb_score >= 2 && item.rb_score < 2.5) ? <img className='img5' src='/img/size20-2-0.png' alt="score" /> :
+                                                                            (item.rb_score >= 2.5 && item.rb_score < 3) ? <img className='img5' src='/img/size20-2-5.png' alt="score" /> :
+                                                                            (item.rb_score >= 3 && item.rb_score < 3.5) ? <img className='img5' src='/img/size20-3-0.png' alt="score" /> :
+                                                                            (item.rb_score >= 3.5 && item.rb_score < 4) ? <img className='img5' src='/img/size20-3-5.png' alt="score" /> :
+                                                                            (item.rb_score >= 4 && item.rb_score < 4.5) ? <img className='img5' src='/img/size20-4-0.png' alt="score" /> :
+                                                                            (item.rb_score >= 4.5 && item.rb_score < 5) ? <img className='img5' src='/img/size20-4-5.png' alt="score" /> :
+                                                                            <img className='img5' src='/img/size20-5-0.png' alt="score" />
+                                                                        }
+                                                                        <span className="starScore3">{item.rb_score}.0</span>
+                                                                    </span>                                                                
+                                                                </p>
                                                                 <p><i className="fa-regular fa-calendar"></i> 숙박일 : <span className='bold'>{new Date(item.check_in_date)?.toISOString().slice(0, 10)}({new Date(item.check_in_date).getDay()===0?'일':new Date(item.check_in_date).getDay()===1?'월':new Date(item.check_in_date).getDay()===2?'화':new Date(item.check_in_date).getDay()===3?'수':new Date(item.check_in_date).getDay()===4?'목':new Date(item.check_in_date).getDay()===5?'금':new Date(item.check_in_date).getDay()===6?'토':undefined})
                                                                         ~ {new Date(item.check_out_date)?.toISOString().slice(0, 10)}({new Date(item.check_out_date).getDay()===0?'일':new Date(item.check_out_date).getDay()===1?'월':new Date(item.check_out_date).getDay()===2?'화':new Date(item.check_out_date).getDay()===3?'수':new Date(item.check_out_date).getDay()===4?'목':new Date(item.check_out_date).getDay()===5?'금':new Date(item.check_out_date).getDay()===6?'토':undefined})</span></p>
                                                                 <span className='final-price'>{(item.final_price).toLocaleString()}원<span>/{(new Date(item.check_out_date).getTime()-new Date(item.check_in_date).getTime())/(1000*24*60*60)}박</span></span>                                                                
@@ -825,14 +903,35 @@ export default function MyPage(){
                                                     <table>
                                                         <tbody>
                                                             <tr>
-                                                                <th>호텔명</th>
+                                                                <th>숙소명</th>
                                                                 <td colSpan={2}>{item.hotelName}</td>
                                                                 <th>객실명</th>
                                                                 <td colSpan={2}>{item.roomName}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th>예약일</th>
-                                                                <td>{item.reserved_at?.replace('T', ' ').substring(0, 19)}</td>
+                                                                <th>국가</th>
+                                                                <td>
+                                                                    {item.country === 'Korea'? "대한민국":
+                                                                    item.country === 'Japan'? "일본":
+                                                                    item.country === 'USA'? "미국":
+                                                                    item.country === 'China'? "중국":
+                                                                    item.country === 'Italy'? "이탈리아":
+                                                                    item.country === 'France'? "프랑스":null
+                                                                    }
+                                                                </td>
+                                                                <th>도시</th>
+                                                                <td>{cityMap[item.city]}</td>
+                                                                <th>숙소유형</th>
+                                                                <td>
+                                                                    {item.type==='Hotel'?'호텔':item.type==='Resort'?'리조트':item.type==='GuestHouse'?'게스트하우스/비앤비':item.type==='Condo'?'콘도':'캠핑장'}
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                            <tr>
+                                                                <th>예약시간</th>
+                                                                <td>
+                                                                    {new Date(item.reserved_at)?.toISOString().slice(0, 10)}({new Date(item.reserved_at).getDay()===0?'일':new Date(item.reserved_at).getDay()===1?'월':new Date(item.reserved_at).getDay()===2?'화':new Date(item.reserved_at).getDay()===3?'수':new Date(item.reserved_at).getDay()===4?'목':new Date(item.reserved_at).getDay()===5?'금':new Date(item.reserved_at).getDay()===6?'토':undefined})&nbsp;{item.reserved_at?.replace('T', ' ').substring(11, 19)}
+                                                                </td>
                                                                 <th>예약자명</th>
                                                                 <td>{item.booker_name}</td>
                                                                 <th>전화번호</th>
@@ -951,6 +1050,24 @@ export default function MyPage(){
                                                                 <div className="room-info">
                                                                     <p><i className="fa-solid fa-address-card"></i> 예약자명 : <span className='bold'>{item.booker_name}</span></p>                                                                
                                                                     <p><i className="fa-solid fa-couch"></i> 예약객실 : <span className='bold'>{item.roomName}</span></p>
+                                                                    <p><i className="fa-solid fa-star"></i> 나의 별점 :  
+                                                                        <span className='bold'>
+                                                                            {
+                                                                                (item.rb_score >= 0 && item.rb_score < 0.5) ? <img className='img5' src='/img/size20-0-0.png' alt="score" /> :
+                                                                                (item.rb_score >= 0.5 && item.rb_score < 1) ? <img className='img5' src='/img/size20-0-5.png' alt="score" /> :
+                                                                                (item.rb_score >= 1 && item.rb_score < 1.5) ? <img className='img5' src='/img/size20-1-0.png' alt="score" /> :
+                                                                                (item.rb_score >= 1.5 && item.rb_score < 2) ? <img className='img5' src='/img/size20-1-5.png' alt="score" /> :
+                                                                                (item.rb_score >= 2 && item.rb_score < 2.5) ? <img className='img5' src='/img/size20-2-0.png' alt="score" /> :
+                                                                                (item.rb_score >= 2.5 && item.rb_score < 3) ? <img className='img5' src='/img/size20-2-5.png' alt="score" /> :
+                                                                                (item.rb_score >= 3 && item.rb_score < 3.5) ? <img className='img5' src='/img/size20-3-0.png' alt="score" /> :
+                                                                                (item.rb_score >= 3.5 && item.rb_score < 4) ? <img className='img5' src='/img/size20-3-5.png' alt="score" /> :
+                                                                                (item.rb_score >= 4 && item.rb_score < 4.5) ? <img className='img5' src='/img/size20-4-0.png' alt="score" /> :
+                                                                                (item.rb_score >= 4.5 && item.rb_score < 5) ? <img className='img5' src='/img/size20-4-5.png' alt="score" /> :
+                                                                                <img className='img5' src='/img/size20-5-0.png' alt="score" />
+                                                                            }                                                                         
+                                                                        </span>
+                                                                        <span className="starScore3">{item.rb_score}.0</span>
+                                                                    </p>
                                                                     <p><i className="fa-regular fa-calendar"></i> 숙박일 : <span className='bold'>{new Date(item.check_in_date)?.toISOString().slice(0, 10)}({new Date(item.check_in_date).getDay()===0?'일':new Date(item.check_in_date).getDay()===1?'월':new Date(item.check_in_date).getDay()===2?'화':new Date(item.check_in_date).getDay()===3?'수':new Date(item.check_in_date).getDay()===4?'목':new Date(item.check_in_date).getDay()===5?'금':new Date(item.check_in_date).getDay()===6?'토':undefined})
                                                                             ~ {new Date(item.check_out_date)?.toISOString().slice(0, 10)}({new Date(item.check_out_date).getDay()===0?'일':new Date(item.check_out_date).getDay()===1?'월':new Date(item.check_out_date).getDay()===2?'화':new Date(item.check_out_date).getDay()===3?'수':new Date(item.check_out_date).getDay()===4?'목':new Date(item.check_out_date).getDay()===5?'금':new Date(item.check_out_date).getDay()===6?'토':undefined})</span></p>
                                                                     <span className='final-price'>{(item.final_price).toLocaleString()}원<span>/{(new Date(item.check_out_date).getTime()-new Date(item.check_in_date).getTime())/(1000*24*60*60)}박</span></span>                                                                
@@ -984,6 +1101,24 @@ export default function MyPage(){
                                                             <div className="room-info">
                                                                 <p><i className="fa-solid fa-address-card"></i> 예약자명 : <span className='bold'>{item.booker_name}</span></p>                                                                
                                                                 <p><i className="fa-solid fa-couch"></i> 예약객실 : <span className='bold'>{item.roomName}</span></p>
+                                                                <p><i className="fa-solid fa-star"></i> 나의 별점 :  
+                                                                    <span className='bold'>
+                                                                        {
+                                                                            (item.rb_score >= 0 && item.rb_score < 0.5) ? <img className='img5' src='/img/size20-0-0.png' alt="score" /> :
+                                                                            (item.rb_score >= 0.5 && item.rb_score < 1) ? <img className='img5' src='/img/size20-0-5.png' alt="score" /> :
+                                                                            (item.rb_score >= 1 && item.rb_score < 1.5) ? <img className='img5' src='/img/size20-1-0.png' alt="score" /> :
+                                                                            (item.rb_score >= 1.5 && item.rb_score < 2) ? <img className='img5' src='/img/size20-1-5.png' alt="score" /> :
+                                                                            (item.rb_score >= 2 && item.rb_score < 2.5) ? <img className='img5' src='/img/size20-2-0.png' alt="score" /> :
+                                                                            (item.rb_score >= 2.5 && item.rb_score < 3) ? <img className='img5' src='/img/size20-2-5.png' alt="score" /> :
+                                                                            (item.rb_score >= 3 && item.rb_score < 3.5) ? <img className='img5' src='/img/size20-3-0.png' alt="score" /> :
+                                                                            (item.rb_score >= 3.5 && item.rb_score < 4) ? <img className='img5' src='/img/size20-3-5.png' alt="score" /> :
+                                                                            (item.rb_score >= 4 && item.rb_score < 4.5) ? <img className='img5' src='/img/size20-4-0.png' alt="score" /> :
+                                                                            (item.rb_score >= 4.5 && item.rb_score < 5) ? <img className='img5' src='/img/size20-4-5.png' alt="score" /> :
+                                                                            <img className='img5' src='/img/size20-5-0.png' alt="score" />
+                                                                        }
+                                                                    </span>       
+                                                                    <span className="starScore3">{item.rb_score}.0</span>                                                         
+                                                                </p>
                                                                 <p><i className="fa-regular fa-calendar"></i> 숙박일 : <span className='bold'>{new Date(item.check_in_date)?.toISOString().slice(0, 10)}({new Date(item.check_in_date).getDay()===0?'일':new Date(item.check_in_date).getDay()===1?'월':new Date(item.check_in_date).getDay()===2?'화':new Date(item.check_in_date).getDay()===3?'수':new Date(item.check_in_date).getDay()===4?'목':new Date(item.check_in_date).getDay()===5?'금':new Date(item.check_in_date).getDay()===6?'토':undefined})
                                                                      ~ {new Date(item.check_out_date)?.toISOString().slice(0, 10)}({new Date(item.check_out_date).getDay()===0?'일':new Date(item.check_out_date).getDay()===1?'월':new Date(item.check_out_date).getDay()===2?'화':new Date(item.check_out_date).getDay()===3?'수':new Date(item.check_out_date).getDay()===4?'목':new Date(item.check_out_date).getDay()===5?'금':new Date(item.check_out_date).getDay()===6?'토':undefined})</span></p>
                                                                 <span className='final-price'>{(item.final_price).toLocaleString()}원<span>/{(new Date(item.check_out_date).getTime()-new Date(item.check_in_date).getTime())/(1000*24*60*60)}박</span></span>                                                                
@@ -1070,6 +1205,24 @@ export default function MyPage(){
                                                         <div className="room-info">
                                                             <p><i className="fa-solid fa-address-card"></i> 예약자명 : <span className='bold'>{item.booker_name}</span></p>                                                                
                                                             <p><i className="fa-solid fa-couch"></i> 예약객실 : <span className='bold'>{item.roomName}</span></p>
+                                                            <p><i className="fa-solid fa-star"></i> 나의 별점 :  
+                                                                <span className='bold'>
+                                                                    {
+                                                                        (item.rb_score >= 0 && item.rb_score < 0.5) ? <img className='img5' src='/img/size20-0-0.png' alt="score" /> :
+                                                                        (item.rb_score >= 0.5 && item.rb_score < 1) ? <img className='img5' src='/img/size20-0-5.png' alt="score" /> :
+                                                                        (item.rb_score >= 1 && item.rb_score < 1.5) ? <img className='img5' src='/img/size20-1-0.png' alt="score" /> :
+                                                                        (item.rb_score >= 1.5 && item.rb_score < 2) ? <img className='img5' src='/img/size20-1-5.png' alt="score" /> :
+                                                                        (item.rb_score >= 2 && item.rb_score < 2.5) ? <img className='img5' src='/img/size20-2-0.png' alt="score" /> :
+                                                                        (item.rb_score >= 2.5 && item.rb_score < 3) ? <img className='img5' src='/img/size20-2-5.png' alt="score" /> :
+                                                                        (item.rb_score >= 3 && item.rb_score < 3.5) ? <img className='img5' src='/img/size20-3-0.png' alt="score" /> :
+                                                                        (item.rb_score >= 3.5 && item.rb_score < 4) ? <img className='img5' src='/img/size20-3-5.png' alt="score" /> :
+                                                                        (item.rb_score >= 4 && item.rb_score < 4.5) ? <img className='img5' src='/img/size20-4-0.png' alt="score" /> :
+                                                                        (item.rb_score >= 4.5 && item.rb_score < 5) ? <img className='img5' src='/img/size20-4-5.png' alt="score" /> :
+                                                                        <img className='img5' src='/img/size20-5-0.png' alt="score" />
+                                                                    }
+                                                                </span>
+                                                                <span className="starScore3">{item.rb_score}.0</span>
+                                                            </p>
                                                             <p><i className="fa-regular fa-calendar"></i> 숙박일 : <span className='bold'>{new Date(item.check_in_date)?.toISOString().slice(0, 10)}({new Date(item.check_in_date).getDay()===0?'일':new Date(item.check_in_date).getDay()===1?'월':new Date(item.check_in_date).getDay()===2?'화':new Date(item.check_in_date).getDay()===3?'수':new Date(item.check_in_date).getDay()===4?'목':new Date(item.check_in_date).getDay()===5?'금':new Date(item.check_in_date).getDay()===6?'토':undefined})
                                                                     ~ {new Date(item.check_out_date)?.toISOString().slice(0, 10)}({new Date(item.check_out_date).getDay()===0?'일':new Date(item.check_out_date).getDay()===1?'월':new Date(item.check_out_date).getDay()===2?'화':new Date(item.check_out_date).getDay()===3?'수':new Date(item.check_out_date).getDay()===4?'목':new Date(item.check_out_date).getDay()===5?'금':new Date(item.check_out_date).getDay()===6?'토':undefined})</span></p>
                                                             <span className='final-price'>{(item.final_price).toLocaleString()}원<span>/{(new Date(item.check_out_date).getTime()-new Date(item.check_in_date).getTime())/(1000*24*60*60)}박</span></span>                                                                
@@ -1080,8 +1233,10 @@ export default function MyPage(){
                                                 <table>
                                                     <tbody>
                                                         <tr>
-                                                            <th>예약취소일</th>
-                                                            <td>{item.cancel_date?.replace('T', ' ').substring(0, 19)}</td>
+                                                            <th>예약취소시간</th>
+                                                            <td>
+                                                                {new Date(item.cancel_date)?.toISOString().slice(0, 10)}({new Date(item.cancel_date).getDay()===0?'일':new Date(item.cancel_date).getDay()===1?'월':new Date(item.cancel_date).getDay()===2?'화':new Date(item.cancel_date).getDay()===3?'수':new Date(item.cancel_date).getDay()===4?'목':new Date(item.cancel_date).getDay()===5?'금':new Date(item.cancel_date).getDay()===6?'토':undefined})&nbsp;{item.cancel_date?.replace('T', ' ').substring(11, 19)}
+                                                            </td>
                                                             <th>취소여부</th>
                                                             <td>취소완료</td>
                                                             <th>환불금액</th>
@@ -1093,14 +1248,35 @@ export default function MyPage(){
                                                 <table>
                                                     <tbody>
                                                         <tr>
-                                                            <th>호텔명</th>
+                                                            <th>숙소명</th>
                                                             <td colSpan={2}>{item.hotelName}</td>
                                                             <th>객실명</th>
                                                             <td colSpan={2}>{item.roomName}</td>
                                                         </tr>
                                                         <tr>
-                                                            <th>예약일</th>
-                                                            <td>{item.reserved_at?.replace('T', ' ').substring(0, 19)}</td>
+                                                            <th>국가</th>
+                                                            <td>
+                                                                {item.country === 'Korea'? "대한민국":
+                                                                item.country === 'Japan'? "일본":
+                                                                item.country === 'USA'? "미국":
+                                                                item.country === 'China'? "중국":
+                                                                item.country === 'Italy'? "이탈리아":
+                                                                item.country === 'France'? "프랑스":null
+                                                                }
+                                                            </td>
+                                                            <th>도시</th>
+                                                            <td>{cityMap[item.city]}</td>
+                                                            <th>숙소유형</th>
+                                                            <td>
+                                                                {item.type==='Hotel'?'호텔':item.type==='Resort'?'리조트':item.type==='GuestHouse'?'게스트하우스/비앤비':item.type==='Condo'?'콘도':'캠핑장'}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>예약시간</th>
+                                                            <td>
+                                                                {new Date(item.reserved_at)?.toISOString().slice(0, 10)}({new Date(item.reserved_at).getDay()===0?'일':new Date(item.reserved_at).getDay()===1?'월':new Date(item.reserved_at).getDay()===2?'화':new Date(item.reserved_at).getDay()===3?'수':new Date(item.reserved_at).getDay()===4?'목':new Date(item.reserved_at).getDay()===5?'금':new Date(item.reserved_at).getDay()===6?'토':undefined})&nbsp;{item.reserved_at?.replace('T', ' ').substring(11, 19)}
+                                                            </td>
+                                                            {/* <td>{item.reserved_at?.replace('T', ' ').substring(0, 19)}</td> */}
                                                             <th>예약자명</th>
                                                             <td>{item.booker_name}</td>
                                                             <th>전화번호</th>

@@ -1,30 +1,33 @@
 .admin_wrap{
-    margin-top: 100px;
+    margin-top: 120px;
     text-align: center;
 }
 .admin_wrap .admin_title{
     font-size: 30px;
     font-weight: 700;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 .admin_wrap .admin_header {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     width: 1400px;
     margin: 0 auto;
     color: #fff;
 }
 .admin_wrap .admin_header .menu_box{
     position: relative;
-    width: 120px;
-    background-color: #ffffff;
-    border: 2px solid #81a6f5;
+    width: 145px;
     border-bottom: none;
     text-align: center;
-    margin-right: 4px;
-    padding: 10px 0;
-    border-radius: 20px 20px 0 0;
-    color: #1a2867;
+    margin-right: 0;
+    padding: 0 35px;
+    /* border-radius: 20px 20px 0 0; */
+    color: #000;
+    line-height: 21px;
+    border-right: 1px solid #ddd;
+}
+.admin_wrap .admin_header .menu_box:last-child{
+    border-right: 0;
 }
 
 .admin_wrap .admin_header .menu_box .admin_menu{
@@ -32,15 +35,25 @@
     font-weight: 500;
     cursor: pointer;
 }
+.admin_wrap .admin_header .menu_box .admin_menu:hover i{
+    transform: rotate(180deg);
+}
+
+.admin_wrap .admin_header .menu_box .admin_menu i{
+    font-size: 12px;
+    vertical-align: middle;
+    /* transition: 0.1s; */
+}
 .admin_wrap .admin_header .menu_box:hover .admin_submenu{
-    max-height: 170px;
+    max-height: 190px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 .admin_wrap .admin_header .menu_box .admin_submenu{
     position: absolute;
-    top: 100%;
+    top: 145%;
     left: 50%;
-    width: 100%;
+    width: 145px;
     max-height: 0;
     overflow: hidden;
     transform: translate(-50%,0);
@@ -48,16 +61,31 @@
     transition: 0.5s;
 }
 .admin_wrap .admin_header .menu_box .admin_submenu .a_menus{
-    margin: 15px 0;
-    padding-bottom: 5px;
+    /* margin: 15px 0;
+    padding-bottom: 5px; */
+    width: 100%;
+    line-height: 47px;
+    display: inline-block;
 }
 .admin_wrap .admin_header .menu_box .admin_submenu .a_menus:hover>a>span{
+    display: inline-block;
+    width: 100%;
+    background-color: #f5f7fc;
+    line-height: 47px;
+    display: inline-block;
+    font-weight: 600;
+}
+.admin_wrap .admin_header .menu_box .admin_submenu .a_menus:hover i{
+    transform: rotate(180deg);
+}
+
+/* .admin_wrap .admin_header .menu_box .admin_submenu .a_menus:hover>a>span{
     cursor: pointer;
     font-weight: 600;
-    border-bottom: 2px solid #3775ff;
-}
+    border-bottom: 2px solid #42799b;
+} */
 .admin_wrap .admin_body{
-    background-color: #f2f5fa;;
+    /* background-color: #f2f5fa;; */
     padding: 100px 0;
 }
 .admin_wrap .admin_body .admin_text{
@@ -76,53 +104,68 @@
     height: 61px;
     overflow: hidden;
 }
+.admin_wrap .admin_body #search_wrap form{
+    width: 100%;
+    text-align: left;
+}
+.admin_wrap .admin_body #search_wrap #chkMember{
+    margin-top: 25px;
+}
+.admin_wrap .admin_body #search_wrap .chkMember{
+    margin-left: 5px;
+    width: 135px;
+    padding-top: 35px;
+    cursor: pointer;
+}
+
 .admin_wrap .admin_body #search_wrap .searchbox{
-    border: 2px solid #67b2de46;
-    border-radius: 10px;
-    height: 50px;
+    border: 1px solid #CCC;
+    /* border-radius: 10px; */
+    height: 44px;
     padding: 0 15px;
     box-sizing: border-box;
-    margin-left: 10px;
+    margin-left: 6px;
     background-color: #fff;
 }
 .admin_wrap .admin_body #search_wrap .searchbox:focus{
-    border: 2px solid #3775ff;
+    border: 1px solid #ccc;
 }
 .admin_wrap .admin_body #search_wrap .searchSelect{
-    border: 2px solid #67b2de46;
-    border-radius: 5px;
-    height: 50px;
-    padding: 0 40px 0 0;;
+    border: 1px solid #ccc;
+    /* border-radius: 5px; */
+    height: 44px;
+    padding: 0 40px 0 4px;
     background-color: #fff;
     width: 200px;
 }
 
 .admin_wrap .admin_body #search_wrap .searchBtn{
     border: none;
-    height: 50px;
+    height: 44px;
     padding: 0 10px;
-    margin-left: 10px;
-    width: 120px;
+    margin-left: 6px;
+    width: 110px;
     cursor: pointer;
     font-weight: 500;
-    line-height: 50px;
-    border-radius: 10px;
-    border: 2px solid #0155ff;
-    background-color: #fff;
-    color: #0155ff;
+    line-height: 4px;
+    /* border-radius: 10px; */
+    border: 1px solid #ccc;
+    background-color: transparent;
+    color: #000;
 }
 
 .admin_wrap .admin_body #search_wrap .searchBtn:hover{
     font-weight: 700;
-    background-color: #0155ff;
-    color: #fff;
+    border-color: #42799b;
+    color: #42799b;
 }
 /* 테이블 */
 .admin_wrap .admin_body .admin_list .list_table{
-    margin: 30px auto;
+    margin: 15px auto;
     width: 1400px;
-    box-shadow: 1px 1px 10px #c0c0c0;
-    border-radius: 5px;
+    /* box-shadow: 1px 1px 10px #c0c0c0; */
+    /* border-radius: 5px; */
+
 }
 
 .admin_wrap .admin_body .admin_list .list_table .select{
@@ -133,8 +176,8 @@
 }
 .admin_wrap .admin_body .admin_list .list_table .table_btn{
     background-color: #ffffff53;
-    border: 1px solid #3775ff;
-    color: #3775ff;
+    border: 1px solid #42799b;
+    color: #42799b;
     padding: 7px 10px;
     border-radius: 15px;
     width: 85px;
@@ -144,25 +187,26 @@
 
 .admin_wrap .admin_body .admin_list .list_table .table_btn:hover{
     font-weight: 700;
-    border: 2px solid #3775ff;
     box-sizing: border-box;
-    
-
+    background-color: #42799b;
+    color: #fff;   
 }
 .admin_wrap .admin_body .admin_list .list_table th{
-    font-weight: 600;
-    background-color: #e0eafd;
-    color: #1a2867
+    font-weight: 500;
+    /* background-color: #e0eafd; */
+    /* color: #1a2867 */
+    color: #000;
+    border-bottom: 2px solid #bdbdbd;
 }
 .admin_wrap .admin_body .admin_list .list_table td{
-   border-bottom: 1px solid #d0d0d0;
-   background-color: #ffffff53;
+   border-bottom: 1px solid #eee;
+   /* background-color: #ffffff53; */
 }
 .admin_wrap .admin_body .admin_list .list_table th,
 .admin_wrap .admin_body .admin_list .list_table td{
     text-align: left;
     padding: 10px 0px 10px 20px;
-    height: 60px;
+    height: 55px;
 }
 .admin_wrap .admin_body .admin_list .list_table th>input[type = "text"],
 .admin_wrap .admin_body .admin_list .list_table td>input[type = "text"],
@@ -249,30 +293,32 @@
 .paging .pages .pageBtn{
     width: 30px;
     height:30px;
-    background-color: #ffffff00;
-    border: none;
+    background-color: transparent;
+    border: 1px solid #ddd;
     margin-right:10px;
 }
 .paging .pages .pageBtn:hover{
-    border: 1px solid #3775ff;
-    border-radius: 3px;
-    color: #3775ff;
+    /* border: 1px solid #42799b; */
+    background-color: #f2f2f2;
+    /* border-radius: 3px; */
+    /* color: #42799b; */
 }
 .paging .pages .pageBtn.active{
-    border: 2px solid #3775ff;
+    border: 1px solid #42799b;
     font-weight: 600;
-    color: #3775ff;
-    border-radius: 3px;
+    color: #fff;
+    background-color: #42799b;
+    /* border-radius: 3px; */
 }
 .paging .arrowbtn{
     font-weight: 600px;
     border: none;
-    font-size: 20px;
+    font-size: 17px;
     padding: 0 10px;
     background-color: #ffffff00;
 }
 .paging .arrowbtn:hover{
-    color: #0155ff;
+    color: #42799b;
 }
 
 .cheakboxgr>input{
@@ -311,6 +357,10 @@
 .insertBtn:hover{font-weight: 700;
     background-color: #0155ff;
     color: #fff;
+}
+
+.admin_wrap .admin_body .admin_list .list_table .table_head >td{
+    font-size: 15px;
 }
 
 .admin_wrap .admin_body .admin_list .list_table .table_head >th,
