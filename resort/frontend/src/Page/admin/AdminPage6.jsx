@@ -59,6 +59,11 @@ export default function AdminPage6(){
     
     // 삭제를 위한 useEffect
     const delHandler=(n_code)=>{
+        if(!window.confirm("정말 공지사항을 삭제하시겠습니까?")){
+           return;
+        }
+
+
         axios.delete('/api/board/deletenotice',{
             params: {
                 n_code: n_code
@@ -88,11 +93,11 @@ export default function AdminPage6(){
     return(
         <>
             <div className="admin_wrap">
-                <h2 className="admin_title">관리자 페이지</h2>
+                <h2 className="admin_title">공지사항 조회</h2>
                 <div className="admin_section">
                     <div className="admin_header">
                         <div className="menu_box">
-                            <span className="admin_menu">조회</span>
+                            <span className="admin_menu">조회 <i class="fa-solid fa-caret-down"></i></span>
                             <ul className="admin_submenu">
                                 <li className="a_menus">
                                     <Link to={`/adminPage` } onClick={() => window.scrollTo(0, 0)}>
@@ -117,7 +122,7 @@ export default function AdminPage6(){
                             </ul>
                         </div>
                         <div className="menu_box">
-                            <span className="admin_menu">등록</span>
+                            <span className="admin_menu">등록  <i class="fa-solid fa-caret-down"></i></span>
                             <ul className="admin_submenu">
                                 <li className="a_menus">
                                     <Link to={`/hotelinsert` } onClick={() => window.scrollTo(0, 0)}>
@@ -137,7 +142,7 @@ export default function AdminPage6(){
                             </ul>
                         </div>
                         <div className="menu_box">
-                            <span className="admin_menu">게시판</span>
+                            <span className="admin_menu">게시판 <i class="fa-solid fa-caret-down"></i></span>
                             <ul className="admin_submenu">
                                 <li className="a_menus">
                                     <Link to={`/adminPage5` } onClick={() => window.scrollTo(0, 0)}>
@@ -158,7 +163,7 @@ export default function AdminPage6(){
                         </div>
                     </div>
                     <div className="admin_body">
-                        <div className="admin_text">공지사항 조회</div>
+                        {/* <div className="admin_text">공지사항 조회</div> */}
                         <div id="search_wrap">
                                 <form onSubmit={submitHandler}>
                                     <select name="searchType" className="searchbox" value={searchType} onChange={(e) => setSearchType(e.target.value)}>
@@ -167,8 +172,13 @@ export default function AdminPage6(){
                                     </select>
                                     
                                     <input type="text" className="searchbox" name="searchKeyword" placeholder="검색어를 입력하세요" value={serch} onChange={(e) => setSerch(e.target.value)}/>
-                                    <input type="submit" value="검색" className="searchBtn" onClick={()=>submitHandler()}/>
-                                    <input type="button" value="전체보기" className="searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("n_title"),setSerch(""),setPage(1)}}/>
+                                    <button type="button" className="btn searchBtn" onClick={()=>submitHandler()} >
+                                        <i className="fa-solid fa-magnifying-glass" style={{color:'#42799b'}}></i> 검색</button>
+                                    <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1)}} >
+                                        <i className="fa-solid fa-list" style={{color:'#42799b'}}></i> 전체목록
+                                    </button>
+                                    {/* <input type="submit" value="검색" className="searchBtn" onClick={()=>submitHandler()}/>
+                                    <input type="button" value="전체보기" className="searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("hotelName"),setSerch(""),setPage(1)}}/> */}
                                 </form>
 					        </div>
                         <div className="admin_list">

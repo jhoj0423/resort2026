@@ -233,9 +233,12 @@ export default function HelpCenter(){
 	        },
             withCredentials: true
 	    }).then((res) => {
-            
+            console.log(userEmail)
+            console.log(userNickName)
             console.log("상세보기 테스트");
             console.log(res.data);
+            console.log(num)
+            console.log(res.data.b_code)
             if(!res.data){
                 alert("본인이 작성한 게시글만 열람가능합니다.");
                 setDetail({});       
