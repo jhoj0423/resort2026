@@ -168,7 +168,7 @@ export default function HotelUpdate(){
     return(
         <>
             <div className="admin_wrap">
-                <h2 className="admin_title">{h_code}번 호텔 상품 수정하기</h2>
+                <h2 className="admin_title">{h_code}번 호텔 수정하기</h2>
                 <div className="admin_section">
                     <div className="admin_header">
                         <div className="menu_box">
@@ -238,7 +238,7 @@ export default function HotelUpdate(){
                         </div>
                     </div>
                     <div className="admin_body">
-                        {/* <div className="admin_text" style={{textAlign:"left",width:"800px"}}>{h_code}번 호텔 상품 수정하기</div> */}
+                        {/* <div className="admin_text" style={{textAlign:"left",width:"800px"}}>{h_code}번 호텔 수정하기</div> */}
                         <div className="admin_list">
                             <table className="list_table" style={{width:"800px"}}>
                                 <thead className="DB_table">

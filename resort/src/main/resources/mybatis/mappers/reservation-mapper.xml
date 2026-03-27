@@ -18,7 +18,8 @@
 	
 	<!-- // 회원 예약 내역 select public ResInfoDTO resSelect(@Param("reservation_no") String reservation_no); -->
 	<select id="resSelect" resultType="ResInfoDTO">
-		SELECT h.hotelName, r.roomName, re.check_in_date, re.check_out_date, re.original_price, re.discount_rate, re.coupon_used, re.final_price, re.booker_name, re.reserved_at, re.reservation_no FROM reservation re
+		SELECT h.hotelName, r.roomName, re.check_in_date, re.check_out_date, re.original_price, re.discount_rate, re.coupon_used, re.final_price, re.booker_name, re.reserved_at, re.reservation_no, h.h_Img, h.city 
+		FROM reservation re
 		INNER JOIN room r
 		ON r.r_code = re.r_code
 		INNER JOIN hotel h
@@ -28,7 +29,8 @@
 	
 	<!-- // 비회원의 g_check가 0이면서 axios로 받아온 데이터와 동일한 예약정보만 select public ResInfoDTO guestSelect(@Param("reservation_no") String reservation_no, @Param("g_phone") String g_phone); -->
 	<select id="guestSelect" resultType="ResInfoDTO">
-		SELECT h.hotelName, r.roomName, re.check_in_date, re.check_out_date, re.original_price, re.discount_rate, re.coupon_used, re.final_price, re.booker_name, re.reserved_at, re.reservation_no FROM reservation re
+		SELECT h.hotelName, r.roomName, re.check_in_date, re.check_out_date, re.original_price, re.discount_rate, re.coupon_used, re.final_price, re.booker_name, re.reserved_at, re.reservation_no, h.h_Img, h.city 
+		FROM reservation re
 		INNER JOIN room r
 		ON r.r_code = re.r_code
 		INNER JOIN hotel h
@@ -215,7 +217,7 @@
 		
 		<!-- // 리뷰 상태 업데이트 함수 public int reviewStatusMod(@Param("m_email") String m_email);  -->
 		<update id="reviewStatusMod">
-			UPDATE reservation SET review_status = 2 WHERE DATE_ADD(check_out_date, INTERVAL 2 DAY) &lt; CURDATE() AND review_status = 0
+			UPDATE reservation SET review_status = 2 WHERE DATE_ADD(check_out_date, INTERVAL 7 DAY) &lt; CURDATE() AND review_status = 0
 		</update>
 		
 		<!-- public int updateResercation(ReservationDTO redto); -->
@@ -237,6 +239,11 @@
 		<!-- public int reviewMod(@Param("re_code") int re_code); -->
 		<update id="reviewMod">
 			UPDATE reservation SET review_status = 1 WHERE re_code = #{re_code}
+		</update>
+		
+		<!-- // 리뷰 자동 업데이트 public void reviewUpdate(); -->
+		<update id="reviewStatusUpdate">
+			UPDATE reservation SET review_status = 2 WHERE DATE_ADD(check_out_date, INTERVAL 7 DAY) &lt; CURDATE() AND review_status = 0
 		</update>
 	
 </mapper>

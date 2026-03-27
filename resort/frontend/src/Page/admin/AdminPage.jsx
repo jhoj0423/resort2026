@@ -101,8 +101,8 @@ export default function AdminPage(){
                 <div className="admin_section">
                     <div className="admin_header">
                         <div className="menu_box">
-                            <span className="admin_menu">조회 <i class="fa-solid fa-caret-down"></i></span>
-                            <ul className="admin_submenu">
+                            <span className="admin_menu">조회 <i class="fa-solid fa-caret-down"></i>
+                                <ul className="admin_submenu">
                                 <li className="a_menus">
                                     <Link to={`/adminPage` } onClick={() => window.scrollTo(0, 0)}>
                                        <span>회원 정보 조회</span>
@@ -124,46 +124,49 @@ export default function AdminPage(){
                                     </Link>
                                 </li>
                             </ul>
+                            </span>
                         </div>
                         <div className="menu_box">
-                            <span className="admin_menu">등록  <i class="fa-solid fa-caret-down"></i></span>
-                            <ul className="admin_submenu">
-                                <li className="a_menus">
-                                    <Link to={`/hotelinsert` } onClick={() => window.scrollTo(0, 0)}>
-                                        <span>호텔 정보 등록</span>
-                                    </Link>
-                                </li>
-                                <li className="a_menus">
-                                    <Link to={`/roominsert`} onClick={() => window.scrollTo(0, 0)}>
-                                        <span>객실 정보 등록</span> 
-                                    </Link>
-                                </li>
-                                <li className="a_menus">
-                                    <Link to={`/noticeinsert`} onClick={() => window.scrollTo(0, 0)}>
-                                        <span>공지사항 작성</span> 
-                                    </Link>
-                                </li>
-                            </ul>
+                            <span className="admin_menu">등록  <i class="fa-solid fa-caret-down"></i>
+                                <ul className="admin_submenu">
+                                    <li className="a_menus">
+                                        <Link to={`/hotelinsert` } onClick={() => window.scrollTo(0, 0)}>
+                                            <span>호텔 정보 등록</span>
+                                        </Link>
+                                    </li>
+                                    <li className="a_menus">
+                                        <Link to={`/roominsert`} onClick={() => window.scrollTo(0, 0)}>
+                                            <span>객실 정보 등록</span> 
+                                        </Link>
+                                    </li>
+                                    <li className="a_menus">
+                                        <Link to={`/noticeinsert`} onClick={() => window.scrollTo(0, 0)}>
+                                            <span>공지사항 작성</span> 
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </span>                            
                         </div>
                         <div className="menu_box">
-                            <span className="admin_menu">게시판 <i class="fa-solid fa-caret-down"></i></span>
-                            <ul className="admin_submenu">
-                                <li className="a_menus">
-                                    <Link to={`/adminPage5` } onClick={() => window.scrollTo(0, 0)}>
-                                        <span>1대1 문의</span>
-                                    </Link>
-                                </li>
-                                <li className="a_menus">
-                                    <Link to={`/adminPage6`} onClick={() => window.scrollTo(0, 0)}>
-                                        <span>공지사항</span> 
-                                    </Link>
-                                </li>
-                                <li className="a_menus">
-                                    <Link to={`/adminPage7`} onClick={() => window.scrollTo(0, 0)}>
-                                        <span>리뷰</span> 
-                                    </Link>
-                                </li>
-                            </ul>
+                            <span className="admin_menu">게시판 <i class="fa-solid fa-caret-down"></i>
+                                <ul className="admin_submenu">
+                                    <li className="a_menus">
+                                        <Link to={`/adminPage5` } onClick={() => window.scrollTo(0, 0)}>
+                                            <span>1대1 문의</span>
+                                        </Link>
+                                    </li>
+                                    <li className="a_menus">
+                                        <Link to={`/adminPage6`} onClick={() => window.scrollTo(0, 0)}>
+                                            <span>공지사항</span> 
+                                        </Link>
+                                    </li>
+                                    <li className="a_menus">
+                                        <Link to={`/adminPage7`} onClick={() => window.scrollTo(0, 0)}>
+                                            <span>리뷰</span> 
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </span>
                         </div>
                     </div>
                     <div className="admin_body">
@@ -212,13 +215,7 @@ export default function AdminPage(){
                                 </thead>
                                 <tbody>
                                     {members.map((item,index)=>{
-                                        const member_birth = new Date(item.m_birth)
-                                        const birth_Date = member_birth.toLocaleDateString('ko-KR')
-                                        const member_reg = new Date(item.m_regDate)
-                                        const reg_Date = member_reg.toLocaleString('ko-KR')
                                         const num = Num - (10*(page-1)) - index
-                                        const delM_reg = new Date(item.deleted_at)
-                                        const Memberdel_at = delM_reg.toLocaleString('ko-KR')
                                         return(
                                             (item.m_is_deleted===1 && !chking) ?null:
 
@@ -229,7 +226,7 @@ export default function AdminPage(){
                                                     <td>{item.m_phone}</td>
                                                     <td>{item.m_birth.slice(0,10)}</td>
                                                     <td>{item.m_gender === 0? "남":"여"}</td>
-                                                    <td>{item.m_nickName}</td>
+                                                    <td style={{width:'101px'}}>{item.m_nickName}</td>
                                                     <td>{item.m_coupon === 0? "미보유":"보유"}</td>
                                                     <td>{`${item.m_regDate.slice(0,10)} - ${item.m_regDate.slice(11,16)}`}</td>
                                                     {item.m_is_deleted===0 ?<td><Link to={`/memberUpdate/${item.m_code}`}><button className="table_btn" onClick>회원수정</button> </Link></td>:<td></td>}

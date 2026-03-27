@@ -99,4 +99,7 @@ public interface ReservationMapper {
 	public int updateResercation(@Param("booker_name") String booker_name, @Param("re_code") int re_code, @Param("g_phone") String g_phone);
 	
 	public int reviewMod(@Param("re_code") int re_code);
+	
+	// 리뷰 자동 업데이트
+	public void reviewStatusUpdate();
 }

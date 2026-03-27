@@ -85,7 +85,7 @@
     border-bottom: 2px solid #42799b;
 } */
 .admin_wrap .admin_body{
-    /* background-color: #f2f5fa;; */
+    background-color: #f2f5fa;
     padding: 100px 0;
 }
 .admin_wrap .admin_body .admin_text{
@@ -419,6 +419,10 @@
 .insertBtn:hover{font-weight: 700;
     border: 1px solid #42799b;
     color: #42799b;
+}
+
+.admin_wrap .admin_body .admin_list .list_table .table_head >td{
+    font-size: 15px;
 }
 
 .admin_wrap .admin_body .admin_list .list_table .table_head >td{

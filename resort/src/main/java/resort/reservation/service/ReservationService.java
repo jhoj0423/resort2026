@@ -94,4 +94,6 @@ public interface ReservationService {
 			@Param("pageSize") int pageSize
 		);
 		
+	// 리뷰 자동 업데이트
+	public void reviewStatusUpdate();
 }
