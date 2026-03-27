@@ -108,14 +108,61 @@
     width: 100%;
     text-align: left;
 }
-.admin_wrap .admin_body #search_wrap #chkMember{
-    margin-top: 25px;
+.admin_wrap .admin_body #search_wrap .member_chk{
+    width: 300px;
+    text-align: right;
+    padding-top: 35px;
 }
+.admin_wrap .admin_body #search_wrap #chkMember,
+.admin_wrap .admin_body #search_wrap #chkMember1,
+.admin_wrap .admin_body #search_wrap #chkMember2{
+    margin-top: 25px;
+    margin-left: 20px;
+    display: none;
+}
+.admin_wrap .admin_body #search_wrap .chkMember::after{
+    margin-top: 25px;
+    margin-left: 20px;
+    position: absolute;
+    content: '';
+    top: 22%;
+    left: -48px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    text-align: center;
+
+}
+.admin_wrap .admin_body #search_wrap #chkMember:checked +.chkMember::after,
+.admin_wrap .admin_body #search_wrap #chkMember1:checked +.chkMember::after,
+.admin_wrap .admin_body #search_wrap #chkMember2:checked +.chkMember::after{
+    margin-top: 25px;
+    margin-left: 20px;
+    position: absolute;
+    content: '✔';
+    top: 22%;
+    left: -48px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    background-color: #42799b;
+    text-align: center;
+    color: #fff;
+}
+
 .admin_wrap .admin_body #search_wrap .chkMember{
-    margin-left: 5px;
-    width: 135px;
+    margin-left: 40px;
+    width: 140px;
     padding-top: 35px;
     cursor: pointer;
+    text-align: left;
+    position: relative;
+}
+
+.admin_wrap .admin_body #search_wrap .chkMember:hover{
+    color: #42799b;
+    
 }
 
 .admin_wrap .admin_body #search_wrap .searchbox{
@@ -216,6 +263,19 @@
    padding: 5px 10px;
    width: 600px;
 }
+
+.admin_wrap .admin_body .admin_list .list_table .DB_table{
+    border-top: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+}
+.admin_wrap .admin_body .admin_list .list_table .DB_table tr>td,
+.admin_wrap .admin_body .admin_list .list_table .DB_table tr>th{
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.admin_wrap .admin_body .admin_list .list_table .DB_table tr>th:first-child{
+    background-color: #c7c7c72E;
+}
 /* 주석 03-16 */
 .admin_wrap .admin_body .admin_list .admin_modal{
     position: fixed;
@@ -227,19 +287,19 @@
     background-color: #fff;
     border-radius: 20px;
     /* border: 5px solid #666; */
-    box-shadow: 0 0 5px #012b8081;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 .admin_wrap .admin_body .admin_list .admin_modal .closeBtn{
     border-radius: 50%;
     padding: 0 0 2px 1px;
-    border: 2px solid #0155ff;
+    border: 2px solid #42799b;
     font-size: 18px;
     font-weight: 500;
     background-color: #fff;
     width: 30px;
     height: 30px;
     margin-top: 10px;
-    color: #0155ff;
+    color: #42799b;
     margin-left: 940px;
     margin-bottom: 10px;
     box-sizing: border-box;
@@ -334,8 +394,8 @@
 }
 
 .cheakboxgr>input[type="checkbox"]:checked + label {
-  color: #3775ff;
-  border: 2px solid #3775ff;
+  color: #42799b;
+  border: 2px solid #42799b;
   font-weight: bold;
 }
 
@@ -346,17 +406,23 @@
     margin-left: 10px;
     width: 120px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 40px;
-    border-radius: 10px;
-    border: 2px solid #0155ff;
+    border: 1px solid #ccc;
     background-color: #fff;
-    color: #0155ff;
+    color: #333;
+}
+.insertBtn>i{
+    color: #42799b;
 }
 
 .insertBtn:hover{font-weight: 700;
-    background-color: #0155ff;
-    color: #fff;
+    border: 1px solid #42799b;
+    color: #42799b;
+}
+
+.admin_wrap .admin_body .admin_list .list_table .table_head >td{
+    font-size: 15px;
 }
 
 .admin_wrap .admin_body .admin_list .list_table .table_head >td{
@@ -368,6 +434,7 @@
     text-align: center;
     padding: 0;
 }
+
 .service_box .info_list >li{
     margin-bottom: 18px;
 }
@@ -380,7 +447,8 @@
 
 .service_box .guset_table{
     margin: 120px auto 10px;
-    box-shadow: 1px 1px 10px #c0c0c0;
+    border-top: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
 }
 .service_box .guset_table tr>th{
     height: 70px;
@@ -410,12 +478,13 @@
     cursor: pointer;
     font-weight: 500;
     line-height: 40px;
-    border-radius: 10px;
-    border: 2px solid #0155ff;
+    border: 1px solid #ddd;
     background-color: #fff;
-    color: #0155ff;
+    color: #333;
 }
 
 .service_box .guest_submit:hover{
     font-weight: 700;
+    border: 2px solid #42799b;
+    color: #42799b;
 }

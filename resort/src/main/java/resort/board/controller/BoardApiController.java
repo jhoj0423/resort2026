@@ -157,7 +157,7 @@ public class BoardApiController {
 		System.out.println("BoardApiController boardInfo() 메소드호출");
 		
 		MemberDTO loginedMember = (MemberDTO)session.getAttribute("loginUser");	
-			
+		System.out.println(loginedMember);
 		BoardDTO result = boardservice.getOneBoard(bdto,loginedMember);
 
 		return result;		

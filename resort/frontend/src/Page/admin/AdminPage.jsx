@@ -189,8 +189,10 @@ export default function AdminPage(){
                                 {/* <input type="submit" value="검색" className="searchBtn" onClick={()=>submitHandler()}/>
                                 <input type="button" value="전체보기" className="searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1)}}/> */}
                             </form>
-                            <input type="checkbox" name="chkMember" id="chkMember" onChange={()=>setChking(!chking)}/>
-                            <label htmlFor="chkMember" className="chkMember" style={{marginLeft:'5px'}}>탈퇴한 회원숨기기</label>
+                            <div className="member_chk">
+                                <input type="checkbox" name="chkMember" id="chkMember" onChange={()=>setChking(!chking)}/>
+                                <label htmlFor="chkMember" className="chkMember" style={{marginLeft:'5px'}}>탈퇴한 회원숨기기</label>
+                            </div>
                         </div>
                         <div className="admin_list">
                             <table className="list_table" style={{width:"1600px"}}>
@@ -226,10 +228,10 @@ export default function AdminPage(){
                                                     <td>{item.m_gender === 0? "남":"여"}</td>
                                                     <td style={{width:'101px'}}>{item.m_nickName}</td>
                                                     <td>{item.m_coupon === 0? "미보유":"보유"}</td>
-                                                    <td>{item.m_regDate}</td>
-                                                    {item.m_is_deleted===0 ?<td><Link to={`/memberUpdate/${item.m_code}`}><button className="table_btn">회원수정</button> </Link></td>:<td></td>}
+                                                    <td>{`${item.m_regDate.slice(0,10)} - ${item.m_regDate.slice(11,16)}`}</td>
+                                                    {item.m_is_deleted===0 ?<td><Link to={`/memberUpdate/${item.m_code}`}><button className="table_btn" onClick>회원수정</button> </Link></td>:<td></td>}
                                                     <td>{item.m_is_deleted===0?"이용중":"탈퇴"}</td>
-                                                    <td>{item.m_is_deleted===0?"":item.deleted_at}</td>
+                                                    <td>{item.m_is_deleted===0?"":`${item.deleted_at.slice(0,10)} - ${item.deleted_at.slice(11,16)} `}</td>
                                                     {/* <td><button type="button" onClick={()=>delHandler(item.m_email)} className="table_btn">회원삭제</button></td> */}
                                                 </tr>
                                             
