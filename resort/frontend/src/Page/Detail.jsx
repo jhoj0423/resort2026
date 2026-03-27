@@ -9,7 +9,6 @@ import LeafletMap from '../Api/LeafletMap';
 import Calendar from './Calendar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Modal2 from './Page/Modal2'
 
 //
 export default function Detail(){  
@@ -511,17 +510,11 @@ export default function Detail(){
     };
 
     
-    
     return(
         <div className="detail" onClick={()=>setCal(false)}>
-            <Modal2/>
-            <button type='button' onClick={()=>{setIsOpen2(true)}}>
-                <i className="fa-solid fa-location-dot"></i>
-            </button>
-           
             <section className="detail-wrap">
                 {slider &&
-                    <div className='hotel-modal-Overlay'>
+                    <div className='hotel-modal-Overlay' onClick={()=>setSlider(false)}>
                         <div className="hotel-img-slider">
                             <button className='closeBtn' onClick={()=>setSlider(false)}>
                                 <i className="fa-solid fa-xmark"></i>
@@ -1125,11 +1118,19 @@ export default function Detail(){
                             </div>
                         }
                         <div className="hotel-day">
-                            <p className='day-wrap'>
+                            <p className='day-wrap' onClick={ e =>{
+                                setCal((Cal === true) ? false : true);
+                                e.stopPropagation();
+                            }} style={{cursor:'pointer'}}
+                            >
                                 <span className='day-tit'>체크인</span>
                                 <span className='day-txt'>{DayData.length < 2 ? `일정을 선택해주세요.` : `${DayData[0]}`}</span>
                             </p>
-                            <p className='day-wrap'>
+                            <p className='day-wrap' onClick={ e =>{
+                                setCal((Cal === true) ? false : true);
+                                e.stopPropagation();
+                            }} style={{cursor:'pointer'}}
+                            >
                                 <span className='day-tit'>체크아웃</span>
                                 <span className='day-txt'>{DayData.length < 2 ? `일정을 선택해주세요.` : `${DayData[1]}`}</span>
                             </p>
