@@ -209,8 +209,8 @@ export default function AdminPage4(){
                                 <thead >
                                     <tr className="table_head">
                                         <th width="70px">예약번호</th>
-                                        {/* <th width="70px">회원번호</th>
-                                        <th width="110px">비회원번호</th> */}
+                                        <th width="70px">회원번호</th>
+                                        <th width="110px">비회원번호</th>
                                         <th width="70px">회원구분</th>
                                         <th width="240px">예약코드</th>
                                         <th width="65px">방코드</th>
@@ -232,8 +232,8 @@ export default function AdminPage4(){
                                         return(
                                             <tr key={index} className="table_head">
                                                 <td>{item.re_code}</td>
-                                                {/* <td>{item.m_code}</td>
-                                                <td>{item.g_code}</td> */}
+                                                <td>{item.m_code}</td>
+                                                <td>{item.g_code}</td>
                                                 <td>{item.g_code === null? "회원":"비회원"}</td>
                                                 <td>{item.reservation_no}</td>
                                                 <td>{item.r_code}</td>
@@ -259,9 +259,9 @@ export default function AdminPage4(){
                                                     <li>
                                                         <p><span>예약번호</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].re_code}</span></p>
                                                     </li>
-                                                    {/* <li>
+                                                    <li>
                                                         <p><span>회원번호</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].m_code}</span><span>비회원번호 :</span>  {reservation[num].g_code}</p>
-                                                    </li> */}
+                                                    </li>
                                                     <li>
                                                         <p><span>예약코드</span> : <span style={{display:"inline-block",width:"300px"}}>{reservation[num].reservation_no}</span></p>
                                                     </li>
