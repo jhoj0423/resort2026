@@ -97,12 +97,12 @@ export default function AdminPage(){
     return(
         <>
             <div className="admin_wrap">
-                <h2 className="admin_title">관리자 페이지</h2>
+                <h2 className="admin_title">회원 정보 조회</h2>
                 <div className="admin_section">
                     <div className="admin_header">
                         <div className="menu_box">
-                            <span className="admin_menu">조회</span>
-                            <ul className="admin_submenu">
+                            <span className="admin_menu">조회 <i class="fa-solid fa-caret-down"></i>
+                                <ul className="admin_submenu">
                                 <li className="a_menus">
                                     <Link to={`/adminPage` } onClick={() => window.scrollTo(0, 0)}>
                                        <span>회원 정보 조회</span>
@@ -124,50 +124,53 @@ export default function AdminPage(){
                                     </Link>
                                 </li>
                             </ul>
+                            </span>
                         </div>
                         <div className="menu_box">
-                            <span className="admin_menu">등록</span>
-                            <ul className="admin_submenu">
-                                <li className="a_menus">
-                                    <Link to={`/hotelinsert` } onClick={() => window.scrollTo(0, 0)}>
-                                        <span>호텔 정보 등록</span>
-                                    </Link>
-                                </li>
-                                <li className="a_menus">
-                                    <Link to={`/roominsert`} onClick={() => window.scrollTo(0, 0)}>
-                                        <span>객실 정보 등록</span> 
-                                    </Link>
-                                </li>
-                                <li className="a_menus">
-                                    <Link to={`/noticeinsert`} onClick={() => window.scrollTo(0, 0)}>
-                                        <span>공지사항 작성</span> 
-                                    </Link>
-                                </li>
-                            </ul>
+                            <span className="admin_menu">등록  <i class="fa-solid fa-caret-down"></i>
+                                <ul className="admin_submenu">
+                                    <li className="a_menus">
+                                        <Link to={`/hotelinsert` } onClick={() => window.scrollTo(0, 0)}>
+                                            <span>호텔 정보 등록</span>
+                                        </Link>
+                                    </li>
+                                    <li className="a_menus">
+                                        <Link to={`/roominsert`} onClick={() => window.scrollTo(0, 0)}>
+                                            <span>객실 정보 등록</span> 
+                                        </Link>
+                                    </li>
+                                    <li className="a_menus">
+                                        <Link to={`/noticeinsert`} onClick={() => window.scrollTo(0, 0)}>
+                                            <span>공지사항 작성</span> 
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </span>                            
                         </div>
                         <div className="menu_box">
-                            <span className="admin_menu">게시판</span>
-                            <ul className="admin_submenu">
-                                <li className="a_menus">
-                                    <Link to={`/adminPage5` } onClick={() => window.scrollTo(0, 0)}>
-                                        <span>1대1 문의</span>
-                                    </Link>
-                                </li>
-                                <li className="a_menus">
-                                    <Link to={`/adminPage6`} onClick={() => window.scrollTo(0, 0)}>
-                                        <span>공지사항</span> 
-                                    </Link>
-                                </li>
-                                <li className="a_menus">
-                                    <Link to={`/adminPage7`} onClick={() => window.scrollTo(0, 0)}>
-                                        <span>리뷰</span> 
-                                    </Link>
-                                </li>
-                            </ul>
+                            <span className="admin_menu">게시판 <i class="fa-solid fa-caret-down"></i>
+                                <ul className="admin_submenu">
+                                    <li className="a_menus">
+                                        <Link to={`/adminPage5` } onClick={() => window.scrollTo(0, 0)}>
+                                            <span>1대1 문의</span>
+                                        </Link>
+                                    </li>
+                                    <li className="a_menus">
+                                        <Link to={`/adminPage6`} onClick={() => window.scrollTo(0, 0)}>
+                                            <span>공지사항</span> 
+                                        </Link>
+                                    </li>
+                                    <li className="a_menus">
+                                        <Link to={`/adminPage7`} onClick={() => window.scrollTo(0, 0)}>
+                                            <span>리뷰</span> 
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </span>
                         </div>
                     </div>
                     <div className="admin_body">
-                        <div className="admin_text" style={{width:"1600px"}}>회원 정보 조회</div>
+                        {/* <div className="admin_text" style={{width:"1600px"}}>회원 정보 조회</div> */}
                         <div id="search_wrap" style={{width:"1600px"}}>
                             <form onSubmit={submitHandler}>
                                 <select className="searchSelect" name="searchType" value={searchType} onChange={(e) => setSearchType(e.target.value)}>
@@ -178,13 +181,16 @@ export default function AdminPage(){
                                 </select>
                                 
                                 <input className="searchbox" type="text" name="searchKeyword" placeholder="검색어를 입력하세요" value={serch} onChange={(e) => setSerch(e.target.value)}/>
-                                <input type="submit" value="검색" className="searchBtn" onClick={()=>submitHandler()}/>
-                                <input type="button" value="전체보기" className="searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1)}}/>
+                                <button type="button" className="btn searchBtn" onClick={()=>submitHandler()} >
+                                    <i className="fa-solid fa-magnifying-glass" style={{color:'#42799b'}}></i> 검색</button>
+                                <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1)}} >
+                                    <i className="fa-solid fa-list" style={{color:'#42799b'}}></i> 전체목록
+                                </button>
+                                {/* <input type="submit" value="검색" className="searchBtn" onClick={()=>submitHandler()}/>
+                                <input type="button" value="전체보기" className="searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1)}}/> */}
                             </form>
-                        </div>
-                        <div style={{textAlign:"right",width:'1600px',margin:'0 auto'}}>
                             <input type="checkbox" name="chkMember" id="chkMember" onChange={()=>setChking(!chking)}/>
-                            <label htmlFor="chkMember" style={{marginLeft:'5px'}}>탈퇴한 회원숨기기</label>
+                            <label htmlFor="chkMember" className="chkMember" style={{marginLeft:'5px'}}>탈퇴한 회원숨기기</label>
                         </div>
                         <div className="admin_list">
                             <table className="list_table" style={{width:"1600px"}}>
