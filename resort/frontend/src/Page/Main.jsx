@@ -4,15 +4,16 @@ import { Link } from 'react-router-dom';
 import { ResortDataContext } from '../Api/ResortData';
 import 'leaflet/dist/leaflet.css';
 import Calendar from './Calendar';
+import { useNavigate } from 'react-router-dom';
 
 export default function Main(){    
     // 2026-03-27 병합 끝
     // 호텔, 객실데이터 useContext로 가져오는 훅
     const {setSelectMonth, 
-        hotelMerge, HotelData, hotelRatingAvgData, setListType, setRender,render,
+        hotelMerge, HotelData, hotelRatingAvgData, setListType, setRender,render, selectday,
         DayData, setDayData,town,setTown,serchHandler, wish, wishHandler,cityEn,countryEn,dateFilter,setDateFilter,townfilter, guestCount, setGuestCount} = useContext(ResortDataContext);
 
-
+    const navigate = useNavigate();
     // 호텔 input 아래 모달 상태변수
     const [isInput, setIsInput] = useState(false);
     
@@ -202,7 +203,7 @@ export default function Main(){
         }
     }
     const plusBtn = () => {
-        if(guestCount < 4){
+        if(guestCount < 8){
             const plus = guestCount + 1
             setGuestCount(plus)
         }
@@ -377,6 +378,16 @@ export default function Main(){
 
     }, [hotelStar, internalHotel]);
 
+    const moveRoom = () => {
+        if (selectday.length < 2){
+            alert('날짜를 선택해주세요.')
+            return;
+        }else{
+            serchHandler();
+            navigate('/room');
+        }
+    }
+
     // if(!isLoading || !internalHotel || recommStar.length === 0) return <div>로딩중...</div>;
     if(!internalHotel || !hotelMerge) return <div>로딩중...</div>;
 
@@ -475,17 +486,15 @@ export default function Main(){
                             onClick={plusBtn}
                             className='plus_btn'
                             style={{
-                                backgroundColor : guestCount === 4 ? '#f3f3f3' : '#42799b',
-                                color: guestCount === 4 ? '#898989' : '#fff',
-                                cursor:guestCount === 4 ? 'not-allowed' : 'pointer'
+                                backgroundColor : guestCount === 8 ? '#f3f3f3' : '#42799b',
+                                color: guestCount === 8 ? '#898989' : '#fff',
+                                cursor:guestCount === 8 ? 'not-allowed' : 'pointer'
                             }}>
                                 <i className="fa-solid fa-plus"></i>
                             </button>
                         </div>
                         {/* 검색 */} 
-                        <Link to='/room'>
-                            <button type='button' className='Search_Btn' onClick={()=>serchHandler()}>검색</button>
-                        </Link>
+                        <button type='button' className='Search_Btn' onClick={()=> moveRoom()}>검색</button>
                     </div>
                 </div>
             </div>

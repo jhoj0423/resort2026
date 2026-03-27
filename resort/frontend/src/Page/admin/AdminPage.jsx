@@ -181,7 +181,7 @@ export default function AdminPage(){
                                 </select>
                                 
                                 <input className="searchbox" type="text" name="searchKeyword" placeholder="검색어를 입력하세요" value={serch} onChange={(e) => setSerch(e.target.value)}/>
-                                <button type="button" className="btn searchBtn" onClick={()=>submitHandler()} >
+                                <button type="submit" className="btn searchBtn" onClick={()=>submitHandler()} >
                                     <i className="fa-solid fa-magnifying-glass" style={{color:'#42799b'}}></i> 검색</button>
                                 <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1)}} >
                                     <i className="fa-solid fa-list" style={{color:'#42799b'}}></i> 전체목록
@@ -223,7 +223,9 @@ export default function AdminPage(){
                                                     <td>{num}</td>
                                                     <td>{item.m_code}</td>
                                                     <td>{item.m_email}</td>
-                                                    <td>{item.m_phone}</td>
+                                                    <td>
+                                                        {`${item.m_phone.slice(0,3)} - ${item.m_phone.slice(3,7)} - ${item.m_phone.slice(7,11)}`}
+                                                    </td>
                                                     <td>{item.m_birth.slice(0,10)}</td>
                                                     <td>{item.m_gender === 0? "남":"여"}</td>
                                                     <td style={{width:'101px'}}>{item.m_nickName}</td>

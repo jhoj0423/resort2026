@@ -12,7 +12,7 @@ export default function AdminPage7(){
     const [reviewlist,setReviewlist] = useState([]);
     const [ph,setPh] = useState({});
     const [page, setPage] = useState(1);
-    const [searchType, setSearchType] = useState("phone");
+    const [searchType, setSearchType] = useState("rb_score");
     const [searchKeyword, setSearchKeyword] = useState("");
     const [serch,setSerch] = useState("")
     const [g,setG] = useState(false)
@@ -170,7 +170,7 @@ export default function AdminPage7(){
                                     </select>
                                     
                                     <input className="searchbox" type="text" name="searchKeyword" value={serch} placeholder="검색어를 입력하세요" onChange={(e) => setSerch(e.target.value)}/>
-                                    <button type="button" className="btn searchBtn" onClick={()=>submitHandler()} >
+                                    <button type="submit" className="btn searchBtn" onClick={()=>submitHandler()} >
                                         <i className="fa-solid fa-magnifying-glass" style={{color:'#42799b'}}></i> 검색</button>
                                     <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1)}} >
                                         <i className="fa-solid fa-list" style={{color:'#42799b'}}></i> 전체목록

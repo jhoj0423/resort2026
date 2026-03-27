@@ -9,6 +9,7 @@ import LeafletMap from '../Api/LeafletMap';
 import Calendar from './Calendar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Modal2 from './Page/Modal2'
 
 //
 export default function Detail(){  
@@ -510,8 +511,14 @@ export default function Detail(){
     };
 
     
+    
     return(
         <div className="detail" onClick={()=>setCal(false)}>
+            <Modal2/>
+            <button type='button' onClick={()=>{setIsOpen2(true)}}>
+                <i className="fa-solid fa-location-dot"></i>
+            </button>
+           
             <section className="detail-wrap">
                 {slider &&
                     <div className='hotel-modal-Overlay'>
