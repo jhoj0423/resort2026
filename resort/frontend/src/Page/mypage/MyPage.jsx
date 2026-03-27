@@ -810,10 +810,16 @@ export default function MyPage(){
                                         </div>
                                     }
                                     <div className="hotel-day" >
-                                        <p className='day-wrap'>
+                                        <p className='day-wrap' style={{cursor:'pointer'}} onClick={ e =>{
+                                            setCal((Cal === true) ? false : true);
+                                            setDayClick(true);
+                                            setSelectday([]);
+                                            e.stopPropagation();
+                                        }}>
                                             {dayClick === true ?
                                             <span className='day-txt'><i style={{color:'#6f6f6f'}} className="fa-solid fa-calendar"></i> 
-                                                {DayData.length < 2 ? `${year}-${month+1}-${date}` : `${DayData[0]}`} ~ {DayData.length < 2 ? `${year}-${month+1}-${date+1}` : `${DayData[1]}`}
+                                                {/* {DayData.length < 2 ? `${year}-${month+1}-${date}` : `${DayData[0]}`} ~ {DayData.length < 2 ? `${year}-${month+1}-${date+1}` : `${DayData[1]}`} */}
+                                                {DayData.length < 2 ? ` 조회할 기간을 설정해주세요.` : `${DayData[0]} ~ ${DayData[1]}`}
                                             </span>
                                             : <span className='day-txt'><i style={{color:'#6f6f6f'}} className="fa-solid fa-calendar"></i> 조회할 기간을 설정해주세요.</span>}
                                         </p>
@@ -1145,10 +1151,15 @@ export default function MyPage(){
                                         </div>
                                     }
                                     <div className="hotel-day" >
-                                        <p className='day-wrap day-wrap2'>
+                                        <p className='day-wrap day-wrap2' style={{cursor:'pointer'}} onClick={ e =>{
+                                            setCal((Cal === true) ? false : true);
+                                            setDayClick(true);
+                                            setSelectday([]);
+                                            e.stopPropagation();
+                                        }}>
                                             {dayClick === true ?
                                             <span className='day-txt'><i style={{color:'#6f6f6f'}} className="fa-solid fa-calendar"></i> 
-                                                {DayData.length < 2 ? `${year}-${month+1}-${date}` : `${DayData[0]}`} ~ {DayData.length < 2 ? `${year}-${month+1}-${date+1}` : `${DayData[1]}`}
+                                                {DayData.length < 2 ? ` 조회할 기간을 설정해주세요.` : `${DayData[0]} ~ ${DayData[1]}`}
                                             </span>
                                             : <span className='day-txt'><i style={{color:'#6f6f6f'}} className="fa-solid fa-calendar"></i> 조회할 기간을 설정해주세요.</span>}
                                         </p>

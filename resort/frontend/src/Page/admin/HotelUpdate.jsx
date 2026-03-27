@@ -351,8 +351,8 @@ export default function HotelUpdate(){
                                             value={discount ?? currentHotel?.discount ?? ""} style={{width:"400px",height:"30px"}}/> */}
                                             <select  className="select" name="discount" onChange={(e)=>setDiscount(e.target.value)} style={{width:'130px'}} value={discount ?? currentHotel?.discount ?? ""}>
                                                 {/* setHotel({...hotel,[inputName]:e.target.value}) */}
-                                                <option value="0">할인</option>
-                                                <option value="1">미할인</option>
+                                                <option value="1">할인</option>
+                                                <option value="0">미할인</option>
                                             </select>
                                         </th>
 

@@ -362,8 +362,8 @@ export default function HotelInsert(){
                                             {/* <select  className="discount" name="discount" onChange={(e) => setSearchType(e.target.value)}> */}
                                             <select  className="select" name="discount" onChange={(e) => setHotel({...hotel,[e.target.name]:e.target.value})} style={{width:'130px'}}>
                                                 {/* setHotel({...hotel,[inputName]:e.target.value}) */}
-                                                <option value="0">할인</option>
-                                                <option value="1">미할인</option>
+                                                <option value="1">할인</option>
+                                                <option value="0">미할인</option>
                                             </select>
                                         </th>
 
