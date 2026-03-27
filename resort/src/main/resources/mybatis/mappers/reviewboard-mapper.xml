@@ -149,4 +149,5 @@
 		SELECT r.h_code, r.r_code, rb.rb_score, r.roomName FROM reviewboard rb
 		RIGHT JOIN room r ON r.r_code = rb.r_code WHERE r.h_code = #{h_code}
 	</select>
+	
 </mapper>

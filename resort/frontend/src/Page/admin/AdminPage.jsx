@@ -213,13 +213,7 @@ export default function AdminPage(){
                                 </thead>
                                 <tbody>
                                     {members.map((item,index)=>{
-                                        const member_birth = new Date(item.m_birth)
-                                        const birth_Date = member_birth.toLocaleDateString('ko-KR')
-                                        const member_reg = new Date(item.m_regDate)
-                                        const reg_Date = member_reg.toLocaleString('ko-KR')
                                         const num = Num - (10*(page-1)) - index
-                                        const delM_reg = new Date(item.deleted_at)
-                                        const Memberdel_at = delM_reg.toLocaleString('ko-KR')
                                         return(
                                             (item.m_is_deleted===1 && !chking) ?null:
 
@@ -228,14 +222,14 @@ export default function AdminPage(){
                                                     <td>{item.m_code}</td>
                                                     <td>{item.m_email}</td>
                                                     <td>{item.m_phone}</td>
-                                                    <td>{birth_Date}</td>
+                                                    <td>{item.m_birth.slice(0,10)}</td>
                                                     <td>{item.m_gender === 0? "남":"여"}</td>
-                                                    <td>{item.m_nickName}</td>
+                                                    <td style={{width:'101px'}}>{item.m_nickName}</td>
                                                     <td>{item.m_coupon === 0? "미보유":"보유"}</td>
-                                                    <td>{reg_Date}</td>
-                                                    {item.m_is_deleted===0 ?<td><Link to={`/memberUpdate/${item.m_code}`}><button className="table_btn" onClick>회원수정</button> </Link></td>:<td></td>}
+                                                    <td>{item.m_regDate}</td>
+                                                    {item.m_is_deleted===0 ?<td><Link to={`/memberUpdate/${item.m_code}`}><button className="table_btn">회원수정</button> </Link></td>:<td></td>}
                                                     <td>{item.m_is_deleted===0?"이용중":"탈퇴"}</td>
-                                                    <td>{item.m_is_deleted===0?"":Memberdel_at}</td>
+                                                    <td>{item.m_is_deleted===0?"":item.deleted_at}</td>
                                                     {/* <td><button type="button" onClick={()=>delHandler(item.m_email)} className="table_btn">회원삭제</button></td> */}
                                                 </tr>
                                             
