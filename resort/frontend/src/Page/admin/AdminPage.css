@@ -85,8 +85,8 @@
     border-bottom: 2px solid #42799b;
 } */
 .admin_wrap .admin_body{
-    background-color: #f2f5fa;
     padding: 100px 0;
+    min-height: 650px;
 }
 .admin_wrap .admin_body .admin_text{
     width: 1400px;

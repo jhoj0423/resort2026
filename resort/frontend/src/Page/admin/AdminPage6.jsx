@@ -11,7 +11,7 @@ export default function AdminPage6(){
     const [noticelist,setNoticelist] = useState([]);
     const [ph,setPh] = useState({});
     const [page, setPage] = useState(1);
-    const [searchType, setSearchType] = useState("phone");
+    const [searchType, setSearchType] = useState("n_title");
     const [searchKeyword, setSearchKeyword] = useState("");
     const [serch,setSerch] = useState("")
     const [r,setR] = useState(false) // 삭제후 바로 렌더링을 위한 변수
@@ -166,13 +166,13 @@ export default function AdminPage6(){
                         {/* <div className="admin_text">공지사항 조회</div> */}
                         <div id="search_wrap">
                                 <form onSubmit={submitHandler}>
-                                    <select name="searchType" className="searchbox" value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+                                    <select name="searchType" className="searchbox" value={searchType} onChange={(e) => {setSearchType(e.target.value),console.log(searchType)}}>
                                         <option value="n_title">제목</option>
                                         <option value="n_content">내용</option>
                                     </select>
                                     
                                     <input type="text" className="searchbox" name="searchKeyword" placeholder="검색어를 입력하세요" value={serch} onChange={(e) => setSerch(e.target.value)}/>
-                                    <button type="button" className="btn searchBtn" onClick={()=>submitHandler()} >
+                                    <button type="submit" className="btn searchBtn" onClick={()=>submitHandler()} >
                                         <i className="fa-solid fa-magnifying-glass" style={{color:'#42799b'}}></i> 검색</button>
                                     <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1)}} >
                                         <i className="fa-solid fa-list" style={{color:'#42799b'}}></i> 전체목록
@@ -189,7 +189,7 @@ export default function AdminPage6(){
                                         <th style={{width:"50px"}}>공지번호</th>
                                         <th width="200px">제목</th>
                                         <th width="100px">작성일자</th>
-                                        <th width="150px">내용</th>
+                                        <th width="100px">내용</th>
                                         <th width="100px">수정일자</th>
                                         {/* <th width="50px">자세히보기</th> */}
                                         <th width="100px">수정하기</th>
