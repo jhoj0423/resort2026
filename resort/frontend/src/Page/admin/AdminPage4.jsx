@@ -268,7 +268,7 @@ export default function AdminPage4(){
                                     <input className="searchbox" type="text" name="searchKeyword" value={serch} placeholder="검색어를 입력하세요" onChange={(e) => setSerch(e.target.value)}/>
                                     <button type="submit" className="btn searchBtn" onClick={()=>submitHandler()} >
                                         <i className="fa-solid fa-magnifying-glass" style={{color:'#42799b'}}></i> 검색</button>
-                                    <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1),setChking([{id:1,state:false},{id:2,state:false}])}} >
+                                    <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("booker_name"),setSerch(""),setPage(1),setChking([{id:1,state:false},{id:2,state:false}])}} >
                                         <i className="fa-solid fa-list" style={{color:'#42799b'}}></i> 전체목록
                                     </button>
                                     {/* <input type="submit" value="검색" className="searchBtn" onClick={()=>submitHandler()}/>
