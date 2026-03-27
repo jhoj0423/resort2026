@@ -312,7 +312,12 @@ console.log(WishAvg);
                             </div>
                         }
                         <div className="hotel-day" style={{marginTop:'37px'}}>
-                            <p className='day-wrap day-wrap2'>
+                            <p className='day-wrap day-wrap2' style={{cursor:'pointer'}} onClick={ (e)=>{
+                                setCal((Cal === true) ? false : true);
+                                setDayClick(true);
+                                setSelectday([]);
+                                e.stopPropagation();
+                            }}>
                                 {dayClick === true ?
                                 <span className='day-txt'><i style={{color:'#6f6f6f'}} className="fa-solid fa-calendar"></i> 
                                     {DayData.length < 2 ? ` 조회할 기간을 설정해주세요.` : `${DayData[0]} ~ ${DayData[1]}`}
