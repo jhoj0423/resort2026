@@ -168,6 +168,11 @@ export default function AdminPage(){
                                 </ul>
                             </span>
                         </div>
+                        <div className="menu_box">
+                            <Link to={`/dashboard`} onClick={() => window.scrollTo(0, 0)}>
+                            <span className="admin_menu">통계</span>
+                            </Link>
+                        </div>
                     </div>
                     <div className="admin_body">
                         {/* <div className="admin_text" style={{width:"1600px"}}>회원 정보 조회</div> */}
