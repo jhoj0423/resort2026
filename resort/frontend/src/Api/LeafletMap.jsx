@@ -93,12 +93,19 @@ const geoCache = new Map();
       return <div style={{ ...style, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>지도 로딩중...</div>;
     }
 
-    if (error || !position) {
+    if (!city) {
       return (
+        <div style={{ ...style, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          나라나 도시를 선택해주세요.
+        </div>
+      );
+    }else if(error || !position){
+       return (
         <div style={{ ...style, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           지도를 불러올 수 없습니다.
         </div>
       );
+
     }
 
   return (
