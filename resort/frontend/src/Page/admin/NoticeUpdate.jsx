@@ -173,7 +173,7 @@ export default function NoticeUpdate(){
                                     </tr>
                                 </thead>
                             </table>
-                                <Link to={'/adminpage6'}>
+                                <Link to={'/adminpage6'} onClick={() => window.scrollTo(0, 0)}>
                                     <button type="button" className="insertBtn">
                                         취소하기 <i class="fa fa-times"></i>
                                     </button>

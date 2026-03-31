@@ -206,7 +206,7 @@ export default function MemberUdate(){
                                     </tr>
                                 </thead>
                             </table>
-                                <Link to={'/adminpage'}>
+                                <Link to={'/adminpage'} onClick={() => window.scrollTo(0, 0)}>
                                     <button className="insertBtn" type="button">
                                         취소하기 <i class="fa fa-times"></i>
                                     </button>

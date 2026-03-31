@@ -549,7 +549,7 @@ export default function HotelInsert(){
                                     </tr>
                                 </thead>
                             </table>
-                                <Link to={'/adminpage2'}>
+                                <Link to={'/adminpage2'} onClick={() => window.scrollTo(0, 0)}>
                                     <button type="button" className="insertBtn">
                                             취소하기 <i class="fa fa-times"></i>
                                     </button>
