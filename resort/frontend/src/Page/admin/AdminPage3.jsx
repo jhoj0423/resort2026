@@ -165,6 +165,11 @@ export default function AdminPage3(){
                                 </li>
                             </ul>
                         </div>
+                        <div className="menu_box">
+                            <Link to={`/dashboard`} onClick={() => window.scrollTo(0, 0)}>
+                            <span className="admin_menu">통계</span>
+                            </Link>
+                        </div>
                     </div>
                     <div className="admin_body">
                         {/* <div className="admin_text">객실 정보 조회</div> */}
@@ -179,7 +184,7 @@ export default function AdminPage3(){
                                     <input className="searchbox" type="text" name="searchKeyword" placeholder="검색어를 입력하세요" value={serch} onChange={(e) => setSerch(e.target.value)}/>
                                     <button type="submit" className="btn searchBtn" onClick={()=>submitHandler()} >
                                         <i className="fa-solid fa-magnifying-glass" style={{color:'#42799b'}}></i> 검색</button>
-                                    <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1)}} >
+                                    <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("roomName"),setSerch(""),setPage(1)}} >
                                         <i className="fa-solid fa-list" style={{color:'#42799b'}}></i> 전체목록
                                     </button>
                                     {/* <input type="submit" value="검색" className="searchBtn" onClick={()=>submitHandler()}/>

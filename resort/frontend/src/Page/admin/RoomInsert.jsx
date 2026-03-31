@@ -180,6 +180,11 @@ export default function RoomInsert(){
                                 </li>
                             </ul>
                         </div>
+                        <div className="menu_box">
+                            <Link to={`/dashboard`} onClick={() => window.scrollTo(0, 0)}>
+                            <span className="admin_menu">통계</span>
+                            </Link>
+                        </div>
                     </div>
                     <div className="admin_body">
                         {/* <div className="admin_text" style={{textAlign:"left",width:"800px"}}>객실 상품 추가</div> */}

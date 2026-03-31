@@ -161,12 +161,17 @@ export default function AdminPage6(){
                                 </li>
                             </ul>
                         </div>
+                        <div className="menu_box">
+                            <Link to={`/dashboard`} onClick={() => window.scrollTo(0, 0)}>
+                            <span className="admin_menu">통계</span>
+                            </Link>
+                        </div>
                     </div>
                     <div className="admin_body">
                         {/* <div className="admin_text">공지사항 조회</div> */}
                         <div id="search_wrap">
                                 <form onSubmit={submitHandler}>
-                                    <select name="searchType" className="searchbox" value={searchType} onChange={(e) => {setSearchType(e.target.value),console.log(searchType)}}>
+                                    <select name="searchType" className="searchbox" style={{width:'200px'}} value={searchType} onChange={(e) => {setSearchType(e.target.value),console.log(searchType)}}>
                                         <option value="n_title">제목</option>
                                         <option value="n_content">내용</option>
                                     </select>
@@ -174,7 +179,7 @@ export default function AdminPage6(){
                                     <input type="text" className="searchbox" name="searchKeyword" placeholder="검색어를 입력하세요" value={serch} onChange={(e) => setSerch(e.target.value)}/>
                                     <button type="submit" className="btn searchBtn" onClick={()=>submitHandler()} >
                                         <i className="fa-solid fa-magnifying-glass" style={{color:'#42799b'}}></i> 검색</button>
-                                    <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("phone"),setSerch(""),setPage(1)}} >
+                                    <button type="button" className="btn searchBtn" onClick={()=>{setSearchKeyword(""),setSearchType("n_title"),setSerch(""),setPage(1)}} >
                                         <i className="fa-solid fa-list" style={{color:'#42799b'}}></i> 전체목록
                                     </button>
                                     {/* <input type="submit" value="검색" className="searchBtn" onClick={()=>submitHandler()}/>
