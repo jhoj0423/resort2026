@@ -153,7 +153,7 @@ export default function NoticeInsert(){
                                     </tr>
                                 </thead>
                             </table>
-                                <Link to={'/adminpage'}>
+                                <Link to={'/adminpage6'}>
                                     <button type="button" className="insertBtn">
                                         취소하기 <i class="fa fa-times"></i>
                                     </button>
