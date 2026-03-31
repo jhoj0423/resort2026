@@ -10,8 +10,14 @@ export default function Main(){
     /// 2026-03-27 오후 2번째 병합
     // 호텔, 객실데이터 useContext로 가져오는 훅
     const {setSelectMonth, 
-        hotelMerge, HotelData, hotelRatingAvgData, setListType, setRender,render, selectday,
+        hotelMerge, HotelData, hotelRatingAvgData, setListType, setRender,render, selectday,setSelectday,
         DayData, setDayData,town,setTown,serchHandler, wish, wishHandler,cityEn,countryEn,dateFilter,setDateFilter,townfilter, guestCount, setGuestCount} = useContext(ResortDataContext);
+
+    useEffect(() => {
+        setDayData([])
+        setSelectMonth([])
+        setSelectday([])
+    },[])
 
     const navigate = useNavigate();
     // 호텔 input 아래 모달 상태변수
