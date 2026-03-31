@@ -161,7 +161,24 @@
     font-size: 22px;
     font-weight: 500;
 }
-
+.admin_wrap .admin_body .g_g .graph .graybox .whitebox .txt .graphTd1{
+    width: 100px;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px;
+}
+.admin_wrap .admin_body .g_g .graph .graybox .whitebox .txt .graphTd2{
+    width: 100px;
+    font-weight: bold;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.admin_wrap .admin_body .g_g .graph .graybox .whitebox .txt .graphTd1-1{
+    line-height: 25px;
+}
+.admin_wrap .admin_body .g_g .graph .graybox .whitebox .txt .graphTd2-1{
+    line-height: 25px;
+}
 .admin_wrap .admin_body .g_g .graph .whitebox{
     background-color: #fff;
     margin: 17px;
