@@ -11,7 +11,7 @@ export default function Wish(){
 
     const {userEmail, RoomData, HotelData,DayData,wish,wishList,wishStar,WishAvg,wishArray,wishHandler,setWish,setPayHead,setPayRoom,selectday,setSelectday} = useContext(ResortDataContext);
 
-    //호텔의 객실별 투숙객 인원 불러오기
+    ////호텔의 객실별 투숙객 인원 불러오기
     //위시리스트의 객실 리스트 필터링
     //const wishHotel = HotelData.filter((item)=> wishArray.some(w => w.h_code === item.h_code));
 
