@@ -187,7 +187,8 @@ export default function ResortData({children}){
     const [selectMonth,setSelectMonth] = useState(()=>{
         const saved = localStorage.getItem('selectMonth')
         //저장된 value가 없으면 복원, 없으면 기본 
-        return saved ===null ?JSON.parse(saved): new Date("2026-03-01") 
+        const thisMonth = new Date().getMonth()
+        return saved ===null ?JSON.parse(saved): new Date(`2026-${thisMonth+1}-01`) 
         //return saved !== null ?JSON.parse(saved): new Date("2026-03-01") 
     }) 
 
@@ -498,6 +499,9 @@ export default function ResortData({children}){
     useEffect(() => {
         sessionStorage.setItem('hotelNum', JSON.stringify(hotelNum))
     },[hotelNum])
+
+    // 왼쪽 리스트 클릭시 컨텐츠 전환
+    const [listType, setListType] = useState(8)
 
     if(HotelData.length > 0 && RoomData.length > 0) {
         return(
