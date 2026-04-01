@@ -499,13 +499,9 @@ export default function ResortData({children}){
         sessionStorage.setItem('hotelNum', JSON.stringify(hotelNum))
     },[hotelNum])
 
-    // 왼쪽 리스트 클릭시 컨텐츠 전환
-    const [listType, setListType] = useState(1)
-
     if(HotelData.length > 0 && RoomData.length > 0) {
         return(
             <ResortDataContext.Provider value={{
-                listType, setListType,
                 setRender,render,
                 guestCount, setGuestCount,
                 setUserEmail,setUserNickName,townfilter2,

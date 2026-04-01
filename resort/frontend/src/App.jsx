@@ -35,10 +35,14 @@ import RoomUpdate from './Page/admin/RoomUpdate'
 import HotelUpdate from './Page/admin/HotelUpdate'
 import NoticeInsert from './Page/admin/NoticeInsert'
 import NoticeUpdate from './Page/admin/NoticeUpdate'
-import MyPage from './Page/mypage/MyPage'
+import MyPageRes from './Page/mypage/MyPageRes'
 import ForgotPassword from './Page/ForgotPassword'
 import ResetPassword from './Page/ResetPassword'
 import Dashboard from './Page/admin/Dashboard'
+import MyPageCoupon from './Page/mypage/MyPageCoupon'
+import MyPageMemMod from './Page/mypage/MyPageMemMod'
+import MyPageResDel from './Page/mypage/MyPageResDel'
+
 
 
 function App() {
@@ -79,7 +83,10 @@ function App() {
             <Route path='/hotelUpdate/:h_code' element={<HotelUpdate />} />
             <Route path='/memberUpdate/:m_code' element={<MemberUdate />} />
             <Route path='/noticeUpdate/:n_code' element={<NoticeUpdate />} />
-            <Route path='/myPage' element={<MyPage />} />
+            <Route path='/myPageRes' element={<MyPageRes />} />
+            <Route path='/myPageResDel' element={<MyPageResDel />} />
+            <Route path='/myPageCoupon' element={<MyPageCoupon />} />
+            <Route path='/myPageMemMod' element={<MyPageMemMod />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
