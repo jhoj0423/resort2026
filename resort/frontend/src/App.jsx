@@ -18,6 +18,8 @@ import Guest from './Page/Guest'
 import Pay from './Page/Pay'
 import Pay2 from './Page/Pay2'
 import HelpCenter from './Page/HelpCenter'
+import HelpCenter2 from './Page/HelpCenter2'
+import HelpCenter3 from './Page/HelpCenter3'
 import Wish from './Page/Wish'
 import HotelSection from './Page/HotelSection'
 import HotelSection2 from './Page/HotelSection2'
@@ -61,6 +63,8 @@ function App() {
             <Route path='/pay' element={<Pay />}/>  
             <Route path='/pay2' element={<Pay2 />}/>  
             <Route path='/helpCenter' element={<HelpCenter />} />
+            <Route path='/helpCenter2' element={<HelpCenter2 />} />
+            <Route path='/helpCenter3' element={<HelpCenter3 />} />
             <Route path='/wish' element={<Wish />}/>
             <Route path='/hotelSection' element={<HotelSection />} />
             <Route path='/hotelSection2' element={<HotelSection2 />} />
