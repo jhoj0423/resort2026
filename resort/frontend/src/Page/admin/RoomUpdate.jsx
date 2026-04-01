@@ -237,7 +237,7 @@ export default function RoomUpdate(){
                                     </tr>
                                 </thead>
                             </table>
-                                <Link to={'/adminpage3'}>
+                                <Link to={'/adminpage3'} onClick={() => window.scrollTo(0, 0)}>
                                     <button type="button" className="insertBtn">
                                         취소하기 <i class="fa fa-times"></i>
                                     </button>

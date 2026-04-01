@@ -234,6 +234,21 @@ export default function Room(){
         
     }
 
+    // 이미지 배너
+    const [currentImg, setCurrent] = useState(0);
+    const RoomBennerImg = ['/eventbenner/spring.jpg','/eventbenner/summer.jpg','/eventbenner/fall.jpg','/eventbenner/winter.jpg'];
+
+    useEffect(() => {
+        const current = setInterval(() => {
+            if(currentImg < 3){
+                setCurrent(currentImg + 1)
+            }else{
+                setCurrent(0)
+            }
+        }, 3000);
+        return(() => {clearInterval(current)});
+    },[currentImg])
+
     return(
         <>
           
@@ -366,16 +381,11 @@ export default function Room(){
                                 </button>
                             ))}
                         </div>
-                        {/* <div className="under_filter">
-                            {myFilter.map((item,index)=>(
-                                <button type="button" className="fil_btn" key={index} onClick={()=>removeFilter(item)}>{item.name} X</button>
-                            ))}
-                        </div> */}
                     </div>
                     <div className="right_filter">
                         <div className="under_filter">
-                            <div className="map">
-                                <LeafletMap city={countryEn?countryEn:cityEn?cityEn:''} hotelName={town} style={{width:'100%',height:'250px',border: '1px solid #e7e7e7',borderRadius:'10px'}}/>    
+                            <div className="map" style={{overflow:'hidden', borderRadius:'15px'}}>
+                                <img src={RoomBennerImg[currentImg]} className='RoomBennerImg'/>    
                             </div>
                         </div>
                         <div className="top_filter">
