@@ -511,7 +511,7 @@ export default function Main(){
                             </button>
                         </div>
                         {/* 검색 */} 
-                        <button type='button' className='Search_Btn' onClick={()=> moveRoom()}>검색</button>
+                        <button type='button' className='Search_Btn' onClick={()=> {moveRoom(); window.scrollTo(0,0);}}>검색</button>
                     </div>
                 </div>
             </div>
