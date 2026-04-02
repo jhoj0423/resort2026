@@ -262,7 +262,6 @@ export default function Room(){
         }else if(currentImg === 3){
             setTown('로스앤젤레스')
         }
-        
     }
 
     return(
