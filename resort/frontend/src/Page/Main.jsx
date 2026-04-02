@@ -523,7 +523,7 @@ export default function Main(){
                     <i className="fa-solid fa-angle-right"></i>
                 </button>
                 {eventBennerImg.slice(eventImgS,eventImgE).map((item, index) => (
-                    <Link to='/helpCenter' onClick={() => {window.scrollTo(0,0); setListType(2);}} key={index}>
+                    <Link to='/helpCenter2' onClick={() => {window.scrollTo(0,0); setListType(2);}} key={index}>
                         <img src={item} alt='eventBennerImg' className='event' key={index} />
                     </Link>
                 ))}
