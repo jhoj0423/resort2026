@@ -399,7 +399,7 @@ export default function Room(){
                     </div>
                     <div className="right_filter">
                         <div className="under_filter">
-                            <div className="map" style={{overflow:'hidden', borderRadius:'15px'}} onClick={()=>fasHander()}>
+                            <div className="map" style={{overflow:'hidden', borderRadius:'15px',cursor:'pointer'}} onClick={()=>fasHander()}>
                                 <img src={RoomBennerImg[currentImg]} className='RoomBennerImg'/>    
                             </div>
                         </div>
