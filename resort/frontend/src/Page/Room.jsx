@@ -238,7 +238,7 @@ export default function Room(){
 
     // 이미지 배너
     const [currentImg, setCurrent] = useState(0);
-    const RoomBennerImg = ['/eventbenner/spring.jpg','/eventbenner/summer.jpg','/eventbenner/fall.jpg','/eventbenner/winter.jpg'];
+    const RoomBennerImg = ['/eventbenner/room_bn1.jpg','/eventbenner/room_bn2.jpg','/eventbenner/room_bn3.jpg','/eventbenner/room_bn4.jpg'];
 
     useEffect(() => {
         const current = setInterval(() => {
