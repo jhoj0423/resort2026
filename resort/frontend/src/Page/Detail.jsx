@@ -794,6 +794,12 @@ export default function Detail(){
                                                     <button type="button" className="pay"
                                                     // disabled={search && !availableSet.has(item.r_code)}
                                                     // style={{ cursor: (search && !availableSet.has(item.r_code)) ? 'not-allowed' : 'pointer' }}
+                                                    
+                                                    // search && !availableSet.has(item.r_code)) ||
+                                                    //     item.maxOccupancy < guestCount ||
+                                                    //     (DayData.length < 2)
+                                                    //         ? "예약불가"
+                                                    //         : "예약하기"
 
                                                     disabled={
                                                         (search && !availableSet.has(item.r_code)) ||
