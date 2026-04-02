@@ -41,6 +41,7 @@ export default function Calendar(){
         setDayData(selectday)
     },[selectday])
 
+    // 선택한 날짜사이가 몇박인지 구하는 
     useEffect(()=>{
         if(DayData.length===2){
             const start = new Date(DayData[0])
