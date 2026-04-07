@@ -7,7 +7,7 @@ import Calendar from './Calendar';
 import { useNavigate } from 'react-router-dom';
 
 export default function Main(){    
-    /// 2026-03-27 오후 2번째 병합
+    /// 2026-04-07 병합
     // 호텔, 객실데이터 useContext로 가져오는 훅
     const {setSelectMonth, 
         hotelMerge, HotelData, hotelRatingAvgData, setListType, setRender,render, selectday,setSelectday,selectMonth,
@@ -15,7 +15,7 @@ export default function Main(){
 
     // 달력
     const [openC, setOpenC] = useState(false)
-    useEffect(() => {
+    useEffect(()=>{
         const thisyear = new Date().getFullYear()
         const thisMonth = new Date().getMonth()
         const thisDate = new Date().getDate()
@@ -23,14 +23,13 @@ export default function Main(){
         const selmonth = selectMonth.getMonth()
         const formatted = thisyear + "-" + String(thisMonth + 1).padStart(2, "0") + "-" + String(thisDate).padStart(2, "0");
         const formatted2 = thisyear + "-" + String(thisMonth + 1).padStart(2, "0") + "-" + String(thisDate+1).padStart(2, "0");
-        if(selectday.length !== 2 || (selmonth < thisMonth && selectday.length === 2) || selyear < thisyear || (selyear === thisyear && selmonth === thisMonth && new Date(selectday[0]).getDate()<thisDate)){
+        if(selectday.length !== 2 || (selmonth < thisMonth && selectday.length === 2) || selyear < thisyear || (selyear === thisyear && new Date(selectday[0]).getMonth() === thisMonth && new Date(selectday[0]).getDate()<thisDate)){
             setDayData([`${formatted}`,`${formatted2}`])
             setSelectMonth(new Date(thisyear,thisMonth,thisDate))
             setSelectday([`${formatted}`,`${formatted2}`])
-        }else if(selectday.length === 2 && thisMonth===selmonth){
+        }else if(selectday.length === 2  && thisMonth===selmonth){
             setSelectMonth(new Date(thisyear,thisMonth,thisDate))
         }
-        
     },[openC])
 
     const navigate = useNavigate();
@@ -480,6 +479,7 @@ export default function Main(){
                             </>}
                         </div>
                         <i className="fa-solid fa-magnifying-glass searchIcon"></i>
+                        {town !== '' && <i class="fa-solid fa-x search_Xbtn" onClick={() => setTown('')}></i>}
                         <button type='button' onClick={() => {setOpenC(!openC),setSelectDay([])}} className='calenertBtn'>
                             <i className="fa-solid fa-calendar" style={{color:'#42799b'}}></i>
                             <span style={{marginRight:'5px',fontWeight:'600'}}>{DayData.length < 2 ? '일정을 선택해 주세요' : `${DayData[0]} - ${DayData[1]}`}</span>

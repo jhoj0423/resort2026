@@ -345,7 +345,7 @@ export default function Calendar2(){
                 <button type="button" onClick={next} className="nextBtn calBtn"><i className="fa-solid fa-angle-right"></i></button>
                 <div className="line"></div>
                 <div className="choose_day">
-                    <p>{DayData.length===2?`${DayData[0]}(${days[new Date(DayData[0]).getDay()]}) 부터 - ${DayData[1]}(${days[new Date(DayData[1]).getDay()]}) 까지  (${diff / (1000 * 60 * 60 * 24)}박)`:'일정을 선택해 주세요'}</p>
+                    <p>{DayData.length===2?`${DayData[0]}(${days[new Date(DayData[0]).getDay()]}) 부터 - ${DayData[1]}(${days[new Date(DayData[1]).getDay()]}) 까지`:'일정을 선택해 주세요'}</p>
                 </div>
             </div>
             
