@@ -7,7 +7,7 @@ import Calendar from './Calendar';
 import { useNavigate } from 'react-router-dom';
 
 export default function Main(){    
-    /// 2026-04-07 병합
+    /// 2026-04-20 병합
     // 호텔, 객실데이터 useContext로 가져오는 훅
     const {setSelectMonth, 
         hotelMerge, HotelData, hotelRatingAvgData, setListType, setRender,render, selectday,setSelectday,selectMonth,
