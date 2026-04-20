@@ -240,8 +240,9 @@ export default function Pay(){
 
     
 
-    // localStorage의 데이터를 json형식으로 변환
-    const DayDataResult = JSON.parse(localStorage.getItem("DayData"));
+    // sessionStorage의 데이터를 json형식으로 변환
+    const rawDayData = sessionStorage.getItem("DayData");
+    const DayDataResult = rawDayData ? JSON.parse(rawDayData) : null;
 
     const submitReservation = async() => {
         // 세션스토리지에서 가져온 user정보 user : user, 를 axios에 담아서 감
@@ -249,6 +250,20 @@ export default function Pay(){
         // null이면 비회원 insert 및 예약 insert
         // null이 아니면 회원fk를 포함한 예약정보 insert
         try{
+
+            const detailHCode = HotelData?.[myRoom?.[0]?.h_code - 1]?.h_code;
+            
+            if (!DayDataResult || DayDataResult.length < 2) {
+                alert("예약 날짜 정보가 없습니다. 다시 선택해주세요.");
+
+                if (detailHCode) {
+                    navigate(`/detail/${detailHCode}`);
+                } else {
+                    navigate("/");
+                }
+                return;
+            }
+
             const resChk = await axios.get("/api/reservationChk", {
                 params:{
                     r_code : hotelNum,
@@ -258,10 +273,15 @@ export default function Pay(){
             })
             console.log('resChk', resChk.data)
 
-            if(resChk.data > 0){
+            if (resChk.data > 0) {
                 alert(`이미 예약이 완료된 일정입니다. 상세페이지로 이동합니다.`);
-                setCustomer('')
-                navigate(`/detail/${HotelData[myRoom[0].h_code-1].h_code}`)
+                setCustomer('');
+
+                if (detailHCode) {
+                    navigate(`/detail/${detailHCode}`);
+                } else {
+                    navigate("/");
+                }
                 return;
             }
 
@@ -330,6 +350,11 @@ export default function Pay(){
             }
             
         }catch(err){
+            console.log("DayDataResult", DayDataResult);
+            console.log("myRoom", myRoom);
+            console.log("HotelData", HotelData);
+            console.log("memberSel", memberSel);
+            console.log("hotelNum", hotelNum);
             console.error(err)
             alert("결제 실패")
         }

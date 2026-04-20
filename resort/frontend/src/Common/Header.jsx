@@ -9,7 +9,7 @@ import { useClickAway } from 'react-use';
 
 export default function Header(){
     const navigate = useNavigate();
-    const {userNickName, setGuestCount, userEmail,setUserEmail,setUserNickName, headerChange, setHeaderChange, setCustomer, setTown, setListType} = useContext(ResortDataContext);
+    const {userNickName, setGuestCount, userEmail,setUserEmail,setUserNickName, headerChange, setHeaderChange, setCustomer, setTown, setListType, setSelectMonth, setSelectday, setDayData} = useContext(ResortDataContext);
     // const [headerChange, setHeaderChange] = useState(0);
     // 헤더 메뉴바 모달
     // useRef, useClickAway 를 사용하기 전 npm install react-use 를 해야 함.
@@ -46,6 +46,28 @@ export default function Header(){
             await axios.get('/api/member/logout', { withCredentials: true });
 
             sessionStorage.clear();
+
+            const today = new Date();
+            const tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+
+            const formatted =
+            today.getFullYear() + "-" +
+            String(today.getMonth() + 1).padStart(2, "0") + "-" +
+            String(today.getDate()).padStart(2, "0");
+
+            const formatted2 =
+                tomorrow.getFullYear() + "-" +
+                String(tomorrow.getMonth() + 1).padStart(2, "0") + "-" +
+                String(tomorrow.getDate()).padStart(2, "0");
+
+            const defaultDayData = [formatted, formatted2];
+
+            sessionStorage.setItem("DayData", JSON.stringify(defaultDayData));
+
+            setDayData(defaultDayData);
+            setSelectday(defaultDayData);
+            setSelectMonth(today);
 
             setUserNickName(null);
             setUserEmail(null);
